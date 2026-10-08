@@ -1,0 +1,65 @@
+/*
+ * Bundled typefaces (Claude, R1.1). All SIL OFL 1.1; files and licences in ../fonts/.
+ *
+ *   CDP Sans SC / JP    Noto Sans CJK 2.004 (Source Han Sans)    interface, lists, numbers
+ *   CDP Serif SC / JP   Noto Serif CJK 2.002 (Source Han Serif)  lyrics, titles, reading text
+ *   CDP Display         Instrument Serif (Latin only)             Latin in titles and lyrics
+ *   CDP Text Serif      Crimson Pro (Latin only)                  Latin in small serif text
+ *
+ * The two Latin serifs are narrow and tall, so titles such as "蒼い窓辺 — Original Soundtrack"
+ * read as one slender line instead of a wide CJK-font Latin. They carry a unicode-range, so CJK
+ * text always falls through to the Source Han faces, whose SC and JP files keep regional forms.
+ *
+ * Metrics: every face is given the same effective ascent/descent (1.10 / 0.34 em), so mixed
+ * Latin/CJK lines share a baseline and text sits centred in pills. The Latin faces are scaled
+ * up (size-adjust) to meet the CJK body; overrides are divided by that factor because
+ * size-adjust also scales them.
+ * font-display: block — the files are local, so this avoids a flash of the system font.
+ */
+@font-face {
+  font-family: "CDP Sans SC"; font-weight: 400; font-style: normal; font-display: block;
+  src: url("../fonts/noto-sans-cjk-sc-400.woff2") format("woff2");
+  ascent-override: 110%; descent-override: 34%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "CDP Sans SC"; font-weight: 500 700; font-style: normal; font-display: block;
+  src: url("../fonts/noto-sans-cjk-sc-500.woff2") format("woff2");
+  ascent-override: 110%; descent-override: 34%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "CDP Sans JP"; font-weight: 400; font-style: normal; font-display: block;
+  src: url("../fonts/noto-sans-cjk-jp-400.woff2") format("woff2");
+  ascent-override: 110%; descent-override: 34%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "CDP Sans JP"; font-weight: 500 700; font-style: normal; font-display: block;
+  src: url("../fonts/noto-sans-cjk-jp-500.woff2") format("woff2");
+  ascent-override: 110%; descent-override: 34%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "CDP Serif SC"; font-weight: 300 400; font-style: normal; font-display: block;
+  src: url("../fonts/noto-serif-cjk-sc-400.woff2") format("woff2");
+  ascent-override: 110%; descent-override: 34%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "CDP Serif SC"; font-weight: 500 700; font-style: normal; font-display: block;
+  src: url("../fonts/noto-serif-cjk-sc-500.woff2") format("woff2");
+  ascent-override: 110%; descent-override: 34%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "CDP Serif JP"; font-weight: 300 700; font-style: normal; font-display: block;
+  src: url("../fonts/noto-serif-cjk-jp-500.woff2") format("woff2");
+  ascent-override: 110%; descent-override: 34%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "CDP Display"; font-weight: 300 700; font-style: normal; font-display: block;
+  src: url("../fonts/instrument-serif-400.woff2") format("woff2");
+  unicode-range: U+0020-007E, U+00A0-017F, U+2010-2027, U+2030-203A, U+20AC, U+2122;
+  size-adjust: 118%; ascent-override: 93.2%; descent-override: 28.8%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "CDP Text Serif"; font-weight: 300 700; font-style: normal; font-display: block;
+  src: url("../fonts/crimson-pro-400.woff2") format("woff2");
+  unicode-range: U+0020-007E, U+00A0-017F, U+2010-2027, U+2030-203A, U+20AC, U+2122;
+  size-adjust: 118%; ascent-override: 93.2%; descent-override: 28.8%; line-gap-override: 0%;
+}

@@ -1,0 +1,81 @@
+/*
+ * Play queue (Claude, R2). Rows like the album list; a grip on the left appears on hover and
+ * focus. While dragging, the lifted row follows the pointer and its neighbours slide aside.
+ */
+.scroll { position: absolute; inset: 0; overflow-y: auto; padding: 4px 10px 40px 0; overscroll-behavior: contain; }
+.empty { padding: 40px 12px; color: var(--ink-2); }
+.note { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 16px; margin: 4px 0 12px 14px; list-style: none; font-size: var(--t-sm); color: var(--ink-2); }
+.note li { display: inline-flex; align-items: center; gap: 6px; }
+.note svg { color: var(--ink-3); }
+.note li:not(:first-child) svg { color: var(--accent-ink); }
+
+.list { position: relative; display: flex; flex-direction: column; gap: 1px; }
+.item {
+  position: relative; display: grid; grid-template-columns: 26px minmax(0, 1fr) 32px; align-items: center;
+  border-radius: var(--r-row); corner-shape: squircle;
+}
+.list[data-dragging="true"] .item:not([data-dragging]) { transition: transform var(--d-fast) var(--ease-out); }
+.list[data-reduced="true"] .item { transition: none !important; }
+.item[data-dragging] {
+  z-index: 2;
+  background: var(--glass-bg-strong, var(--paper));
+  box-shadow: var(--shadow-float);
+  -webkit-backdrop-filter: blur(var(--glass-blur)); backdrop-filter: blur(var(--glass-blur));
+}
+.item[data-played="true"] .row { opacity: 0.6; }
+
+.grip {
+  display: grid; place-items: center; width: 24px; height: 40px; margin-left: 2px;
+  border-radius: var(--r-tag); color: var(--ink-3);
+  cursor: grab; touch-action: none; opacity: 0;
+  transition: opacity var(--d-fast) linear, color var(--d-fast) linear;
+  --focus-radius: var(--r-tag);
+}
+.item:hover .grip, .grip:focus-visible, .item[data-dragging] .grip { opacity: 1; }
+.grip:hover { color: var(--ink); }
+.item[data-dragging] .grip { cursor: grabbing; color: var(--accent-ink); }
+.grip:disabled { opacity: 0 !important; cursor: default; }
+
+.row {
+  display: grid; grid-template-columns: 40px minmax(0, 1fr) 52px; align-items: center; gap: 12px;
+  width: 100%; min-width: 0; min-height: 52px; padding: 6px 10px 6px 8px;
+  border-radius: var(--r-row); corner-shape: squircle; text-align: left;
+  transition: background-color var(--d-fast) linear;
+  --focus-radius: var(--r-row);
+}
+.row:hover:not(:disabled) { background: var(--fill-hover); box-shadow: inset 0 0 0 1px var(--line); }
+.row:disabled { opacity: 0.5; }
+.row[data-current="true"] { background: var(--btn-sheen), var(--fill-active); box-shadow: var(--btn-rim), 0 0 0 1px var(--line); }
+/* On charcoal the button sheen lies behind the title as a bright streak; the lit row and its rim mark it. */
+:global(.cdp[data-theme="charcoal"]) .row[data-current="true"] { background: var(--fill-active); }
+.thumb { width: 40px; border-radius: var(--r-art); box-shadow: var(--shadow-low); }
+.text { display: flex; flex-direction: column; min-width: 0; }
+.title {
+  display: flex; align-items: center; gap: 8px; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  --role-sc: var(--font-serif-sc); --role-ja: var(--font-serif-ja);
+  font-size: calc(15px * var(--fs)); font-weight: var(--w-serif);
+}
+.title:lang(ja) { font-feature-settings: "palt"; letter-spacing: 0.02em; }
+.row[data-current="true"] .title { color: color-mix(in srgb, var(--accent-ink) 80%, var(--ink)); }
+.sub { font-size: var(--t-xs); color: var(--ink-3); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.time { font-size: var(--t-sm); color: var(--ink-3); text-align: right; }
+.now { display: flex; justify-content: flex-end; color: var(--accent-ink); }
+.more { opacity: 0; transition: opacity var(--d-fast) linear; }
+.item:hover .more, .item:focus-within .more, .more[aria-expanded="true"] { opacity: 1; }
+
+.ended {
+  display: flex; align-items: center; gap: 12px; margin: 14px 0 0 14px; padding: 10px 10px 10px 14px;
+  border-radius: var(--r-row); corner-shape: squircle;
+  font-size: var(--t-sm); color: var(--ink-2);
+  background: var(--fill-quiet); box-shadow: inset 0 0 0 1px var(--line);
+}
+.ended > span { flex: 1; }
+
+@media (hover: none) { .grip, .more { opacity: 1; } }
+@media (forced-colors: active) {
+  .grip { opacity: 1; }
+  .item[data-dragging] { outline: 2px solid Highlight; }
+}
+/* The lifted row reads as one solid card above its neighbours. */
+.item[data-dragging] { background: color-mix(in srgb, var(--paper) 94%, transparent); }
+.item[data-dragging] .row { background: transparent; box-shadow: none; }

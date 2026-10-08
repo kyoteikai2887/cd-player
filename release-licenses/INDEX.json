@@ -1,0 +1,7292 @@
+[
+  {
+    "kind": "npm",
+    "package": "lru-cache@11.5.3",
+    "license": "BlueOak-1.0.0",
+    "file": "npm/lru-cache@11.5.3/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@asamuzakjp/css-color@7.1.2",
+    "license": "MIT",
+    "file": "npm/@asamuzakjp+css-color@7.1.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-calc@3.4.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-calc@3.4.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-color-parser@4.2.5",
+    "license": "MIT",
+    "file": "npm/@csstools+css-color-parser@4.2.5/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-parser-algorithms@4.0.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-parser-algorithms@4.0.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-tokenizer@4.0.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-tokenizer@4.0.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "bidi-js@1.1.0",
+    "license": "MIT",
+    "file": "npm/bidi-js@1.1.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "css-tree@3.2.1",
+    "license": "MIT",
+    "file": "npm/css-tree@3.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "is-potential-custom-element-name@1.0.1",
+    "license": "MIT",
+    "file": "npm/is-potential-custom-element-name@1.0.1/LICENSE-MIT.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "lru-cache@11.5.3",
+    "license": "BlueOak-1.0.0",
+    "file": "npm/lru-cache@11.5.3/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@asamuzakjp/dom-selector@9.2.2",
+    "license": "MIT",
+    "file": "npm/@asamuzakjp+dom-selector@9.2.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "js-tokens@4.0.0",
+    "license": "MIT",
+    "file": "npm/js-tokens@4.0.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "picocolors@1.1.1",
+    "license": "ISC",
+    "file": "npm/picocolors@1.1.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/code-frame@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+code-frame@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-validator-identifier@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-validator-identifier@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/compat-data@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+compat-data@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "convert-source-map@2.0.0",
+    "license": "MIT",
+    "file": "npm/convert-source-map@2.0.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "debug@4.4.3",
+    "license": "MIT",
+    "file": "npm/debug@4.4.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "gensync@1.0.0-beta.2",
+    "license": "MIT",
+    "file": "npm/gensync@1.0.0-beta.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "json5@2.2.3",
+    "license": "MIT",
+    "file": "npm/json5@2.2.3/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "semver@6.3.1",
+    "license": "ISC",
+    "file": "npm/semver@6.3.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/code-frame@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+code-frame@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/core@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+core@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/generator@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+generator@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-compilation-targets@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-compilation-targets@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-module-transforms@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-module-transforms@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helpers@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helpers@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/parser@7.29.9",
+    "license": "MIT",
+    "file": "npm/@babel+parser@7.29.9/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/template@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+template@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/traverse@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+traverse@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/types@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+types@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/remapping@2.3.5",
+    "license": "MIT",
+    "file": "npm/@jridgewell+remapping@2.3.5/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "jsesc@3.1.0",
+    "license": "MIT",
+    "file": "npm/jsesc@3.1.0/LICENSE-MIT.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/generator@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+generator@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/parser@7.29.9",
+    "license": "MIT",
+    "file": "npm/@babel+parser@7.29.9/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/types@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+types@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/gen-mapping@0.3.13",
+    "license": "MIT",
+    "file": "npm/@jridgewell+gen-mapping@0.3.13/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/trace-mapping@0.3.31",
+    "license": "MIT",
+    "file": "npm/@jridgewell+trace-mapping@0.3.31/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "browserslist@4.29.3",
+    "license": "MIT",
+    "file": "npm/browserslist@4.29.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "lru-cache@5.1.1",
+    "license": "ISC",
+    "file": "npm/lru-cache@5.1.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "semver@6.3.1",
+    "license": "ISC",
+    "file": "npm/semver@6.3.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/compat-data@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+compat-data@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-compilation-targets@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-compilation-targets@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-validator-option@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-validator-option@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-globals@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-globals@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-module-imports@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-module-imports@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/traverse@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+traverse@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/types@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+types@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/core@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+core@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-module-imports@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-module-imports@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-module-transforms@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-module-transforms@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-validator-identifier@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-validator-identifier@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/traverse@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+traverse@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-plugin-utils@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-plugin-utils@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-string-parser@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-string-parser@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-validator-identifier@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-validator-identifier@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-validator-option@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-validator-option@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helpers@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helpers@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/template@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+template@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/types@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+types@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/parser@7.29.9",
+    "license": "MIT",
+    "file": "npm/@babel+parser@7.29.9/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/types@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+types@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/core@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+core@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-plugin-utils@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-plugin-utils@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/plugin-transform-react-jsx-source@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+plugin-transform-react-jsx-source@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/core@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+core@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-plugin-utils@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-plugin-utils@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/plugin-transform-react-jsx-self@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+plugin-transform-react-jsx-self@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/runtime@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+runtime@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/code-frame@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+code-frame@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/parser@7.29.9",
+    "license": "MIT",
+    "file": "npm/@babel+parser@7.29.9/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/template@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+template@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/types@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+types@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "debug@4.4.3",
+    "license": "MIT",
+    "file": "npm/debug@4.4.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/code-frame@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+code-frame@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/generator@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+generator@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-globals@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-globals@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/parser@7.29.9",
+    "license": "MIT",
+    "file": "npm/@babel+parser@7.29.9/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/template@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+template@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/traverse@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+traverse@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/types@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+types@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-string-parser@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-string-parser@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-validator-identifier@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-validator-identifier@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/types@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+types@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@borewit/text-codec@0.2.2",
+    "license": "MIT",
+    "file": "npm/@borewit+text-codec@0.2.2/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "css-tree@3.2.1",
+    "license": "MIT",
+    "file": "npm/css-tree@3.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@bramus/specificity@2.4.2",
+    "license": "MIT",
+    "file": "npm/@bramus+specificity@2.4.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@breezystack/lamejs@1.2.7",
+    "license": "LGPL-3.0",
+    "file": "npm/@breezystack+lamejs@1.2.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/color-helpers@6.1.2",
+    "license": "MIT-0",
+    "file": "npm/@csstools+color-helpers@6.1.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-calc@3.4.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-calc@3.4.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-parser-algorithms@4.0.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-parser-algorithms@4.0.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-tokenizer@4.0.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-tokenizer@4.0.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/color-helpers@6.1.2",
+    "license": "MIT-0",
+    "file": "npm/@csstools+color-helpers@6.1.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-calc@3.4.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-calc@3.4.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-color-parser@4.2.5",
+    "license": "MIT",
+    "file": "npm/@csstools+css-color-parser@4.2.5/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-parser-algorithms@4.0.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-parser-algorithms@4.0.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-tokenizer@4.0.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-tokenizer@4.0.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-parser-algorithms@4.0.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-parser-algorithms@4.0.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-tokenizer@4.0.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-tokenizer@4.0.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "css-tree@3.2.1",
+    "license": "MIT",
+    "file": "npm/css-tree@3.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-syntax-patches-for-csstree@1.1.15",
+    "license": "MIT-0",
+    "file": "npm/@csstools+css-syntax-patches-for-csstree@1.1.15/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-tokenizer@4.0.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-tokenizer@4.0.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@exodus/bytes@1.16.0",
+    "license": "MIT",
+    "file": "npm/@exodus+bytes@1.16.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/gen-mapping@0.3.13",
+    "license": "MIT",
+    "file": "npm/@jridgewell+gen-mapping@0.3.13/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/sourcemap-codec@1.6.0",
+    "license": "MIT",
+    "file": "npm/@jridgewell+sourcemap-codec@1.6.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/trace-mapping@0.3.31",
+    "license": "MIT",
+    "file": "npm/@jridgewell+trace-mapping@0.3.31/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/gen-mapping@0.3.13",
+    "license": "MIT",
+    "file": "npm/@jridgewell+gen-mapping@0.3.13/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/remapping@2.3.5",
+    "license": "MIT",
+    "file": "npm/@jridgewell+remapping@2.3.5/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/trace-mapping@0.3.31",
+    "license": "MIT",
+    "file": "npm/@jridgewell+trace-mapping@0.3.31/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/resolve-uri@3.1.2",
+    "license": "MIT",
+    "file": "npm/@jridgewell+resolve-uri@3.1.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/sourcemap-codec@1.6.0",
+    "license": "MIT",
+    "file": "npm/@jridgewell+sourcemap-codec@1.6.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/resolve-uri@3.1.2",
+    "license": "MIT",
+    "file": "npm/@jridgewell+resolve-uri@3.1.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/sourcemap-codec@1.6.0",
+    "license": "MIT",
+    "file": "npm/@jridgewell+sourcemap-codec@1.6.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/trace-mapping@0.3.31",
+    "license": "MIT",
+    "file": "npm/@jridgewell+trace-mapping@0.3.31/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@rolldown/pluginutils@1.0.0-rc.3",
+    "license": "MIT",
+    "file": "npm/@rolldown+pluginutils@1.0.0-rc.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@tauri-apps/api@2.12.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "npm/@tauri-apps+api@2.12.1/LICENSE-APACHE-2.0"
+  },
+  {
+    "kind": "npm",
+    "package": "@tauri-apps/api@2.12.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "npm/@tauri-apps+api@2.12.1/LICENSE-MIT"
+  },
+  {
+    "kind": "npm",
+    "package": "@tauri-apps/api@2.12.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "npm/@tauri-apps+api@2.12.1/LICENSE.spdx"
+  },
+  {
+    "kind": "npm",
+    "package": "@tauri-apps/cli@2.12.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "npm/@tauri-apps+cli@2.12.1/LICENSE-APACHE-2.0"
+  },
+  {
+    "kind": "npm",
+    "package": "@tauri-apps/cli@2.12.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "npm/@tauri-apps+cli@2.12.1/LICENSE-MIT"
+  },
+  {
+    "kind": "npm",
+    "package": "aria-query@5.3.0",
+    "license": "Apache-2.0",
+    "file": "npm/aria-query@5.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "dom-accessibility-api@0.5.16",
+    "license": "MIT",
+    "file": "npm/dom-accessibility-api@0.5.16/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "lz-string@1.5.0",
+    "license": "MIT",
+    "file": "npm/lz-string@1.5.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "picocolors@1.1.1",
+    "license": "ISC",
+    "file": "npm/picocolors@1.1.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "pretty-format@27.5.1",
+    "license": "MIT",
+    "file": "npm/pretty-format@27.5.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/code-frame@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+code-frame@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/runtime@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+runtime@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@testing-library/dom@10.4.2",
+    "license": "MIT",
+    "file": "npm/@testing-library+dom@10.4.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/aria-query@5.0.4",
+    "license": "MIT",
+    "file": "npm/@types+aria-query@5.0.4/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "react@19.3.0",
+    "license": "MIT",
+    "file": "npm/react@19.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "react-dom@19.3.0",
+    "license": "MIT",
+    "file": "npm/react-dom@19.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/runtime@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+runtime@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@testing-library/dom@10.4.2",
+    "license": "MIT",
+    "file": "npm/@testing-library+dom@10.4.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@testing-library/react@16.3.3",
+    "license": "MIT",
+    "file": "npm/@testing-library+react@16.3.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/react@19.3.0",
+    "license": "MIT",
+    "file": "npm/@types+react@19.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/react-dom@19.3.0",
+    "license": "MIT",
+    "file": "npm/@types+react-dom@19.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "debug@4.4.3",
+    "license": "MIT",
+    "file": "npm/debug@4.4.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "token-types@6.1.2",
+    "license": "MIT",
+    "file": "npm/token-types@6.1.2/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "@tokenizer/inflate@0.4.1",
+    "license": "MIT",
+    "file": "npm/@tokenizer+inflate@0.4.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/aria-query@5.0.4",
+    "license": "MIT",
+    "file": "npm/@types+aria-query@5.0.4/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/parser@7.29.9",
+    "license": "MIT",
+    "file": "npm/@babel+parser@7.29.9/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/types@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+types@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/babel__core@7.20.5",
+    "license": "MIT",
+    "file": "npm/@types+babel__core@7.20.5/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/babel__generator@7.27.0",
+    "license": "MIT",
+    "file": "npm/@types+babel__generator@7.27.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/babel__template@7.4.4",
+    "license": "MIT",
+    "file": "npm/@types+babel__template@7.4.4/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/babel__traverse@7.28.0",
+    "license": "MIT",
+    "file": "npm/@types+babel__traverse@7.28.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/types@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+types@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/babel__generator@7.27.0",
+    "license": "MIT",
+    "file": "npm/@types+babel__generator@7.27.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/parser@7.29.9",
+    "license": "MIT",
+    "file": "npm/@babel+parser@7.29.9/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/types@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+types@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/babel__template@7.4.4",
+    "license": "MIT",
+    "file": "npm/@types+babel__template@7.4.4/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/types@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+types@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/babel__traverse@7.28.0",
+    "license": "MIT",
+    "file": "npm/@types+babel__traverse@7.28.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "assertion-error@2.0.1",
+    "license": "MIT",
+    "file": "npm/assertion-error@2.0.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/chai@5.2.3",
+    "license": "MIT",
+    "file": "npm/@types+chai@5.2.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/deep-eql@4.0.2",
+    "license": "MIT",
+    "file": "npm/@types+deep-eql@4.0.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/deep-eql@4.0.2",
+    "license": "MIT",
+    "file": "npm/@types+deep-eql@4.0.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/estree@1.0.9",
+    "license": "MIT",
+    "file": "npm/@types+estree@1.0.9/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "undici-types@8.9.0",
+    "license": "MIT",
+    "file": "npm/undici-types@8.9.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/node@26.6.3",
+    "license": "MIT",
+    "file": "npm/@types+node@26.6.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/react@19.3.0",
+    "license": "MIT",
+    "file": "npm/@types+react@19.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/react-dom@19.3.0",
+    "license": "MIT",
+    "file": "npm/@types+react-dom@19.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "csstype@3.2.3",
+    "license": "MIT",
+    "file": "npm/csstype@3.2.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/react@19.3.0",
+    "license": "MIT",
+    "file": "npm/@types+react@19.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "react-refresh@0.18.0",
+    "license": "MIT",
+    "file": "npm/react-refresh@0.18.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "vite@7.3.6",
+    "license": "MIT",
+    "file": "npm/vite@7.3.6/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/core@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+core@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/plugin-transform-react-jsx-self@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+plugin-transform-react-jsx-self@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/plugin-transform-react-jsx-source@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+plugin-transform-react-jsx-source@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@rolldown/pluginutils@1.0.0-rc.3",
+    "license": "MIT",
+    "file": "npm/@rolldown+pluginutils@1.0.0-rc.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/babel__core@7.20.5",
+    "license": "MIT",
+    "file": "npm/@types+babel__core@7.20.5/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@vitejs/plugin-react@5.2.0",
+    "license": "MIT",
+    "file": "npm/@vitejs+plugin-react@5.2.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "react-refresh@0.18.0",
+    "license": "MIT",
+    "file": "npm/react-refresh@0.18.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "vite@7.3.6",
+    "license": "MIT",
+    "file": "npm/vite@7.3.6/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/core@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+core@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/plugin-transform-react-jsx-self@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+plugin-transform-react-jsx-self@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/plugin-transform-react-jsx-source@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+plugin-transform-react-jsx-source@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@rolldown/pluginutils@1.0.0-rc.3",
+    "license": "MIT",
+    "file": "npm/@rolldown+pluginutils@1.0.0-rc.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/babel__core@7.20.5",
+    "license": "MIT",
+    "file": "npm/@types+babel__core@7.20.5/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@vitejs/plugin-react@5.2.0",
+    "license": "MIT",
+    "file": "npm/@vitejs+plugin-react@5.2.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "estree-walker@3.0.3",
+    "license": "MIT",
+    "file": "npm/estree-walker@3.0.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "magic-string@1.4.2",
+    "license": "MIT",
+    "file": "npm/magic-string@1.4.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "vite@7.3.6",
+    "license": "MIT",
+    "file": "npm/vite@7.3.6/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/trace-mapping@0.3.31",
+    "license": "MIT",
+    "file": "npm/@jridgewell+trace-mapping@0.3.31/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@vitest/mocker@5.0.3",
+    "license": "MIT",
+    "file": "npm/@vitest+mocker@5.0.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@vitest/spy@5.0.3",
+    "license": "MIT",
+    "file": "npm/@vitest+spy@5.0.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "estree-walker@3.0.3",
+    "license": "MIT",
+    "file": "npm/estree-walker@3.0.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "magic-string@1.4.2",
+    "license": "MIT",
+    "file": "npm/magic-string@1.4.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "vite@7.3.6",
+    "license": "MIT",
+    "file": "npm/vite@7.3.6/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/trace-mapping@0.3.31",
+    "license": "MIT",
+    "file": "npm/@jridgewell+trace-mapping@0.3.31/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@vitest/mocker@5.0.3",
+    "license": "MIT",
+    "file": "npm/@vitest+mocker@5.0.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@vitest/spy@5.0.3",
+    "license": "MIT",
+    "file": "npm/@vitest+spy@5.0.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@vitest/spy@5.0.3",
+    "license": "MIT",
+    "file": "npm/@vitest+spy@5.0.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "ansi-regex@5.0.1",
+    "license": "MIT",
+    "file": "npm/ansi-regex@5.0.1/license"
+  },
+  {
+    "kind": "npm",
+    "package": "ansi-styles@5.2.0",
+    "license": "MIT",
+    "file": "npm/ansi-styles@5.2.0/license"
+  },
+  {
+    "kind": "npm",
+    "package": "aria-query@5.3.0",
+    "license": "Apache-2.0",
+    "file": "npm/aria-query@5.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "dequal@2.0.3",
+    "license": "MIT",
+    "file": "npm/dequal@2.0.3/license"
+  },
+  {
+    "kind": "npm",
+    "package": "assertion-error@2.0.1",
+    "license": "MIT",
+    "file": "npm/assertion-error@2.0.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "baseline-browser-mapping@2.11.26",
+    "license": "Apache-2.0",
+    "file": "npm/baseline-browser-mapping@2.11.26/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "bidi-js@1.1.0",
+    "license": "MIT",
+    "file": "npm/bidi-js@1.1.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "require-from-string@2.0.2",
+    "license": "MIT",
+    "file": "npm/require-from-string@2.0.2/license"
+  },
+  {
+    "kind": "npm",
+    "package": "baseline-browser-mapping@2.11.26",
+    "license": "Apache-2.0",
+    "file": "npm/baseline-browser-mapping@2.11.26/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "browserslist@4.29.3",
+    "license": "MIT",
+    "file": "npm/browserslist@4.29.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "caniuse-lite@1.0.30001814",
+    "license": "CC-BY-4.0",
+    "file": "npm/caniuse-lite@1.0.30001814/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "electron-to-chromium@1.5.443",
+    "license": "ISC",
+    "file": "npm/electron-to-chromium@1.5.443/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "node-releases@2.0.57",
+    "license": "MIT",
+    "file": "npm/node-releases@2.0.57/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "update-browserslist-db@1.3.3",
+    "license": "MIT",
+    "file": "npm/update-browserslist-db@1.3.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "caniuse-lite@1.0.30001814",
+    "license": "CC-BY-4.0",
+    "file": "npm/caniuse-lite@1.0.30001814/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "chai@6.3.0",
+    "license": "MIT",
+    "file": "npm/chai@6.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "content-type@2.1.0",
+    "license": "MIT",
+    "file": "npm/content-type@2.1.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "convert-source-map@2.0.0",
+    "license": "MIT",
+    "file": "npm/convert-source-map@2.0.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "css-tree@3.2.1",
+    "license": "MIT",
+    "file": "npm/css-tree@3.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "mdn-data@2.27.1",
+    "license": "CC0-1.0",
+    "file": "npm/mdn-data@2.27.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "source-map-js@1.2.2",
+    "license": "BSD-3-Clause",
+    "file": "npm/source-map-js@1.2.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "csstype@3.2.3",
+    "license": "MIT",
+    "file": "npm/csstype@3.2.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "data-urls@7.0.0",
+    "license": "MIT",
+    "file": "npm/data-urls@7.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "whatwg-mimetype@5.0.0",
+    "license": "MIT",
+    "file": "npm/whatwg-mimetype@5.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "whatwg-url@16.0.1",
+    "license": "MIT",
+    "file": "npm/whatwg-url@16.0.1/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "debug@4.4.3",
+    "license": "MIT",
+    "file": "npm/debug@4.4.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "ms@2.1.3",
+    "license": "MIT",
+    "file": "npm/ms@2.1.3/license.md"
+  },
+  {
+    "kind": "npm",
+    "package": "dequal@2.0.3",
+    "license": "MIT",
+    "file": "npm/dequal@2.0.3/license"
+  },
+  {
+    "kind": "npm",
+    "package": "dom-accessibility-api@0.5.16",
+    "license": "MIT",
+    "file": "npm/dom-accessibility-api@0.5.16/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "electron-to-chromium@1.5.443",
+    "license": "ISC",
+    "file": "npm/electron-to-chromium@1.5.443/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "entities@8.1.0",
+    "license": "BSD-2-Clause",
+    "file": "npm/entities@8.1.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "es-module-lexer@2.3.2",
+    "license": "MIT",
+    "file": "npm/es-module-lexer@2.3.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "esbuild@0.27.3",
+    "license": "MIT",
+    "file": "npm/esbuild@0.27.3/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "esbuild@0.28.2",
+    "license": "MIT",
+    "file": "npm/esbuild@0.28.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "escalade@3.2.0",
+    "license": "MIT",
+    "file": "npm/escalade@3.2.0/license"
+  },
+  {
+    "kind": "npm",
+    "package": "estree-walker@3.0.3",
+    "license": "MIT",
+    "file": "npm/estree-walker@3.0.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/estree@1.0.9",
+    "license": "MIT",
+    "file": "npm/@types+estree@1.0.9/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "expect-type@1.4.0",
+    "license": "Apache-2.0",
+    "file": "npm/expect-type@1.4.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "fdir@6.5.0",
+    "license": "MIT",
+    "file": "npm/fdir@6.5.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "picomatch@4.0.7",
+    "license": "MIT",
+    "file": "npm/picomatch@4.0.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "file-type@21.3.4",
+    "license": "MIT",
+    "file": "npm/file-type@21.3.4/license"
+  },
+  {
+    "kind": "npm",
+    "package": "strtok3@10.3.5",
+    "license": "MIT",
+    "file": "npm/strtok3@10.3.5/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "token-types@6.1.2",
+    "license": "MIT",
+    "file": "npm/token-types@6.1.2/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "uint8array-extras@1.6.0",
+    "license": "MIT",
+    "file": "npm/uint8array-extras@1.6.0/license"
+  },
+  {
+    "kind": "npm",
+    "package": "@tokenizer/inflate@0.4.1",
+    "license": "MIT",
+    "file": "npm/@tokenizer+inflate@0.4.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "gensync@1.0.0-beta.2",
+    "license": "MIT",
+    "file": "npm/gensync@1.0.0-beta.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "html-encoding-sniffer@7.0.0",
+    "license": "MIT",
+    "file": "npm/html-encoding-sniffer@7.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "@exodus/bytes@1.16.0",
+    "license": "MIT",
+    "file": "npm/@exodus+bytes@1.16.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "ieee754@1.2.1",
+    "license": "BSD-3-Clause",
+    "file": "npm/ieee754@1.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "is-potential-custom-element-name@1.0.1",
+    "license": "MIT",
+    "file": "npm/is-potential-custom-element-name@1.0.1/LICENSE-MIT.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "js-tokens@4.0.0",
+    "license": "MIT",
+    "file": "npm/js-tokens@4.0.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "css-tree@3.2.1",
+    "license": "MIT",
+    "file": "npm/css-tree@3.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "data-urls@7.0.0",
+    "license": "MIT",
+    "file": "npm/data-urls@7.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "html-encoding-sniffer@7.0.0",
+    "license": "MIT",
+    "file": "npm/html-encoding-sniffer@7.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "is-potential-custom-element-name@1.0.1",
+    "license": "MIT",
+    "file": "npm/is-potential-custom-element-name@1.0.1/LICENSE-MIT.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "jsdom@30.1.1",
+    "license": "MIT",
+    "file": "npm/jsdom@30.1.1/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "lru-cache@11.5.3",
+    "license": "BlueOak-1.0.0",
+    "file": "npm/lru-cache@11.5.3/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "parse5@8.0.1",
+    "license": "MIT",
+    "file": "npm/parse5@8.0.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tough-cookie@6.0.2",
+    "license": "BSD-3-Clause",
+    "file": "npm/tough-cookie@6.0.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "undici@8.11.2",
+    "license": "MIT",
+    "file": "npm/undici@8.11.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "w3c-xmlserializer@6.0.0",
+    "license": "MIT",
+    "file": "npm/w3c-xmlserializer@6.0.0/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "webidl-conversions@8.0.1",
+    "license": "BSD-2-Clause",
+    "file": "npm/webidl-conversions@8.0.1/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "whatwg-mimetype@5.0.0",
+    "license": "MIT",
+    "file": "npm/whatwg-mimetype@5.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "whatwg-url@17.1.2",
+    "license": "MIT",
+    "file": "npm/whatwg-url@17.1.2/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "xml-name-validator@5.0.0",
+    "license": "Apache-2.0",
+    "file": "npm/xml-name-validator@5.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "@asamuzakjp/css-color@7.1.2",
+    "license": "MIT",
+    "file": "npm/@asamuzakjp+css-color@7.1.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@asamuzakjp/dom-selector@9.2.2",
+    "license": "MIT",
+    "file": "npm/@asamuzakjp+dom-selector@9.2.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@bramus/specificity@2.4.2",
+    "license": "MIT",
+    "file": "npm/@bramus+specificity@2.4.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-syntax-patches-for-csstree@1.1.15",
+    "license": "MIT-0",
+    "file": "npm/@csstools+css-syntax-patches-for-csstree@1.1.15/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@exodus/bytes@1.16.0",
+    "license": "MIT",
+    "file": "npm/@exodus+bytes@1.16.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "undici@8.11.2",
+    "license": "MIT",
+    "file": "npm/undici@8.11.2/lib/web/fetch/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "jsesc@3.1.0",
+    "license": "MIT",
+    "file": "npm/jsesc@3.1.0/LICENSE-MIT.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "json5@2.2.3",
+    "license": "MIT",
+    "file": "npm/json5@2.2.3/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "lru-cache@11.5.3",
+    "license": "BlueOak-1.0.0",
+    "file": "npm/lru-cache@11.5.3/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "lru-cache@5.1.1",
+    "license": "ISC",
+    "file": "npm/lru-cache@5.1.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "yallist@3.1.1",
+    "license": "ISC",
+    "file": "npm/yallist@3.1.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "lz-string@1.5.0",
+    "license": "MIT",
+    "file": "npm/lz-string@1.5.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "magic-string@1.4.2",
+    "license": "MIT",
+    "file": "npm/magic-string@1.4.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/sourcemap-codec@1.6.0",
+    "license": "MIT",
+    "file": "npm/@jridgewell+sourcemap-codec@1.6.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "mdn-data@2.27.1",
+    "license": "CC0-1.0",
+    "file": "npm/mdn-data@2.27.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "media-typer@2.0.0",
+    "license": "MIT",
+    "file": "npm/media-typer@2.0.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "ms@2.1.3",
+    "license": "MIT",
+    "file": "npm/ms@2.1.3/license.md"
+  },
+  {
+    "kind": "npm",
+    "package": "content-type@2.1.0",
+    "license": "MIT",
+    "file": "npm/content-type@2.1.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "debug@4.4.3",
+    "license": "MIT",
+    "file": "npm/debug@4.4.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "file-type@21.3.4",
+    "license": "MIT",
+    "file": "npm/file-type@21.3.4/license"
+  },
+  {
+    "kind": "npm",
+    "package": "media-typer@2.0.0",
+    "license": "MIT",
+    "file": "npm/media-typer@2.0.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "music-metadata@11.16.1",
+    "license": "MIT",
+    "file": "npm/music-metadata@11.16.1/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "strtok3@10.3.5",
+    "license": "MIT",
+    "file": "npm/strtok3@10.3.5/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "token-types@6.1.2",
+    "license": "MIT",
+    "file": "npm/token-types@6.1.2/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "uint8array-extras@1.6.0",
+    "license": "MIT",
+    "file": "npm/uint8array-extras@1.6.0/license"
+  },
+  {
+    "kind": "npm",
+    "package": "win-guid@0.2.1",
+    "license": "MIT",
+    "file": "npm/win-guid@0.2.1/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "@borewit/text-codec@0.2.2",
+    "license": "MIT",
+    "file": "npm/@borewit+text-codec@0.2.2/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "nanoid@3.3.19",
+    "license": "MIT",
+    "file": "npm/nanoid@3.3.19/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "node-releases@2.0.57",
+    "license": "MIT",
+    "file": "npm/node-releases@2.0.57/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "ansi-regex@5.0.1",
+    "license": "MIT",
+    "file": "npm/ansi-regex@5.0.1/license"
+  },
+  {
+    "kind": "npm",
+    "package": "ansi-styles@5.2.0",
+    "license": "MIT",
+    "file": "npm/ansi-styles@5.2.0/license"
+  },
+  {
+    "kind": "npm",
+    "package": "aria-query@5.3.0",
+    "license": "Apache-2.0",
+    "file": "npm/aria-query@5.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "assertion-error@2.0.1",
+    "license": "MIT",
+    "file": "npm/assertion-error@2.0.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "baseline-browser-mapping@2.11.26",
+    "license": "Apache-2.0",
+    "file": "npm/baseline-browser-mapping@2.11.26/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "bidi-js@1.1.0",
+    "license": "MIT",
+    "file": "npm/bidi-js@1.1.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "browserslist@4.29.3",
+    "license": "MIT",
+    "file": "npm/browserslist@4.29.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "caniuse-lite@1.0.30001814",
+    "license": "CC-BY-4.0",
+    "file": "npm/caniuse-lite@1.0.30001814/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "chai@6.3.0",
+    "license": "MIT",
+    "file": "npm/chai@6.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "content-type@2.1.0",
+    "license": "MIT",
+    "file": "npm/content-type@2.1.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "convert-source-map@2.0.0",
+    "license": "MIT",
+    "file": "npm/convert-source-map@2.0.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "css-tree@3.2.1",
+    "license": "MIT",
+    "file": "npm/css-tree@3.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "csstype@3.2.3",
+    "license": "MIT",
+    "file": "npm/csstype@3.2.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "data-urls@7.0.0",
+    "license": "MIT",
+    "file": "npm/data-urls@7.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "debug@4.4.3",
+    "license": "MIT",
+    "file": "npm/debug@4.4.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "dequal@2.0.3",
+    "license": "MIT",
+    "file": "npm/dequal@2.0.3/license"
+  },
+  {
+    "kind": "npm",
+    "package": "dom-accessibility-api@0.5.16",
+    "license": "MIT",
+    "file": "npm/dom-accessibility-api@0.5.16/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "electron-to-chromium@1.5.443",
+    "license": "ISC",
+    "file": "npm/electron-to-chromium@1.5.443/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "entities@8.1.0",
+    "license": "BSD-2-Clause",
+    "file": "npm/entities@8.1.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "es-module-lexer@2.3.2",
+    "license": "MIT",
+    "file": "npm/es-module-lexer@2.3.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "esbuild@0.28.2",
+    "license": "MIT",
+    "file": "npm/esbuild@0.28.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "escalade@3.2.0",
+    "license": "MIT",
+    "file": "npm/escalade@3.2.0/license"
+  },
+  {
+    "kind": "npm",
+    "package": "estree-walker@3.0.3",
+    "license": "MIT",
+    "file": "npm/estree-walker@3.0.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "expect-type@1.4.0",
+    "license": "Apache-2.0",
+    "file": "npm/expect-type@1.4.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "fdir@6.5.0",
+    "license": "MIT",
+    "file": "npm/fdir@6.5.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "file-type@21.3.4",
+    "license": "MIT",
+    "file": "npm/file-type@21.3.4/license"
+  },
+  {
+    "kind": "npm",
+    "package": "gensync@1.0.0-beta.2",
+    "license": "MIT",
+    "file": "npm/gensync@1.0.0-beta.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "html-encoding-sniffer@7.0.0",
+    "license": "MIT",
+    "file": "npm/html-encoding-sniffer@7.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "ieee754@1.2.1",
+    "license": "BSD-3-Clause",
+    "file": "npm/ieee754@1.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "is-potential-custom-element-name@1.0.1",
+    "license": "MIT",
+    "file": "npm/is-potential-custom-element-name@1.0.1/LICENSE-MIT.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "js-tokens@4.0.0",
+    "license": "MIT",
+    "file": "npm/js-tokens@4.0.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "jsesc@3.1.0",
+    "license": "MIT",
+    "file": "npm/jsesc@3.1.0/LICENSE-MIT.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "json5@2.2.3",
+    "license": "MIT",
+    "file": "npm/json5@2.2.3/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "lru-cache@11.5.3",
+    "license": "BlueOak-1.0.0",
+    "file": "npm/lru-cache@11.5.3/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "lz-string@1.5.0",
+    "license": "MIT",
+    "file": "npm/lz-string@1.5.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "magic-string@1.4.2",
+    "license": "MIT",
+    "file": "npm/magic-string@1.4.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "mdn-data@2.27.1",
+    "license": "CC0-1.0",
+    "file": "npm/mdn-data@2.27.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "media-typer@2.0.0",
+    "license": "MIT",
+    "file": "npm/media-typer@2.0.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "ms@2.1.3",
+    "license": "MIT",
+    "file": "npm/ms@2.1.3/license.md"
+  },
+  {
+    "kind": "npm",
+    "package": "nanoid@3.3.19",
+    "license": "MIT",
+    "file": "npm/nanoid@3.3.19/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "node-releases@2.0.57",
+    "license": "MIT",
+    "file": "npm/node-releases@2.0.57/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "obug@2.2.1",
+    "license": "MIT",
+    "file": "npm/obug@2.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "parse5@8.0.1",
+    "license": "MIT",
+    "file": "npm/parse5@8.0.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "picocolors@1.1.1",
+    "license": "ISC",
+    "file": "npm/picocolors@1.1.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "picomatch@4.0.7",
+    "license": "MIT",
+    "file": "npm/picomatch@4.0.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "postcss@8.5.28",
+    "license": "MIT",
+    "file": "npm/postcss@8.5.28/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "pretty-format@27.5.1",
+    "license": "MIT",
+    "file": "npm/pretty-format@27.5.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "punycode@2.3.1",
+    "license": "MIT",
+    "file": "npm/punycode@2.3.1/LICENSE-MIT.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "react-is@17.0.2",
+    "license": "MIT",
+    "file": "npm/react-is@17.0.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "react-refresh@0.18.0",
+    "license": "MIT",
+    "file": "npm/react-refresh@0.18.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "require-from-string@2.0.2",
+    "license": "MIT",
+    "file": "npm/require-from-string@2.0.2/license"
+  },
+  {
+    "kind": "npm",
+    "package": "rollup@4.63.6",
+    "license": "MIT",
+    "file": "npm/rollup@4.63.6/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "scheduler@0.28.0",
+    "license": "MIT",
+    "file": "npm/scheduler@0.28.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "semver@6.3.1",
+    "license": "ISC",
+    "file": "npm/semver@6.3.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "source-map-js@1.2.2",
+    "license": "BSD-3-Clause",
+    "file": "npm/source-map-js@1.2.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "strtok3@10.3.5",
+    "license": "MIT",
+    "file": "npm/strtok3@10.3.5/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "tinybench@6.2.0",
+    "license": "MIT",
+    "file": "npm/tinybench@6.2.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tinyexec@1.3.1",
+    "license": "MIT",
+    "file": "npm/tinyexec@1.3.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tinyglobby@0.2.17",
+    "license": "MIT",
+    "file": "npm/tinyglobby@0.2.17/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tldts@7.4.16",
+    "license": "MIT",
+    "file": "npm/tldts@7.4.16/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tldts-core@7.4.16",
+    "license": "MIT",
+    "file": "npm/tldts-core@7.4.16/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "token-types@6.1.2",
+    "license": "MIT",
+    "file": "npm/token-types@6.1.2/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "tough-cookie@6.0.2",
+    "license": "BSD-3-Clause",
+    "file": "npm/tough-cookie@6.0.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tr46@6.0.0",
+    "license": "MIT",
+    "file": "npm/tr46@6.0.0/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "uint8array-extras@1.6.0",
+    "license": "MIT",
+    "file": "npm/uint8array-extras@1.6.0/license"
+  },
+  {
+    "kind": "npm",
+    "package": "undici@8.11.2",
+    "license": "MIT",
+    "file": "npm/undici@8.11.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "undici-types@8.9.0",
+    "license": "MIT",
+    "file": "npm/undici-types@8.9.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "update-browserslist-db@1.3.3",
+    "license": "MIT",
+    "file": "npm/update-browserslist-db@1.3.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "w3c-xmlserializer@6.0.0",
+    "license": "MIT",
+    "file": "npm/w3c-xmlserializer@6.0.0/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "webidl-conversions@8.0.1",
+    "license": "BSD-2-Clause",
+    "file": "npm/webidl-conversions@8.0.1/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "whatwg-mimetype@5.0.0",
+    "license": "MIT",
+    "file": "npm/whatwg-mimetype@5.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "whatwg-url@17.1.2",
+    "license": "MIT",
+    "file": "npm/whatwg-url@17.1.2/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "why-is-node-running@3.2.1",
+    "license": "MIT",
+    "file": "npm/why-is-node-running@3.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "win-guid@0.2.1",
+    "license": "MIT",
+    "file": "npm/win-guid@0.2.1/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "xml-name-validator@5.0.0",
+    "license": "Apache-2.0",
+    "file": "npm/xml-name-validator@5.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "xmlchars@2.2.0",
+    "license": "MIT",
+    "file": "npm/xmlchars@2.2.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "yallist@3.1.1",
+    "license": "ISC",
+    "file": "npm/yallist@3.1.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@asamuzakjp/css-color@7.1.2",
+    "license": "MIT",
+    "file": "npm/@asamuzakjp+css-color@7.1.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@asamuzakjp/dom-selector@9.2.2",
+    "license": "MIT",
+    "file": "npm/@asamuzakjp+dom-selector@9.2.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/code-frame@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+code-frame@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/compat-data@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+compat-data@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/core@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+core@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/generator@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+generator@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-compilation-targets@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-compilation-targets@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-globals@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-globals@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-module-imports@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-module-imports@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-module-transforms@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-module-transforms@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-plugin-utils@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-plugin-utils@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-string-parser@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-string-parser@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-validator-identifier@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-validator-identifier@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helper-validator-option@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helper-validator-option@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/helpers@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+helpers@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/parser@7.29.9",
+    "license": "MIT",
+    "file": "npm/@babel+parser@7.29.9/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/plugin-transform-react-jsx-self@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+plugin-transform-react-jsx-self@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/plugin-transform-react-jsx-source@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+plugin-transform-react-jsx-source@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/runtime@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+runtime@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/template@7.29.7",
+    "license": "MIT",
+    "file": "npm/@babel+template@7.29.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/traverse@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+traverse@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@babel/types@7.29.8",
+    "license": "MIT",
+    "file": "npm/@babel+types@7.29.8/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@borewit/text-codec@0.2.2",
+    "license": "MIT",
+    "file": "npm/@borewit+text-codec@0.2.2/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "@bramus/specificity@2.4.2",
+    "license": "MIT",
+    "file": "npm/@bramus+specificity@2.4.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/color-helpers@6.1.2",
+    "license": "MIT-0",
+    "file": "npm/@csstools+color-helpers@6.1.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-calc@3.4.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-calc@3.4.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-color-parser@4.2.5",
+    "license": "MIT",
+    "file": "npm/@csstools+css-color-parser@4.2.5/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-parser-algorithms@4.0.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-parser-algorithms@4.0.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-syntax-patches-for-csstree@1.1.15",
+    "license": "MIT-0",
+    "file": "npm/@csstools+css-syntax-patches-for-csstree@1.1.15/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@csstools/css-tokenizer@4.0.2",
+    "license": "MIT",
+    "file": "npm/@csstools+css-tokenizer@4.0.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@exodus/bytes@1.16.0",
+    "license": "MIT",
+    "file": "npm/@exodus+bytes@1.16.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/gen-mapping@0.3.13",
+    "license": "MIT",
+    "file": "npm/@jridgewell+gen-mapping@0.3.13/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/remapping@2.3.5",
+    "license": "MIT",
+    "file": "npm/@jridgewell+remapping@2.3.5/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/resolve-uri@3.1.2",
+    "license": "MIT",
+    "file": "npm/@jridgewell+resolve-uri@3.1.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/sourcemap-codec@1.6.0",
+    "license": "MIT",
+    "file": "npm/@jridgewell+sourcemap-codec@1.6.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@jridgewell/trace-mapping@0.3.31",
+    "license": "MIT",
+    "file": "npm/@jridgewell+trace-mapping@0.3.31/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@rolldown/pluginutils@1.0.0-rc.3",
+    "license": "MIT",
+    "file": "npm/@rolldown+pluginutils@1.0.0-rc.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@tokenizer/inflate@0.4.1",
+    "license": "MIT",
+    "file": "npm/@tokenizer+inflate@0.4.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/aria-query@5.0.4",
+    "license": "MIT",
+    "file": "npm/@types+aria-query@5.0.4/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/babel__core@7.20.5",
+    "license": "MIT",
+    "file": "npm/@types+babel__core@7.20.5/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/babel__generator@7.27.0",
+    "license": "MIT",
+    "file": "npm/@types+babel__generator@7.27.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/babel__template@7.4.4",
+    "license": "MIT",
+    "file": "npm/@types+babel__template@7.4.4/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/babel__traverse@7.28.0",
+    "license": "MIT",
+    "file": "npm/@types+babel__traverse@7.28.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/chai@5.2.3",
+    "license": "MIT",
+    "file": "npm/@types+chai@5.2.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/deep-eql@4.0.2",
+    "license": "MIT",
+    "file": "npm/@types+deep-eql@4.0.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/estree@1.0.9",
+    "license": "MIT",
+    "file": "npm/@types+estree@1.0.9/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@vitest/mocker@5.0.3",
+    "license": "MIT",
+    "file": "npm/@vitest+mocker@5.0.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@vitest/spy@5.0.3",
+    "license": "MIT",
+    "file": "npm/@vitest+spy@5.0.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "undici@8.11.2",
+    "license": "MIT",
+    "file": "npm/undici@8.11.2/lib/web/fetch/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "obug@2.2.1",
+    "license": "MIT",
+    "file": "npm/obug@2.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "entities@8.1.0",
+    "license": "BSD-2-Clause",
+    "file": "npm/entities@8.1.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "parse5@8.0.1",
+    "license": "MIT",
+    "file": "npm/parse5@8.0.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "picocolors@1.1.1",
+    "license": "ISC",
+    "file": "npm/picocolors@1.1.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "picomatch@4.0.7",
+    "license": "MIT",
+    "file": "npm/picomatch@4.0.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "nanoid@3.3.19",
+    "license": "MIT",
+    "file": "npm/nanoid@3.3.19/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "picocolors@1.1.1",
+    "license": "ISC",
+    "file": "npm/picocolors@1.1.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "postcss@8.5.28",
+    "license": "MIT",
+    "file": "npm/postcss@8.5.28/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "source-map-js@1.2.2",
+    "license": "BSD-3-Clause",
+    "file": "npm/source-map-js@1.2.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "prettier@3.9.9",
+    "license": "MIT",
+    "file": "npm/prettier@3.9.9/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "ansi-regex@5.0.1",
+    "license": "MIT",
+    "file": "npm/ansi-regex@5.0.1/license"
+  },
+  {
+    "kind": "npm",
+    "package": "ansi-styles@5.2.0",
+    "license": "MIT",
+    "file": "npm/ansi-styles@5.2.0/license"
+  },
+  {
+    "kind": "npm",
+    "package": "pretty-format@27.5.1",
+    "license": "MIT",
+    "file": "npm/pretty-format@27.5.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "react-is@17.0.2",
+    "license": "MIT",
+    "file": "npm/react-is@17.0.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "punycode@2.3.1",
+    "license": "MIT",
+    "file": "npm/punycode@2.3.1/LICENSE-MIT.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "react@19.3.0",
+    "license": "MIT",
+    "file": "npm/react@19.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "react-dom@19.3.0",
+    "license": "MIT",
+    "file": "npm/react-dom@19.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "scheduler@0.28.0",
+    "license": "MIT",
+    "file": "npm/scheduler@0.28.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "react-is@17.0.2",
+    "license": "MIT",
+    "file": "npm/react-is@17.0.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "react-refresh@0.18.0",
+    "license": "MIT",
+    "file": "npm/react-refresh@0.18.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "react@19.3.0",
+    "license": "MIT",
+    "file": "npm/react@19.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "require-from-string@2.0.2",
+    "license": "MIT",
+    "file": "npm/require-from-string@2.0.2/license"
+  },
+  {
+    "kind": "npm",
+    "package": "rollup@4.63.6",
+    "license": "MIT",
+    "file": "npm/rollup@4.63.6/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/estree@1.0.9",
+    "license": "MIT",
+    "file": "npm/@types+estree@1.0.9/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "xmlchars@2.2.0",
+    "license": "MIT",
+    "file": "npm/xmlchars@2.2.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "scheduler@0.28.0",
+    "license": "MIT",
+    "file": "npm/scheduler@0.28.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "semver@6.3.1",
+    "license": "ISC",
+    "file": "npm/semver@6.3.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "source-map-js@1.2.2",
+    "license": "BSD-3-Clause",
+    "file": "npm/source-map-js@1.2.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "strtok3@10.3.5",
+    "license": "MIT",
+    "file": "npm/strtok3@10.3.5/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "tinybench@6.2.0",
+    "license": "MIT",
+    "file": "npm/tinybench@6.2.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tinyexec@1.3.1",
+    "license": "MIT",
+    "file": "npm/tinyexec@1.3.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "fdir@6.5.0",
+    "license": "MIT",
+    "file": "npm/fdir@6.5.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "picomatch@4.0.7",
+    "license": "MIT",
+    "file": "npm/picomatch@4.0.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tinyglobby@0.2.17",
+    "license": "MIT",
+    "file": "npm/tinyglobby@0.2.17/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tldts-core@7.4.16",
+    "license": "MIT",
+    "file": "npm/tldts-core@7.4.16/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tldts@7.4.16",
+    "license": "MIT",
+    "file": "npm/tldts@7.4.16/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tldts-core@7.4.16",
+    "license": "MIT",
+    "file": "npm/tldts-core@7.4.16/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "ieee754@1.2.1",
+    "license": "BSD-3-Clause",
+    "file": "npm/ieee754@1.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "token-types@6.1.2",
+    "license": "MIT",
+    "file": "npm/token-types@6.1.2/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "@borewit/text-codec@0.2.2",
+    "license": "MIT",
+    "file": "npm/@borewit+text-codec@0.2.2/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "tldts@7.4.16",
+    "license": "MIT",
+    "file": "npm/tldts@7.4.16/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tough-cookie@6.0.2",
+    "license": "BSD-3-Clause",
+    "file": "npm/tough-cookie@6.0.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "punycode@2.3.1",
+    "license": "MIT",
+    "file": "npm/punycode@2.3.1/LICENSE-MIT.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "tr46@6.0.0",
+    "license": "MIT",
+    "file": "npm/tr46@6.0.0/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "typescript@5.9.3",
+    "license": "Apache-2.0",
+    "file": "npm/typescript@5.9.3/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "uint8array-extras@1.6.0",
+    "license": "MIT",
+    "file": "npm/uint8array-extras@1.6.0/license"
+  },
+  {
+    "kind": "npm",
+    "package": "undici-types@8.9.0",
+    "license": "MIT",
+    "file": "npm/undici-types@8.9.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "undici@8.11.2",
+    "license": "MIT",
+    "file": "npm/undici@8.11.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "undici@8.11.2",
+    "license": "MIT",
+    "file": "npm/undici@8.11.2/lib/web/fetch/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "browserslist@4.29.3",
+    "license": "MIT",
+    "file": "npm/browserslist@4.29.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "escalade@3.2.0",
+    "license": "MIT",
+    "file": "npm/escalade@3.2.0/license"
+  },
+  {
+    "kind": "npm",
+    "package": "picocolors@1.1.1",
+    "license": "ISC",
+    "file": "npm/picocolors@1.1.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "update-browserslist-db@1.3.3",
+    "license": "MIT",
+    "file": "npm/update-browserslist-db@1.3.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "esbuild@0.28.2",
+    "license": "MIT",
+    "file": "npm/esbuild@0.28.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "fdir@6.5.0",
+    "license": "MIT",
+    "file": "npm/fdir@6.5.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "picomatch@4.0.7",
+    "license": "MIT",
+    "file": "npm/picomatch@4.0.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "postcss@8.5.28",
+    "license": "MIT",
+    "file": "npm/postcss@8.5.28/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "rollup@4.63.6",
+    "license": "MIT",
+    "file": "npm/rollup@4.63.6/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "tinyglobby@0.2.17",
+    "license": "MIT",
+    "file": "npm/tinyglobby@0.2.17/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "vite@7.3.6",
+    "license": "MIT",
+    "file": "npm/vite@7.3.6/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "esbuild@0.28.2",
+    "license": "MIT",
+    "file": "npm/esbuild@0.28.2/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "fdir@6.5.0",
+    "license": "MIT",
+    "file": "npm/fdir@6.5.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "picomatch@4.0.7",
+    "license": "MIT",
+    "file": "npm/picomatch@4.0.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "postcss@8.5.28",
+    "license": "MIT",
+    "file": "npm/postcss@8.5.28/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "rollup@4.63.6",
+    "license": "MIT",
+    "file": "npm/rollup@4.63.6/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "tinyglobby@0.2.17",
+    "license": "MIT",
+    "file": "npm/tinyglobby@0.2.17/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "vite@7.3.6",
+    "license": "MIT",
+    "file": "npm/vite@7.3.6/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/node@26.6.3",
+    "license": "MIT",
+    "file": "npm/@types+node@26.6.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "chai@6.3.0",
+    "license": "MIT",
+    "file": "npm/chai@6.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "es-module-lexer@2.3.2",
+    "license": "MIT",
+    "file": "npm/es-module-lexer@2.3.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "expect-type@1.4.0",
+    "license": "Apache-2.0",
+    "file": "npm/expect-type@1.4.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "jsdom@30.1.1",
+    "license": "MIT",
+    "file": "npm/jsdom@30.1.1/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "magic-string@1.4.2",
+    "license": "MIT",
+    "file": "npm/magic-string@1.4.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "obug@2.2.1",
+    "license": "MIT",
+    "file": "npm/obug@2.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "picomatch@4.0.7",
+    "license": "MIT",
+    "file": "npm/picomatch@4.0.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tinybench@6.2.0",
+    "license": "MIT",
+    "file": "npm/tinybench@6.2.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tinyexec@1.3.1",
+    "license": "MIT",
+    "file": "npm/tinyexec@1.3.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tinyglobby@0.2.17",
+    "license": "MIT",
+    "file": "npm/tinyglobby@0.2.17/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "vite@7.3.6",
+    "license": "MIT",
+    "file": "npm/vite@7.3.6/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "vitest@5.0.3",
+    "license": "MIT",
+    "file": "npm/vitest@5.0.3/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "why-is-node-running@3.2.1",
+    "license": "MIT",
+    "file": "npm/why-is-node-running@3.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/chai@5.2.3",
+    "license": "MIT",
+    "file": "npm/@types+chai@5.2.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/node@26.6.3",
+    "license": "MIT",
+    "file": "npm/@types+node@26.6.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@vitest/mocker@5.0.3",
+    "license": "MIT",
+    "file": "npm/@vitest+mocker@5.0.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "chai@6.3.0",
+    "license": "MIT",
+    "file": "npm/chai@6.3.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "es-module-lexer@2.3.2",
+    "license": "MIT",
+    "file": "npm/es-module-lexer@2.3.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "expect-type@1.4.0",
+    "license": "Apache-2.0",
+    "file": "npm/expect-type@1.4.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "jsdom@30.1.1",
+    "license": "MIT",
+    "file": "npm/jsdom@30.1.1/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "magic-string@1.4.2",
+    "license": "MIT",
+    "file": "npm/magic-string@1.4.2/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "obug@2.2.1",
+    "license": "MIT",
+    "file": "npm/obug@2.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "picomatch@4.0.7",
+    "license": "MIT",
+    "file": "npm/picomatch@4.0.7/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tinybench@6.2.0",
+    "license": "MIT",
+    "file": "npm/tinybench@6.2.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tinyexec@1.3.1",
+    "license": "MIT",
+    "file": "npm/tinyexec@1.3.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tinyglobby@0.2.17",
+    "license": "MIT",
+    "file": "npm/tinyglobby@0.2.17/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "vite@7.3.6",
+    "license": "MIT",
+    "file": "npm/vite@7.3.6/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "vitest@5.0.3",
+    "license": "MIT",
+    "file": "npm/vitest@5.0.3/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "why-is-node-running@3.2.1",
+    "license": "MIT",
+    "file": "npm/why-is-node-running@3.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@types/chai@5.2.3",
+    "license": "MIT",
+    "file": "npm/@types+chai@5.2.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "@vitest/mocker@5.0.3",
+    "license": "MIT",
+    "file": "npm/@vitest+mocker@5.0.3/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "w3c-xmlserializer@6.0.0",
+    "license": "MIT",
+    "file": "npm/w3c-xmlserializer@6.0.0/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "xml-name-validator@5.0.0",
+    "license": "Apache-2.0",
+    "file": "npm/xml-name-validator@5.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "webidl-conversions@8.0.1",
+    "license": "BSD-2-Clause",
+    "file": "npm/webidl-conversions@8.0.1/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "whatwg-mimetype@5.0.0",
+    "license": "MIT",
+    "file": "npm/whatwg-mimetype@5.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "tr46@6.0.0",
+    "license": "MIT",
+    "file": "npm/tr46@6.0.0/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "webidl-conversions@8.0.1",
+    "license": "BSD-2-Clause",
+    "file": "npm/webidl-conversions@8.0.1/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "whatwg-url@16.0.1",
+    "license": "MIT",
+    "file": "npm/whatwg-url@16.0.1/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "@exodus/bytes@1.16.0",
+    "license": "MIT",
+    "file": "npm/@exodus+bytes@1.16.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "tr46@6.0.0",
+    "license": "MIT",
+    "file": "npm/tr46@6.0.0/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "webidl-conversions@8.0.1",
+    "license": "BSD-2-Clause",
+    "file": "npm/webidl-conversions@8.0.1/LICENSE.md"
+  },
+  {
+    "kind": "npm",
+    "package": "whatwg-url@17.1.2",
+    "license": "MIT",
+    "file": "npm/whatwg-url@17.1.2/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "@exodus/bytes@1.16.0",
+    "license": "MIT",
+    "file": "npm/@exodus+bytes@1.16.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "why-is-node-running@3.2.1",
+    "license": "MIT",
+    "file": "npm/why-is-node-running@3.2.1/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "win-guid@0.2.1",
+    "license": "MIT",
+    "file": "npm/win-guid@0.2.1/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "xml-name-validator@5.0.0",
+    "license": "Apache-2.0",
+    "file": "npm/xml-name-validator@5.0.0/LICENSE.txt"
+  },
+  {
+    "kind": "npm",
+    "package": "xmlchars@2.2.0",
+    "license": "MIT",
+    "file": "npm/xmlchars@2.2.0/LICENSE"
+  },
+  {
+    "kind": "npm",
+    "package": "yallist@3.1.1",
+    "license": "ISC",
+    "file": "npm/yallist@3.1.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "adler2-2.0.1",
+    "license": "0BSD OR MIT OR Apache-2.0",
+    "file": "rust/adler2-2.0.1/LICENSE-0BSD"
+  },
+  {
+    "kind": "rust",
+    "package": "adler2-2.0.1",
+    "license": "0BSD OR MIT OR Apache-2.0",
+    "file": "rust/adler2-2.0.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "adler2-2.0.1",
+    "license": "0BSD OR MIT OR Apache-2.0",
+    "file": "rust/adler2-2.0.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "aho-corasick-1.1.5",
+    "license": "Unlicense OR MIT",
+    "file": "rust/aho-corasick-1.1.5/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "aho-corasick-1.1.5",
+    "license": "Unlicense OR MIT",
+    "file": "rust/aho-corasick-1.1.5/COPYING"
+  },
+  {
+    "kind": "rust",
+    "package": "alloc-no-stdlib-3.0.0",
+    "license": "BSD-3-Clause",
+    "file": "rust/alloc-no-stdlib-3.0.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "android_system_properties-0.1.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/android_system_properties-0.1.6/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "android_system_properties-0.1.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/android_system_properties-0.1.6/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "anyhow-1.0.104",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/anyhow-1.0.104/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "anyhow-1.0.104",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/anyhow-1.0.104/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "atk-0.18.2",
+    "license": "MIT",
+    "file": "rust/atk-0.18.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "atk-sys-0.18.2",
+    "license": "MIT",
+    "file": "rust/atk-sys-0.18.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "atomic-waker-1.1.2",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/atomic-waker-1.1.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "atomic-waker-1.1.2",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/atomic-waker-1.1.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "atomic-waker-1.1.2",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/atomic-waker-1.1.2/LICENSE-THIRD-PARTY"
+  },
+  {
+    "kind": "rust",
+    "package": "autocfg-1.5.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/autocfg-1.5.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "autocfg-1.5.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/autocfg-1.5.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "base64-0.21.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/base64-0.21.7/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "base64-0.21.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/base64-0.21.7/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "base64-0.22.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/base64-0.22.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "base64-0.22.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/base64-0.22.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "base64-0.23.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/base64-0.23.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "base64-0.23.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/base64-0.23.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "bit-set-0.8.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/bit-set-0.8.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "bit-set-0.8.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/bit-set-0.8.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "bit-vec-0.8.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/bit-vec-0.8.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "bit-vec-0.8.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/bit-vec-0.8.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "bitflags-1.3.2",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/bitflags-1.3.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "bitflags-1.3.2",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/bitflags-1.3.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "bitflags-2.13.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/bitflags-2.13.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "bitflags-2.13.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/bitflags-2.13.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "block-buffer-0.10.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/block-buffer-0.10.4/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "block-buffer-0.10.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/block-buffer-0.10.4/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "brotli-9.0.0",
+    "license": "BSD-3-Clause AND MIT",
+    "file": "rust/brotli-9.0.0/LICENSE.BSD-3-Clause"
+  },
+  {
+    "kind": "rust",
+    "package": "brotli-9.0.0",
+    "license": "BSD-3-Clause AND MIT",
+    "file": "rust/brotli-9.0.0/LICENSE.MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "brotli-decompressor-6.0.1",
+    "license": "BSD-3-Clause/MIT",
+    "file": "rust/brotli-decompressor-6.0.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "bs58-0.5.1",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/bs58-0.5.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "bs58-0.5.1",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/bs58-0.5.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "bumpalo-3.20.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/bumpalo-3.20.3/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "bumpalo-3.20.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/bumpalo-3.20.3/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "bytemuck-1.25.2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "file": "rust/bytemuck-1.25.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "bytemuck-1.25.2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "file": "rust/bytemuck-1.25.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "bytemuck-1.25.2",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "file": "rust/bytemuck-1.25.2/LICENSE-ZLIB"
+  },
+  {
+    "kind": "rust",
+    "package": "byteorder-1.5.0",
+    "license": "Unlicense OR MIT",
+    "file": "rust/byteorder-1.5.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "byteorder-1.5.0",
+    "license": "Unlicense OR MIT",
+    "file": "rust/byteorder-1.5.0/COPYING"
+  },
+  {
+    "kind": "rust",
+    "package": "bytes-1.12.1",
+    "license": "MIT",
+    "file": "rust/bytes-1.12.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "cairo-rs-0.18.5",
+    "license": "MIT",
+    "file": "rust/cairo-rs-0.18.5/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "cairo-sys-rs-0.18.2",
+    "license": "MIT",
+    "file": "rust/cairo-sys-rs-0.18.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "camino-1.2.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/camino-1.2.6/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "camino-1.2.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/camino-1.2.6/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "cargo-platform-0.1.9",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/cargo-platform-0.1.9/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "cargo-platform-0.1.9",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/cargo-platform-0.1.9/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "cargo_metadata-0.19.2",
+    "license": "MIT",
+    "file": "rust/cargo_metadata-0.19.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "cargo_toml-1.0.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/cargo_toml-1.0.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "cc-1.6.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/cc-1.6.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "cc-1.6.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/cc-1.6.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "cfb-0.14.0",
+    "license": "MIT",
+    "file": "rust/cfb-0.14.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "cfg-expr-0.15.8",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/cfg-expr-0.15.8/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "cfg-expr-0.15.8",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/cfg-expr-0.15.8/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "cfg-if-1.0.5",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/cfg-if-1.0.5/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "cfg-if-1.0.5",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/cfg-if-1.0.5/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "chrono-0.4.45",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/chrono-0.4.45/LICENSE.txt"
+  },
+  {
+    "kind": "rust",
+    "package": "combine-4.6.8",
+    "license": "MIT",
+    "file": "rust/combine-4.6.8/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "cookie-0.18.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/cookie-0.18.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "cookie-0.18.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/cookie-0.18.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "core-foundation-0.10.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/core-foundation-0.10.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "core-foundation-0.10.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/core-foundation-0.10.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "core-foundation-sys-0.8.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/core-foundation-sys-0.8.7/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "core-foundation-sys-0.8.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/core-foundation-sys-0.8.7/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "core-graphics-0.25.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/core-graphics-0.25.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "core-graphics-0.25.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/core-graphics-0.25.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "core-graphics-types-0.2.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/core-graphics-types-0.2.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "core-graphics-types-0.2.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/core-graphics-types-0.2.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "cpufeatures-0.2.17",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/cpufeatures-0.2.17/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "cpufeatures-0.2.17",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/cpufeatures-0.2.17/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "crc32fast-1.5.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/crc32fast-1.5.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "crc32fast-1.5.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/crc32fast-1.5.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "crossbeam-channel-0.5.17",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/crossbeam-channel-0.5.17/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "crossbeam-channel-0.5.17",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/crossbeam-channel-0.5.17/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "crossbeam-channel-0.5.17",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/crossbeam-channel-0.5.17/LICENSE-THIRD-PARTY"
+  },
+  {
+    "kind": "rust",
+    "package": "crossbeam-utils-0.8.23",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/crossbeam-utils-0.8.23/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "crossbeam-utils-0.8.23",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/crossbeam-utils-0.8.23/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "crypto-common-0.1.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/crypto-common-0.1.7/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "crypto-common-0.1.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/crypto-common-0.1.7/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "cssparser-0.37.0",
+    "license": "MPL-2.0",
+    "file": "rust/cssparser-0.37.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "cssparser-macros-0.7.1",
+    "license": "MPL-2.0",
+    "file": "rust/cssparser-macros-0.7.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "ctor-1.0.13",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/ctor-1.0.13/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "ctor-1.0.13",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/ctor-1.0.13/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "darling-0.24.1",
+    "license": "MIT",
+    "file": "rust/darling-0.24.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "darling_core-0.24.1",
+    "license": "MIT",
+    "file": "rust/darling_core-0.24.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "darling_macro-0.24.1",
+    "license": "MIT",
+    "file": "rust/darling_macro-0.24.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "dbus-0.9.12",
+    "license": "Apache-2.0/MIT",
+    "file": "rust/dbus-0.9.12/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "dbus-0.9.12",
+    "license": "Apache-2.0/MIT",
+    "file": "rust/dbus-0.9.12/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "defmt-1.1.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/defmt-1.1.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "defmt-1.1.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/defmt-1.1.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "defmt-macros-1.1.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/defmt-macros-1.1.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "defmt-macros-1.1.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/defmt-macros-1.1.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "deranged-0.5.8",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/deranged-0.5.8/LICENSE-Apache"
+  },
+  {
+    "kind": "rust",
+    "package": "deranged-0.5.8",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/deranged-0.5.8/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "derive_more-2.1.1",
+    "license": "MIT",
+    "file": "rust/derive_more-2.1.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "derive_more-impl-2.1.1",
+    "license": "MIT",
+    "file": "rust/derive_more-impl-2.1.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "digest-0.10.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/digest-0.10.7/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "digest-0.10.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/digest-0.10.7/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "dirs-7.0.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/dirs-7.0.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "dirs-7.0.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/dirs-7.0.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "dirs-sys-0.5.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/dirs-sys-0.5.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "dirs-sys-0.5.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/dirs-sys-0.5.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "displaydoc-0.2.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/displaydoc-0.2.7/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "displaydoc-0.2.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/displaydoc-0.2.7/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "dom_query-0.28.0",
+    "license": "MIT",
+    "file": "rust/dom_query-0.28.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "dpi-0.1.2",
+    "license": "Apache-2.0 AND MIT",
+    "file": "rust/dpi-0.1.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "dpi-0.1.2",
+    "license": "Apache-2.0 AND MIT",
+    "file": "rust/dpi-0.1.2/LICENSE-LIBM-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "dtoa-1.0.11",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/dtoa-1.0.11/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "dtoa-1.0.11",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/dtoa-1.0.11/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "dtoa-short-0.3.5",
+    "license": "MPL-2.0",
+    "file": "rust/dtoa-short-0.3.5/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "dunce-1.0.5",
+    "license": "CC0-1.0 OR MIT-0 OR Apache-2.0",
+    "file": "rust/dunce-1.0.5/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "dyn-clone-1.0.20",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/dyn-clone-1.0.20/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "dyn-clone-1.0.20",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/dyn-clone-1.0.20/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "embed-resource-3.0.11",
+    "license": "MIT",
+    "file": "rust/embed-resource-3.0.11/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "embed_plist-1.2.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/embed_plist-1.2.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "embed_plist-1.2.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/embed_plist-1.2.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "equivalent-1.0.2",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/equivalent-1.0.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "equivalent-1.0.2",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/equivalent-1.0.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "erased-serde-0.4.10",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/erased-serde-0.4.10/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "erased-serde-0.4.10",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/erased-serde-0.4.10/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "fastrand-2.5.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/fastrand-2.5.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "fastrand-2.5.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/fastrand-2.5.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "fdeflate-0.3.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/fdeflate-0.3.7/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "fdeflate-0.3.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/fdeflate-0.3.7/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "field-offset-0.3.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/field-offset-0.3.6/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "field-offset-0.3.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/field-offset-0.3.6/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "find-msvc-tools-0.1.14",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/find-msvc-tools-0.1.14/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "find-msvc-tools-0.1.14",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/find-msvc-tools-0.1.14/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "flate2-1.1.10",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/flate2-1.1.10/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "flate2-1.1.10",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/flate2-1.1.10/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "fnv-1.0.7",
+    "license": "Apache-2.0 / MIT",
+    "file": "rust/fnv-1.0.7/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "fnv-1.0.7",
+    "license": "Apache-2.0 / MIT",
+    "file": "rust/fnv-1.0.7/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "foldhash-0.2.0",
+    "license": "Zlib",
+    "file": "rust/foldhash-0.2.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "foreign-types-0.5.0",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/foreign-types-0.5.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "foreign-types-0.5.0",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/foreign-types-0.5.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "foreign-types-macros-0.2.4",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/foreign-types-macros-0.2.4/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "foreign-types-macros-0.2.4",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/foreign-types-macros-0.2.4/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "foreign-types-shared-0.3.1",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/foreign-types-shared-0.3.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "foreign-types-shared-0.3.1",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/foreign-types-shared-0.3.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "form_urlencoded-1.2.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/form_urlencoded-1.2.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "form_urlencoded-1.2.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/form_urlencoded-1.2.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-channel-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-channel-0.3.34/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-channel-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-channel-0.3.34/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-core-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-core-0.3.34/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-core-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-core-0.3.34/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-executor-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-executor-0.3.34/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-executor-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-executor-0.3.34/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-io-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-io-0.3.34/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-io-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-io-0.3.34/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-macro-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-macro-0.3.34/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-macro-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-macro-0.3.34/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-sink-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-sink-0.3.34/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-sink-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-sink-0.3.34/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-task-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-task-0.3.34/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-task-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-task-0.3.34/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-util-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-util-0.3.34/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "futures-util-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/futures-util-0.3.34/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "gdk-0.18.2",
+    "license": "MIT",
+    "file": "rust/gdk-0.18.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "gdk-pixbuf-0.18.5",
+    "license": "MIT",
+    "file": "rust/gdk-pixbuf-0.18.5/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "gdk-pixbuf-sys-0.18.0",
+    "license": "MIT",
+    "file": "rust/gdk-pixbuf-sys-0.18.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "gdk-sys-0.18.2",
+    "license": "MIT",
+    "file": "rust/gdk-sys-0.18.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "gdkwayland-sys-0.18.2",
+    "license": "MIT",
+    "file": "rust/gdkwayland-sys-0.18.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "gdkx11-0.18.2",
+    "license": "MIT",
+    "file": "rust/gdkx11-0.18.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "gdkx11-sys-0.18.2",
+    "license": "MIT",
+    "file": "rust/gdkx11-sys-0.18.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "generic-array-0.14.7",
+    "license": "MIT",
+    "file": "rust/generic-array-0.14.7/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "getrandom-0.3.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/getrandom-0.3.4/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "getrandom-0.3.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/getrandom-0.3.4/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "getrandom-0.4.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/getrandom-0.4.3/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "getrandom-0.4.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/getrandom-0.4.3/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "gio-0.18.4",
+    "license": "MIT",
+    "file": "rust/gio-0.18.4/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "gio-sys-0.18.1",
+    "license": "MIT",
+    "file": "rust/gio-sys-0.18.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "glib-0.18.5",
+    "license": "MIT",
+    "file": "rust/glib-0.18.5/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "glib-macros-0.18.5",
+    "license": "MIT",
+    "file": "rust/glib-macros-0.18.5/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "glib-sys-0.18.1",
+    "license": "MIT",
+    "file": "rust/glib-sys-0.18.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "glob-0.3.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/glob-0.3.4/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "glob-0.3.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/glob-0.3.4/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "gobject-sys-0.18.0",
+    "license": "MIT",
+    "file": "rust/gobject-sys-0.18.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "gtk-0.18.2",
+    "license": "MIT",
+    "file": "rust/gtk-0.18.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "gtk-sys-0.18.2",
+    "license": "MIT",
+    "file": "rust/gtk-sys-0.18.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "gtk3-macros-0.18.2",
+    "license": "MIT",
+    "file": "rust/gtk3-macros-0.18.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "hashbrown-0.12.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/hashbrown-0.12.3/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "hashbrown-0.12.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/hashbrown-0.12.3/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "hashbrown-0.17.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/hashbrown-0.17.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "hashbrown-0.17.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/hashbrown-0.17.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "heck-0.4.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/heck-0.4.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "heck-0.4.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/heck-0.4.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "heck-0.5.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/heck-0.5.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "heck-0.5.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/heck-0.5.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "hex-0.4.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/hex-0.4.3/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "hex-0.4.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/hex-0.4.3/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "html5ever-0.39.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/html5ever-0.39.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "html5ever-0.39.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/html5ever-0.39.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "http-1.5.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/http-1.5.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "http-1.5.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/http-1.5.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "http-body-1.1.0",
+    "license": "MIT",
+    "file": "rust/http-body-1.1.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "http-body-util-0.1.5",
+    "license": "MIT",
+    "file": "rust/http-body-util-0.1.5/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "httparse-1.10.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/httparse-1.10.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "httparse-1.10.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/httparse-1.10.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "hyper-1.11.1",
+    "license": "MIT",
+    "file": "rust/hyper-1.11.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "hyper-util-0.1.21",
+    "license": "MIT",
+    "file": "rust/hyper-util-0.1.21/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "iana-time-zone-0.1.65",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/iana-time-zone-0.1.65/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "iana-time-zone-0.1.65",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/iana-time-zone-0.1.65/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "iana-time-zone-haiku-0.1.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/iana-time-zone-haiku-0.1.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "iana-time-zone-haiku-0.1.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/iana-time-zone-haiku-0.1.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "ico-0.5.0",
+    "license": "MIT",
+    "file": "rust/ico-0.5.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "icu_collections-2.3.0",
+    "license": "Unicode-3.0",
+    "file": "rust/icu_collections-2.3.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "icu_locale_core-2.3.0",
+    "license": "Unicode-3.0",
+    "file": "rust/icu_locale_core-2.3.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "icu_normalizer-2.3.0",
+    "license": "Unicode-3.0",
+    "file": "rust/icu_normalizer-2.3.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "icu_normalizer_data-2.3.0",
+    "license": "Unicode-3.0",
+    "file": "rust/icu_normalizer_data-2.3.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "icu_properties-2.3.0",
+    "license": "Unicode-3.0",
+    "file": "rust/icu_properties-2.3.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "icu_properties_data-2.3.0",
+    "license": "Unicode-3.0",
+    "file": "rust/icu_properties_data-2.3.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "icu_provider-2.3.1",
+    "license": "Unicode-3.0",
+    "file": "rust/icu_provider-2.3.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "ident_case-1.0.1",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/ident_case-1.0.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "idna-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/idna-1.1.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "idna-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/idna-1.1.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "idna_adapter-1.2.2",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/idna_adapter-1.2.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "idna_adapter-1.2.2",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/idna_adapter-1.2.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "indexmap-1.9.3",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/indexmap-1.9.3/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "indexmap-1.9.3",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/indexmap-1.9.3/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "indexmap-2.14.2",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/indexmap-2.14.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "indexmap-2.14.2",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/indexmap-2.14.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "infer-0.22.0",
+    "license": "MIT",
+    "file": "rust/infer-0.22.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "ipnet-2.12.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/ipnet-2.12.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "ipnet-2.12.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/ipnet-2.12.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "itoa-1.0.18",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/itoa-1.0.18/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "itoa-1.0.18",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/itoa-1.0.18/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "javascriptcore-rs-1.1.2",
+    "license": "MIT",
+    "file": "rust/javascriptcore-rs-1.1.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "javascriptcore-rs-sys-1.1.1",
+    "license": "MIT",
+    "file": "rust/javascriptcore-rs-sys-1.1.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "jiff-0.2.37",
+    "license": "Unlicense OR MIT",
+    "file": "rust/jiff-0.2.37/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "jiff-0.2.37",
+    "license": "Unlicense OR MIT",
+    "file": "rust/jiff-0.2.37/COPYING"
+  },
+  {
+    "kind": "rust",
+    "package": "jiff-core-0.1.1",
+    "license": "Unlicense OR MIT",
+    "file": "rust/jiff-core-0.1.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "jiff-core-0.1.1",
+    "license": "Unlicense OR MIT",
+    "file": "rust/jiff-core-0.1.1/COPYING"
+  },
+  {
+    "kind": "rust",
+    "package": "jiff-static-0.2.37",
+    "license": "Unlicense OR MIT",
+    "file": "rust/jiff-static-0.2.37/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "jiff-static-0.2.37",
+    "license": "Unlicense OR MIT",
+    "file": "rust/jiff-static-0.2.37/COPYING"
+  },
+  {
+    "kind": "rust",
+    "package": "jiff-tzdb-0.1.8",
+    "license": "Unlicense OR MIT",
+    "file": "rust/jiff-tzdb-0.1.8/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "jiff-tzdb-0.1.8",
+    "license": "Unlicense OR MIT",
+    "file": "rust/jiff-tzdb-0.1.8/COPYING"
+  },
+  {
+    "kind": "rust",
+    "package": "jiff-tzdb-platform-0.1.3",
+    "license": "Unlicense OR MIT",
+    "file": "rust/jiff-tzdb-platform-0.1.3/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "jiff-tzdb-platform-0.1.3",
+    "license": "Unlicense OR MIT",
+    "file": "rust/jiff-tzdb-platform-0.1.3/COPYING"
+  },
+  {
+    "kind": "rust",
+    "package": "jni-0.21.1",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/jni-0.21.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "jni-0.21.1",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/jni-0.21.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "jni-sys-0.3.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/jni-sys-0.3.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "jni-sys-0.3.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/jni-sys-0.3.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "jni-sys-0.4.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/jni-sys-0.4.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "jni-sys-0.4.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/jni-sys-0.4.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "js-sys-0.3.106",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/js-sys-0.3.106/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "js-sys-0.3.106",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/js-sys-0.3.106/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "json-patch-4.2.0",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/json-patch-4.2.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "json-patch-4.2.0",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/json-patch-4.2.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "jsonptr-0.7.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/jsonptr-0.7.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "jsonptr-0.7.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/jsonptr-0.7.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "keyboard-types-0.8.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/keyboard-types-0.8.3/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "keyboard-types-0.8.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/keyboard-types-0.8.3/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "libappindicator-0.9.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/libappindicator-0.9.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "libappindicator-0.9.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/libappindicator-0.9.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "libc-0.2.190",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/libc-0.2.190/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "libc-0.2.190",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/libc-0.2.190/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "libdbus-sys-0.2.7",
+    "license": "Apache-2.0/MIT",
+    "file": "rust/libdbus-sys-0.2.7/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "libdbus-sys-0.2.7",
+    "license": "Apache-2.0/MIT",
+    "file": "rust/libdbus-sys-0.2.7/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "libloading-0.7.4",
+    "license": "ISC",
+    "file": "rust/libloading-0.7.4/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "libredox-0.1.25",
+    "license": "MIT",
+    "file": "rust/libredox-0.1.25/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "litemap-0.8.3",
+    "license": "Unicode-3.0",
+    "file": "rust/litemap-0.8.3/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "lock_api-0.4.14",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/lock_api-0.4.14/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "lock_api-0.4.14",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/lock_api-0.4.14/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "log-0.4.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/log-0.4.34/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "log-0.4.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/log-0.4.34/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "markup5ever-0.39.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/markup5ever-0.39.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "markup5ever-0.39.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/markup5ever-0.39.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "memchr-2.8.3",
+    "license": "Unlicense OR MIT",
+    "file": "rust/memchr-2.8.3/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "memchr-2.8.3",
+    "license": "Unlicense OR MIT",
+    "file": "rust/memchr-2.8.3/COPYING"
+  },
+  {
+    "kind": "rust",
+    "package": "memoffset-0.9.1",
+    "license": "MIT",
+    "file": "rust/memoffset-0.9.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "mime-0.3.17",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/mime-0.3.17/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "mime-0.3.17",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/mime-0.3.17/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "miniz_oxide-0.8.9",
+    "license": "MIT OR Zlib OR Apache-2.0",
+    "file": "rust/miniz_oxide-0.8.9/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "miniz_oxide-0.8.9",
+    "license": "MIT OR Zlib OR Apache-2.0",
+    "file": "rust/miniz_oxide-0.8.9/LICENSE-APACHE.md"
+  },
+  {
+    "kind": "rust",
+    "package": "miniz_oxide-0.8.9",
+    "license": "MIT OR Zlib OR Apache-2.0",
+    "file": "rust/miniz_oxide-0.8.9/LICENSE-MIT.md"
+  },
+  {
+    "kind": "rust",
+    "package": "miniz_oxide-0.8.9",
+    "license": "MIT OR Zlib OR Apache-2.0",
+    "file": "rust/miniz_oxide-0.8.9/LICENSE-ZLIB.md"
+  },
+  {
+    "kind": "rust",
+    "package": "miniz_oxide-0.9.1",
+    "license": "MIT OR Zlib OR Apache-2.0",
+    "file": "rust/miniz_oxide-0.9.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "miniz_oxide-0.9.1",
+    "license": "MIT OR Zlib OR Apache-2.0",
+    "file": "rust/miniz_oxide-0.9.1/LICENSE-APACHE.md"
+  },
+  {
+    "kind": "rust",
+    "package": "miniz_oxide-0.9.1",
+    "license": "MIT OR Zlib OR Apache-2.0",
+    "file": "rust/miniz_oxide-0.9.1/LICENSE-MIT.md"
+  },
+  {
+    "kind": "rust",
+    "package": "miniz_oxide-0.9.1",
+    "license": "MIT OR Zlib OR Apache-2.0",
+    "file": "rust/miniz_oxide-0.9.1/LICENSE-ZLIB.md"
+  },
+  {
+    "kind": "rust",
+    "package": "mio-1.2.3",
+    "license": "MIT",
+    "file": "rust/mio-1.2.3/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "muda-0.20.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/muda-0.20.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "muda-0.20.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/muda-0.20.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "muda-0.20.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/muda-0.20.0/LICENSE.spdx"
+  },
+  {
+    "kind": "rust",
+    "package": "new_debug_unreachable-1.0.6",
+    "license": "MIT",
+    "file": "rust/new_debug_unreachable-1.0.6/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "num-conv-0.2.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/num-conv-0.2.2/LICENSE-Apache"
+  },
+  {
+    "kind": "rust",
+    "package": "num-conv-0.2.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/num-conv-0.2.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "num-traits-0.2.19",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/num-traits-0.2.19/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "num-traits-0.2.19",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/num-traits-0.2.19/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "num_enum-0.7.6",
+    "license": "BSD-3-Clause OR MIT OR Apache-2.0",
+    "file": "rust/num_enum-0.7.6/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "num_enum-0.7.6",
+    "license": "BSD-3-Clause OR MIT OR Apache-2.0",
+    "file": "rust/num_enum-0.7.6/LICENSE-BSD"
+  },
+  {
+    "kind": "rust",
+    "package": "num_enum-0.7.6",
+    "license": "BSD-3-Clause OR MIT OR Apache-2.0",
+    "file": "rust/num_enum-0.7.6/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "num_enum_derive-0.7.6",
+    "license": "BSD-3-Clause OR MIT OR Apache-2.0",
+    "file": "rust/num_enum_derive-0.7.6/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "num_enum_derive-0.7.6",
+    "license": "BSD-3-Clause OR MIT OR Apache-2.0",
+    "file": "rust/num_enum_derive-0.7.6/LICENSE-BSD"
+  },
+  {
+    "kind": "rust",
+    "package": "num_enum_derive-0.7.6",
+    "license": "BSD-3-Clause OR MIT OR Apache-2.0",
+    "file": "rust/num_enum_derive-0.7.6/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "once_cell-1.21.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/once_cell-1.21.4/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "once_cell-1.21.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/once_cell-1.21.4/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "option-ext-0.2.0",
+    "license": "MPL-2.0",
+    "file": "rust/option-ext-0.2.0/LICENSE.txt"
+  },
+  {
+    "kind": "rust",
+    "package": "pango-0.18.3",
+    "license": "MIT",
+    "file": "rust/pango-0.18.3/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "pango-sys-0.18.0",
+    "license": "MIT",
+    "file": "rust/pango-sys-0.18.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "parking_lot-0.12.5",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/parking_lot-0.12.5/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "parking_lot-0.12.5",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/parking_lot-0.12.5/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "parking_lot_core-0.9.12",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/parking_lot_core-0.9.12/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "parking_lot_core-0.9.12",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/parking_lot_core-0.9.12/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "percent-encoding-2.3.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/percent-encoding-2.3.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "percent-encoding-2.3.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/percent-encoding-2.3.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "phf-0.13.1",
+    "license": "MIT",
+    "file": "rust/phf-0.13.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "phf_codegen-0.13.1",
+    "license": "MIT",
+    "file": "rust/phf_codegen-0.13.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "phf_generator-0.13.1",
+    "license": "MIT",
+    "file": "rust/phf_generator-0.13.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "phf_macros-0.13.1",
+    "license": "MIT",
+    "file": "rust/phf_macros-0.13.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "phf_shared-0.13.1",
+    "license": "MIT",
+    "file": "rust/phf_shared-0.13.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "pin-project-lite-0.2.17",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/pin-project-lite-0.2.17/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "pin-project-lite-0.2.17",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/pin-project-lite-0.2.17/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "pkg-config-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/pkg-config-0.3.34/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "pkg-config-0.3.34",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/pkg-config-0.3.34/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "png-0.17.16",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/png-0.17.16/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "png-0.17.16",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/png-0.17.16/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "png-0.18.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/png-0.18.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "png-0.18.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/png-0.18.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "portable-atomic-1.15.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/portable-atomic-1.15.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "portable-atomic-1.15.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/portable-atomic-1.15.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "portable-atomic-util-0.2.8",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/portable-atomic-util-0.2.8/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "portable-atomic-util-0.2.8",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/portable-atomic-util-0.2.8/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "potential_utf-0.1.6",
+    "license": "Unicode-3.0",
+    "file": "rust/potential_utf-0.1.6/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "powerfmt-0.2.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/powerfmt-0.2.0/LICENSE-Apache"
+  },
+  {
+    "kind": "rust",
+    "package": "powerfmt-0.2.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/powerfmt-0.2.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "precomputed-hash-0.1.1",
+    "license": "MIT",
+    "file": "rust/precomputed-hash-0.1.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "proc-macro-crate-1.3.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/proc-macro-crate-1.3.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "proc-macro-crate-1.3.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/proc-macro-crate-1.3.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "proc-macro-crate-2.0.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/proc-macro-crate-2.0.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "proc-macro-crate-2.0.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/proc-macro-crate-2.0.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "proc-macro-crate-3.5.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/proc-macro-crate-3.5.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "proc-macro-crate-3.5.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/proc-macro-crate-3.5.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "proc-macro-error-1.0.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/proc-macro-error-1.0.4/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "proc-macro-error-1.0.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/proc-macro-error-1.0.4/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "proc-macro-error-attr-1.0.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/proc-macro-error-attr-1.0.4/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "proc-macro-error-attr-1.0.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/proc-macro-error-attr-1.0.4/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "proc-macro2-1.0.107",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/proc-macro2-1.0.107/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "proc-macro2-1.0.107",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/proc-macro2-1.0.107/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "quick-xml-0.42.0",
+    "license": "MIT",
+    "file": "rust/quick-xml-0.42.0/LICENSE-MIT.md"
+  },
+  {
+    "kind": "rust",
+    "package": "quote-1.0.47",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/quote-1.0.47/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "quote-1.0.47",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/quote-1.0.47/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "raw-window-handle-0.6.2",
+    "license": "MIT OR Apache-2.0 OR Zlib",
+    "file": "rust/raw-window-handle-0.6.2/LICENSE-APACHE.md"
+  },
+  {
+    "kind": "rust",
+    "package": "raw-window-handle-0.6.2",
+    "license": "MIT OR Apache-2.0 OR Zlib",
+    "file": "rust/raw-window-handle-0.6.2/LICENSE-MIT.md"
+  },
+  {
+    "kind": "rust",
+    "package": "raw-window-handle-0.6.2",
+    "license": "MIT OR Apache-2.0 OR Zlib",
+    "file": "rust/raw-window-handle-0.6.2/LICENSE-ZLIB.md"
+  },
+  {
+    "kind": "rust",
+    "package": "redox_syscall-0.5.18",
+    "license": "MIT",
+    "file": "rust/redox_syscall-0.5.18/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "redox_users-0.5.3",
+    "license": "MIT",
+    "file": "rust/redox_users-0.5.3/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "ref-cast-1.0.27",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/ref-cast-1.0.27/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "ref-cast-1.0.27",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/ref-cast-1.0.27/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "ref-cast-impl-1.0.27",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/ref-cast-impl-1.0.27/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "ref-cast-impl-1.0.27",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/ref-cast-impl-1.0.27/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "regex-1.13.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/regex-1.13.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "regex-1.13.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/regex-1.13.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "regex-automata-0.4.18",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/regex-automata-0.4.18/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "regex-automata-0.4.18",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/regex-automata-0.4.18/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "regex-syntax-0.8.11",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/regex-syntax-0.8.11/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "regex-syntax-0.8.11",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/regex-syntax-0.8.11/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "reqwest-0.13.5",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/reqwest-0.13.5/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "reqwest-0.13.5",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/reqwest-0.13.5/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "rfd-0.16.0",
+    "license": "MIT",
+    "file": "rust/rfd-0.16.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "rustc-hash-2.1.3",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/rustc-hash-2.1.3/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "rustc-hash-2.1.3",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/rustc-hash-2.1.3/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "rustc_version-0.4.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/rustc_version-0.4.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "rustc_version-0.4.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/rustc_version-0.4.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "rustversion-1.0.23",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/rustversion-1.0.23/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "rustversion-1.0.23",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/rustversion-1.0.23/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "same-file-1.0.6",
+    "license": "Unlicense/MIT",
+    "file": "rust/same-file-1.0.6/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "same-file-1.0.6",
+    "license": "Unlicense/MIT",
+    "file": "rust/same-file-1.0.6/COPYING"
+  },
+  {
+    "kind": "rust",
+    "package": "schemars-0.8.22",
+    "license": "MIT",
+    "file": "rust/schemars-0.8.22/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "schemars-0.9.0",
+    "license": "MIT",
+    "file": "rust/schemars-0.9.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "schemars-1.2.2",
+    "license": "MIT",
+    "file": "rust/schemars-1.2.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "schemars_derive-0.8.22",
+    "license": "MIT",
+    "file": "rust/schemars_derive-0.8.22/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "scopeguard-1.2.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/scopeguard-1.2.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "scopeguard-1.2.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/scopeguard-1.2.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "semver-1.0.28",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/semver-1.0.28/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "semver-1.0.28",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/semver-1.0.28/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "serde-1.0.229",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde-1.0.229/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "serde-1.0.229",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde-1.0.229/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "serde-untagged-0.1.9",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde-untagged-0.1.9/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "serde-untagged-0.1.9",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde-untagged-0.1.9/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_core-1.0.229",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_core-1.0.229/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_core-1.0.229",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_core-1.0.229/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_derive-1.0.229",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_derive-1.0.229/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_derive-1.0.229",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_derive-1.0.229/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_derive_internals-0.29.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_derive_internals-0.29.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_derive_internals-0.29.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_derive_internals-0.29.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_json-1.0.151",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_json-1.0.151/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_json-1.0.151",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_json-1.0.151/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_repr-0.1.21",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_repr-0.1.21/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_repr-0.1.21",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_repr-0.1.21/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_spanned-0.6.9",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_spanned-0.6.9/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_spanned-0.6.9",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_spanned-0.6.9/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_spanned-1.1.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_spanned-1.1.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_spanned-1.1.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_spanned-1.1.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_with-3.24.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_with-3.24.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_with-3.24.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_with-3.24.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_with_macros-3.24.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_with_macros-3.24.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "serde_with_macros-3.24.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serde_with_macros-3.24.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "serialize-to-javascript-0.1.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serialize-to-javascript-0.1.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "serialize-to-javascript-0.1.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serialize-to-javascript-0.1.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "serialize-to-javascript-impl-0.1.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serialize-to-javascript-impl-0.1.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "serialize-to-javascript-impl-0.1.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/serialize-to-javascript-impl-0.1.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "servo_arc-0.4.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/servo_arc-0.4.3/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "servo_arc-0.4.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/servo_arc-0.4.3/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "sha2-0.10.9",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/sha2-0.10.9/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "sha2-0.10.9",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/sha2-0.10.9/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "shlex-2.0.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/shlex-2.0.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "shlex-2.0.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/shlex-2.0.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "simd-adler32-0.3.10",
+    "license": "MIT",
+    "file": "rust/simd-adler32-0.3.10/LICENSE.md"
+  },
+  {
+    "kind": "rust",
+    "package": "siphasher-1.0.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/siphasher-1.0.4/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "siphasher-1.0.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/siphasher-1.0.4/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "siphasher-1.0.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/siphasher-1.0.4/COPYING"
+  },
+  {
+    "kind": "rust",
+    "package": "slab-0.4.12",
+    "license": "MIT",
+    "file": "rust/slab-0.4.12/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "smallvec-1.16.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/smallvec-1.16.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "smallvec-1.16.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/smallvec-1.16.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "socket2-0.6.5",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/socket2-0.6.5/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "socket2-0.6.5",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/socket2-0.6.5/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "softbuffer-0.4.8",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/softbuffer-0.4.8/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "softbuffer-0.4.8",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/softbuffer-0.4.8/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "soup3-0.5.0",
+    "license": "MIT",
+    "file": "rust/soup3-0.5.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "soup3-sys-0.5.0",
+    "license": "MIT",
+    "file": "rust/soup3-sys-0.5.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "stable_deref_trait-1.2.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/stable_deref_trait-1.2.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "stable_deref_trait-1.2.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/stable_deref_trait-1.2.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "string_cache-0.9.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/string_cache-0.9.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "string_cache-0.9.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/string_cache-0.9.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "string_cache_codegen-0.6.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/string_cache_codegen-0.6.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "string_cache_codegen-0.6.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/string_cache_codegen-0.6.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "strsim-0.11.1",
+    "license": "MIT",
+    "file": "rust/strsim-0.11.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "swift-rs-1.0.8",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/swift-rs-1.0.8/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "swift-rs-1.0.8",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/swift-rs-1.0.8/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "syn-1.0.109",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/syn-1.0.109/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "syn-1.0.109",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/syn-1.0.109/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "syn-2.0.119",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/syn-2.0.119/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "syn-2.0.119",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/syn-2.0.119/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "syn-3.0.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/syn-3.0.6/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "syn-3.0.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/syn-3.0.6/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "sync_wrapper-1.0.2",
+    "license": "Apache-2.0",
+    "file": "rust/sync_wrapper-1.0.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "synstructure-0.14.0",
+    "license": "MIT",
+    "file": "rust/synstructure-0.14.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "system-deps-6.2.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/system-deps-6.2.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "system-deps-6.2.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/system-deps-6.2.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tao-0.37.1",
+    "license": "Apache-2.0",
+    "file": "rust/tao-0.37.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "tao-0.37.1",
+    "license": "Apache-2.0",
+    "file": "rust/tao-0.37.1/LICENSE.spdx"
+  },
+  {
+    "kind": "rust",
+    "package": "tao-macros-0.1.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/tao-macros-0.1.4/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "tao-macros-0.1.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/tao-macros-0.1.4/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tao-macros-0.1.4",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/tao-macros-0.1.4/LICENSE.spdx"
+  },
+  {
+    "kind": "rust",
+    "package": "target-lexicon-0.12.16",
+    "license": "Apache-2.0 WITH LLVM-exception",
+    "file": "rust/target-lexicon-0.12.16/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-2.12.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-2.12.1/LICENSE-APACHE-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-2.12.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-2.12.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-build-2.7.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-build-2.7.1/LICENSE-APACHE-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-build-2.7.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-build-2.7.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-codegen-2.7.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-codegen-2.7.1/LICENSE-APACHE-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-codegen-2.7.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-codegen-2.7.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-macros-2.7.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-macros-2.7.1/LICENSE-APACHE-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-macros-2.7.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-macros-2.7.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-plugin-dialog-2.8.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-plugin-dialog-2.8.1/LICENSE.spdx"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-plugin-dialog-2.8.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-plugin-dialog-2.8.1/LICENSE_APACHE-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-plugin-dialog-2.8.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-plugin-dialog-2.8.1/LICENSE_MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-plugin-fs-2.6.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-plugin-fs-2.6.0/LICENSE.spdx"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-plugin-fs-2.6.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-plugin-fs-2.6.0/LICENSE_APACHE-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-plugin-fs-2.6.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-plugin-fs-2.6.0/LICENSE_MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-runtime-2.12.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-runtime-2.12.1/LICENSE-APACHE-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-runtime-2.12.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-runtime-2.12.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-runtime-wry-2.12.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-runtime-wry-2.12.1/LICENSE-APACHE-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-runtime-wry-2.12.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-runtime-wry-2.12.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-utils-2.10.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-utils-2.10.1/LICENSE-APACHE-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-utils-2.10.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/tauri-utils-2.10.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tauri-winres-0.3.6",
+    "license": "MIT",
+    "file": "rust/tauri-winres-0.3.6/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "tendril-0.5.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/tendril-0.5.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "tendril-0.5.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/tendril-0.5.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "thiserror-1.0.69",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/thiserror-1.0.69/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "thiserror-1.0.69",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/thiserror-1.0.69/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "thiserror-2.0.21",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/thiserror-2.0.21/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "thiserror-2.0.21",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/thiserror-2.0.21/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "thiserror-impl-1.0.69",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/thiserror-impl-1.0.69/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "thiserror-impl-1.0.69",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/thiserror-impl-1.0.69/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "thiserror-impl-2.0.21",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/thiserror-impl-2.0.21/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "thiserror-impl-2.0.21",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/thiserror-impl-2.0.21/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "time-0.3.55",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/time-0.3.55/LICENSE-Apache"
+  },
+  {
+    "kind": "rust",
+    "package": "time-0.3.55",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/time-0.3.55/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "time-core-0.1.9",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/time-core-0.1.9/LICENSE-Apache"
+  },
+  {
+    "kind": "rust",
+    "package": "time-core-0.1.9",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/time-core-0.1.9/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "time-macros-0.2.32",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/time-macros-0.2.32/LICENSE-Apache"
+  },
+  {
+    "kind": "rust",
+    "package": "time-macros-0.2.32",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/time-macros-0.2.32/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tinystr-0.8.4",
+    "license": "Unicode-3.0",
+    "file": "rust/tinystr-0.8.4/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "tinyvec-1.13.3",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "file": "rust/tinyvec-1.13.3/LICENSE-APACHE.md"
+  },
+  {
+    "kind": "rust",
+    "package": "tinyvec-1.13.3",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "file": "rust/tinyvec-1.13.3/LICENSE-MIT.md"
+  },
+  {
+    "kind": "rust",
+    "package": "tinyvec-1.13.3",
+    "license": "Zlib OR Apache-2.0 OR MIT",
+    "file": "rust/tinyvec-1.13.3/LICENSE-ZLIB.md"
+  },
+  {
+    "kind": "rust",
+    "package": "tokio-1.53.1",
+    "license": "MIT",
+    "file": "rust/tokio-1.53.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "tokio-util-0.7.19",
+    "license": "MIT",
+    "file": "rust/tokio-util-0.7.19/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "toml-0.8.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml-0.8.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "toml-0.8.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml-0.8.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "toml-1.1.6+spec-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml-1.1.6+spec-1.1.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "toml-1.1.6+spec-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml-1.1.6+spec-1.1.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_datetime-0.6.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_datetime-0.6.3/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_datetime-0.6.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_datetime-0.6.3/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_datetime-1.1.1+spec-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_datetime-1.1.1+spec-1.1.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_datetime-1.1.1+spec-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_datetime-1.1.1+spec-1.1.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_edit-0.19.15",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_edit-0.19.15/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_edit-0.19.15",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_edit-0.19.15/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_edit-0.20.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_edit-0.20.2/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_edit-0.20.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_edit-0.20.2/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_edit-0.25.15+spec-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_edit-0.25.15+spec-1.1.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_edit-0.25.15+spec-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_edit-0.25.15+spec-1.1.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_parser-1.1.3+spec-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_parser-1.1.3+spec-1.1.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_parser-1.1.3+spec-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_parser-1.1.3+spec-1.1.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_writer-1.1.2+spec-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_writer-1.1.2+spec-1.1.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "toml_writer-1.1.2+spec-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/toml_writer-1.1.2+spec-1.1.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tower-0.5.3",
+    "license": "MIT",
+    "file": "rust/tower-0.5.3/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "tower-http-0.6.11",
+    "license": "MIT",
+    "file": "rust/tower-http-0.6.11/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "tower-layer-0.3.3",
+    "license": "MIT",
+    "file": "rust/tower-layer-0.3.3/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "tower-service-0.3.3",
+    "license": "MIT",
+    "file": "rust/tower-service-0.3.3/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "tracing-0.1.44",
+    "license": "MIT",
+    "file": "rust/tracing-0.1.44/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "tracing-core-0.1.36",
+    "license": "MIT",
+    "file": "rust/tracing-core-0.1.36/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "tray-icon-0.25.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/tray-icon-0.25.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "tray-icon-0.25.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/tray-icon-0.25.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "tray-icon-0.25.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/tray-icon-0.25.1/LICENSE.spdx"
+  },
+  {
+    "kind": "rust",
+    "package": "try-lock-0.2.5",
+    "license": "MIT",
+    "file": "rust/try-lock-0.2.5/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "typeid-1.0.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/typeid-1.0.3/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "typeid-1.0.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/typeid-1.0.3/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "typenum-1.20.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/typenum-1.20.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "typenum-1.20.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/typenum-1.20.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "typenum-1.20.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/typenum-1.20.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "unicode-ident-1.0.26",
+    "license": "(MIT OR Apache-2.0) AND Unicode-3.0",
+    "file": "rust/unicode-ident-1.0.26/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "unicode-ident-1.0.26",
+    "license": "(MIT OR Apache-2.0) AND Unicode-3.0",
+    "file": "rust/unicode-ident-1.0.26/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "unicode-ident-1.0.26",
+    "license": "(MIT OR Apache-2.0) AND Unicode-3.0",
+    "file": "rust/unicode-ident-1.0.26/LICENSE-UNICODE"
+  },
+  {
+    "kind": "rust",
+    "package": "unicode-segmentation-1.13.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/unicode-segmentation-1.13.3/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "unicode-segmentation-1.13.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/unicode-segmentation-1.13.3/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "url-2.5.8",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/url-2.5.8/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "url-2.5.8",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/url-2.5.8/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "urlpattern-0.6.0",
+    "license": "MIT",
+    "file": "rust/urlpattern-0.6.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "utf8_iter-1.0.4",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/utf8_iter-1.0.4/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "utf8_iter-1.0.4",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/utf8_iter-1.0.4/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "uuid-1.27.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/uuid-1.27.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "uuid-1.27.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/uuid-1.27.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "version-compare-0.2.1",
+    "license": "MIT",
+    "file": "rust/version-compare-0.2.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "version_check-0.9.5",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/version_check-0.9.5/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "version_check-0.9.5",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/version_check-0.9.5/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "vswhom-0.1.0",
+    "license": "MIT",
+    "file": "rust/vswhom-0.1.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "vswhom-sys-0.1.3",
+    "license": "MIT",
+    "file": "rust/vswhom-sys-0.1.3/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "walkdir-2.5.0",
+    "license": "Unlicense/MIT",
+    "file": "rust/walkdir-2.5.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "walkdir-2.5.0",
+    "license": "Unlicense/MIT",
+    "file": "rust/walkdir-2.5.0/COPYING"
+  },
+  {
+    "kind": "rust",
+    "package": "want-0.3.1",
+    "license": "MIT",
+    "file": "rust/want-0.3.1/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "wasi-0.11.1+wasi-snapshot-preview1",
+    "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+    "file": "rust/wasi-0.11.1+wasi-snapshot-preview1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "wasi-0.11.1+wasi-snapshot-preview1",
+    "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+    "file": "rust/wasi-0.11.1+wasi-snapshot-preview1/LICENSE-Apache-2.0_WITH_LLVM-exception"
+  },
+  {
+    "kind": "rust",
+    "package": "wasi-0.11.1+wasi-snapshot-preview1",
+    "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+    "file": "rust/wasi-0.11.1+wasi-snapshot-preview1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "wasip2-1.0.4+wasi-0.2.12",
+    "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+    "file": "rust/wasip2-1.0.4+wasi-0.2.12/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "wasip2-1.0.4+wasi-0.2.12",
+    "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+    "file": "rust/wasip2-1.0.4+wasi-0.2.12/LICENSE-Apache-2.0_WITH_LLVM-exception"
+  },
+  {
+    "kind": "rust",
+    "package": "wasip2-1.0.4+wasi-0.2.12",
+    "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+    "file": "rust/wasip2-1.0.4+wasi-0.2.12/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "wasm-bindgen-0.2.129",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/wasm-bindgen-0.2.129/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "wasm-bindgen-0.2.129",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/wasm-bindgen-0.2.129/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "wasm-bindgen-futures-0.4.79",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/wasm-bindgen-futures-0.4.79/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "wasm-bindgen-futures-0.4.79",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/wasm-bindgen-futures-0.4.79/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "wasm-bindgen-macro-0.2.129",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/wasm-bindgen-macro-0.2.129/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "wasm-bindgen-macro-0.2.129",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/wasm-bindgen-macro-0.2.129/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "wasm-bindgen-macro-support-0.2.129",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/wasm-bindgen-macro-support-0.2.129/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "wasm-bindgen-macro-support-0.2.129",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/wasm-bindgen-macro-support-0.2.129/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "wasm-bindgen-shared-0.2.129",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/wasm-bindgen-shared-0.2.129/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "wasm-bindgen-shared-0.2.129",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/wasm-bindgen-shared-0.2.129/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "wasm-streams-0.5.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/wasm-streams-0.5.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "wasm-streams-0.5.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/wasm-streams-0.5.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "web-sys-0.3.106",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/web-sys-0.3.106/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "web-sys-0.3.106",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/web-sys-0.3.106/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "web-time-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/web-time-1.1.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "web-time-1.1.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/web-time-1.1.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "web_atoms-0.2.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/web_atoms-0.2.6/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "web_atoms-0.2.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/web_atoms-0.2.6/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "webkit2gtk-2.0.2",
+    "license": "MIT",
+    "file": "rust/webkit2gtk-2.0.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "webkit2gtk-sys-2.0.2",
+    "license": "MIT",
+    "file": "rust/webkit2gtk-sys-2.0.2/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "winapi-0.3.9",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/winapi-0.3.9/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "winapi-0.3.9",
+    "license": "MIT/Apache-2.0",
+    "file": "rust/winapi-0.3.9/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "winapi-util-0.1.11",
+    "license": "Unlicense OR MIT",
+    "file": "rust/winapi-util-0.1.11/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "winapi-util-0.1.11",
+    "license": "Unlicense OR MIT",
+    "file": "rust/winapi-util-0.1.11/COPYING"
+  },
+  {
+    "kind": "rust",
+    "package": "window-vibrancy-0.8.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/window-vibrancy-0.8.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "window-vibrancy-0.8.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/window-vibrancy-0.8.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "window-vibrancy-0.8.1",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/window-vibrancy-0.8.1/LICENSE.spdx"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-0.62.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-0.62.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-0.62.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-0.62.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-collections-0.3.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-collections-0.3.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-collections-0.3.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-collections-0.3.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-core-0.62.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-core-0.62.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-core-0.62.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-core-0.62.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-future-0.3.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-future-0.3.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-future-0.3.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-future-0.3.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-implement-0.60.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-implement-0.60.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-implement-0.60.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-implement-0.60.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-interface-0.59.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-interface-0.59.3/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-interface-0.59.3",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-interface-0.59.3/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-link-0.2.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-link-0.2.1/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-link-0.2.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-link-0.2.1/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-numerics-0.3.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-numerics-0.3.1/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-numerics-0.3.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-numerics-0.3.1/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-result-0.4.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-result-0.4.1/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-result-0.4.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-result-0.4.1/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-strings-0.5.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-strings-0.5.1/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-strings-0.5.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-strings-0.5.1/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-sys-0.45.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-sys-0.45.0/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-sys-0.45.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-sys-0.45.0/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-sys-0.59.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-sys-0.59.0/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-sys-0.59.0",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-sys-0.59.0/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-sys-0.60.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-sys-0.60.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-sys-0.60.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-sys-0.60.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-sys-0.61.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-sys-0.61.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-sys-0.61.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-sys-0.61.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-targets-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-targets-0.42.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-targets-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-targets-0.42.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-targets-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-targets-0.52.6/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-targets-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-targets-0.52.6/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-targets-0.53.5",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-targets-0.53.5/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-targets-0.53.5",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-targets-0.53.5/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-threading-0.2.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-threading-0.2.1/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-threading-0.2.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-threading-0.2.1/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-version-0.1.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-version-0.1.7/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows-version-0.1.7",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows-version-0.1.7/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_aarch64_gnullvm-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_aarch64_gnullvm-0.42.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_aarch64_gnullvm-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_aarch64_gnullvm-0.42.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_aarch64_gnullvm-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_aarch64_gnullvm-0.52.6/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_aarch64_gnullvm-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_aarch64_gnullvm-0.52.6/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_aarch64_gnullvm-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_aarch64_gnullvm-0.53.1/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_aarch64_gnullvm-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_aarch64_gnullvm-0.53.1/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_aarch64_msvc-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_aarch64_msvc-0.42.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_aarch64_msvc-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_aarch64_msvc-0.42.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_aarch64_msvc-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_aarch64_msvc-0.52.6/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_aarch64_msvc-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_aarch64_msvc-0.52.6/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_aarch64_msvc-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_aarch64_msvc-0.53.1/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_aarch64_msvc-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_aarch64_msvc-0.53.1/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_gnu-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_gnu-0.42.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_gnu-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_gnu-0.42.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_gnu-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_gnu-0.52.6/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_gnu-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_gnu-0.52.6/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_gnu-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_gnu-0.53.1/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_gnu-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_gnu-0.53.1/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_gnullvm-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_gnullvm-0.52.6/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_gnullvm-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_gnullvm-0.52.6/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_gnullvm-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_gnullvm-0.53.1/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_gnullvm-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_gnullvm-0.53.1/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_msvc-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_msvc-0.42.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_msvc-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_msvc-0.42.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_msvc-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_msvc-0.52.6/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_msvc-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_msvc-0.52.6/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_msvc-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_msvc-0.53.1/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_i686_msvc-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_i686_msvc-0.53.1/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_gnu-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_gnu-0.42.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_gnu-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_gnu-0.42.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_gnu-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_gnu-0.52.6/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_gnu-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_gnu-0.52.6/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_gnu-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_gnu-0.53.1/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_gnu-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_gnu-0.53.1/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_gnullvm-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_gnullvm-0.42.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_gnullvm-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_gnullvm-0.42.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_gnullvm-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_gnullvm-0.52.6/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_gnullvm-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_gnullvm-0.52.6/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_gnullvm-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_gnullvm-0.53.1/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_gnullvm-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_gnullvm-0.53.1/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_msvc-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_msvc-0.42.2/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_msvc-0.42.2",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_msvc-0.42.2/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_msvc-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_msvc-0.52.6/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_msvc-0.52.6",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_msvc-0.52.6/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_msvc-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_msvc-0.53.1/license-apache-2.0"
+  },
+  {
+    "kind": "rust",
+    "package": "windows_x86_64_msvc-0.53.1",
+    "license": "MIT OR Apache-2.0",
+    "file": "rust/windows_x86_64_msvc-0.53.1/license-mit"
+  },
+  {
+    "kind": "rust",
+    "package": "winnow-0.5.40",
+    "license": "MIT",
+    "file": "rust/winnow-0.5.40/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "winnow-1.0.4",
+    "license": "MIT",
+    "file": "rust/winnow-1.0.4/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "winreg-0.55.0",
+    "license": "MIT",
+    "file": "rust/winreg-0.55.0/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "wit-bindgen-0.57.1",
+    "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+    "file": "rust/wit-bindgen-0.57.1/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "wit-bindgen-0.57.1",
+    "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+    "file": "rust/wit-bindgen-0.57.1/LICENSE-Apache-2.0_WITH_LLVM-exception"
+  },
+  {
+    "kind": "rust",
+    "package": "wit-bindgen-0.57.1",
+    "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+    "file": "rust/wit-bindgen-0.57.1/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "writeable-0.6.4",
+    "license": "Unicode-3.0",
+    "file": "rust/writeable-0.6.4/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "wry-0.57.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/wry-0.57.0/LICENSE-APACHE"
+  },
+  {
+    "kind": "rust",
+    "package": "wry-0.57.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/wry-0.57.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "wry-0.57.0",
+    "license": "Apache-2.0 OR MIT",
+    "file": "rust/wry-0.57.0/LICENSE.spdx"
+  },
+  {
+    "kind": "rust",
+    "package": "x11-2.21.0",
+    "license": "MIT",
+    "file": "rust/x11-2.21.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "x11-dl-2.21.0",
+    "license": "MIT",
+    "file": "rust/x11-dl-2.21.0/LICENSE-MIT"
+  },
+  {
+    "kind": "rust",
+    "package": "yoke-0.8.3",
+    "license": "Unicode-3.0",
+    "file": "rust/yoke-0.8.3/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "yoke-derive-0.8.4",
+    "license": "Unicode-3.0",
+    "file": "rust/yoke-derive-0.8.4/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "zerofrom-0.1.8",
+    "license": "Unicode-3.0",
+    "file": "rust/zerofrom-0.1.8/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "zerofrom-derive-0.1.8",
+    "license": "Unicode-3.0",
+    "file": "rust/zerofrom-derive-0.1.8/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "zerotrie-0.2.5",
+    "license": "Unicode-3.0",
+    "file": "rust/zerotrie-0.2.5/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "zerovec-0.11.8",
+    "license": "Unicode-3.0",
+    "file": "rust/zerovec-0.11.8/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "zerovec-derive-0.11.6",
+    "license": "Unicode-3.0",
+    "file": "rust/zerovec-derive-0.11.6/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "zlib-rs-0.6.8",
+    "license": "Zlib",
+    "file": "rust/zlib-rs-0.6.8/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "zmij-1.0.23",
+    "license": "MIT",
+    "file": "rust/zmij-1.0.23/LICENSE-MIT"
+  },
+  {
+    "kind": "artwork",
+    "package": "CD Player memorial silhouettes: Codex and Claude",
+    "license": "Project distribution and display; separate artwork notice",
+    "file": "artwork/MEMORIAL_ARTWORK_ZH.md"
+  }
+]

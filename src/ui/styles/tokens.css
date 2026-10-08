@@ -1,0 +1,413 @@
+/*
+ * CD Player design tokens (Claude, R1.1).
+ * Three looks share one structure: 纸白 (light), 阿根廷蓝 (blue, from #6CACE4) and 灰黑 (charcoal).
+ *
+ * Depth has four tiers:
+ *   backdrop  paper + still pools of light + grain
+ *   content   covers and lists resting on the paper (never blurred)
+ *   frosted   floating panels: bar, capsule, menus, sheets, mini card — heavy blur, tint, grain
+ *   clear     controls: buttons, chips, thumbs — almost no tint, a light blur, strong specular
+ *             highlights and a caustic rim, so they read as clear glass laid on frosted glass.
+ * Covers keep their original colours in every theme.
+ * Accent tones and glass strength are set inline on .cdp by PlayerUI from UserSettings.
+ */
+.cdp {
+  /* ── Paper and light ─────────────────────────────── */
+  --paper: #F6F9FD;
+  --paper-2: #EDF3FA;
+  --paper-3: #E1EBF6;
+  --pool-1: rgba(108, 172, 228, 0.30);
+  --pool-2: rgba(178, 211, 240, 0.50);
+  --pool-3: rgba(108, 172, 228, 0.20);
+  --grain-opacity: 0.035;
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+
+  /* ── Ink ─────────────────────────────────────────── */
+  --ink: #13243B;
+  --ink-2: #4A5A72;
+  --ink-3: #556680;        /* smallest readable tone: >= 4.5:1 on every paper */
+  --ink-faint: #8696AC;    /* decoration and disabled glyphs only */
+  --lyric-dim: #72839B;    /* inactive lyric originals (large text): >= 3:1 */
+  --line: rgba(19, 36, 59, 0.08);
+  --line-strong: rgba(19, 36, 59, 0.15);
+  --danger: #B93A32;
+  --warning: #8F5A0B;
+  --ok: #1B714E;
+  --danger-bg: rgba(255, 255, 255, 0.86);
+  --warning-bg: rgba(255, 248, 235, 0.88);
+
+  /* ── Resting fills (content tier: never blurred) ── */
+  --fill-quiet: rgba(19, 36, 59, 0.055);
+  --fill-hover: rgba(255, 255, 255, 0.62);
+  --fill-active: rgba(255, 255, 255, 0.82);
+  --hover-glyph: rgba(19, 36, 59, 0.06);
+
+  /* ── Frosted glass (floating panels) ─────────────── */
+  --glass-tint: 255, 255, 255;
+  --glass-a: 0.48;                 /* set from glassIntensity */
+  --glass-a-offset: 0;             /* dark glass needs more body to keep text readable */
+  --glass-blur: 30px;
+  --glass-sat: 1.8;
+  /* Fine grain inside frosted panels: the matte that clear glass lacks. */
+  --frost: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 .11 0'/></filter><rect width='100%' height='100%' filter='url(%23f)'/></svg>");
+  --glass-body: rgba(var(--glass-tint), calc(var(--glass-a) + var(--glass-a-offset)));
+  /* Strong glass (sheets, editors, menus) is never more see-through than at the default strength
+     (0.65 → --glass-a 0.48), so it looks the same there. Above it, a cover behind a sheet showed
+     through under its text — a white one lifted charcoal glass, a dark one dimmed the light glass —
+     and secondary and warning text fell under 4.5:1 (core.22). Lower strengths are still more
+     opaque; the bar, capsule and other glass follow the strength as before. */
+  --glass-body-strong: rgba(var(--glass-tint), calc(max(0.48, var(--glass-a)) + var(--glass-a-offset) + 0.3));
+  --glass-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.12) 34%, rgba(255, 255, 255, 0) 62%);
+  --glass-bg: var(--glass-sheen), var(--frost), var(--glass-body);
+  --glass-bg-strong: var(--glass-sheen), var(--frost), var(--glass-body-strong);
+  --glass-rim: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(255, 255, 255, 0.28), inset 0 0 0 1px rgba(255, 255, 255, 0.32);
+  --glass-edge: 0 0 0 1px rgba(15, 58, 99, 0.08);
+  --rim-light: linear-gradient(150deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 28%,
+    rgba(255, 255, 255, 0.06) 55%, rgba(255, 255, 255, 0.4) 100%);
+
+  /* ── Clear glass (controls) ──────────────────────────
+     The centre stays clear: what is behind shows through, barely blurred. The glass is drawn by
+     its edges — a bright top line, light gathered along the lower edge (caustic), a faint darker
+     refraction just inside the rim — plus a glint at the upper left and a 1.25px ring that
+     flashes at two opposite corners, as on a glass bead. */
+  --btn-gloss: radial-gradient(42% 34% at 30% 10%, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0) 100%);
+  --btn-caustic: radial-gradient(70% 30% at 50% 112%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%);
+  --btn-sheen: var(--btn-gloss), var(--btn-caustic);
+  --btn-body: rgba(255, 255, 255, 0.04);
+  --btn-body-hover: rgba(255, 255, 255, 0.16);
+  --btn-filter: blur(1.5px) saturate(1.2) brightness(1.03);
+  --btn-ring: linear-gradient(140deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.35) 25%, rgba(255, 255, 255, 0) 45%,
+    rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.5) 80%, rgba(255, 255, 255, 1) 100%);
+  --btn-rim: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px rgba(255, 255, 255, 0.75),
+    inset 0 0 0 0.5px rgba(15, 58, 99, 0.22), inset 0 0 10px rgba(15, 58, 99, 0.07);
+  --btn-rim-press: inset 0 1px 3px rgba(15, 58, 99, 0.22), inset 0 -1px 0 rgba(255, 255, 255, 0.6), inset 0 0 0 0.5px rgba(15, 58, 99, 0.24);
+  --btn-lift: 0 1px 1px rgba(15, 58, 99, 0.08), 0 6px 14px -7px rgba(15, 58, 99, 0.3);
+  --btn-lift-hover: 0 2px 2px rgba(15, 58, 99, 0.09), 0 12px 22px -10px rgba(15, 58, 99, 0.36);
+  --btn-lift-press: 0 1px 1px rgba(15, 58, 99, 0.12);
+
+  /* ── Crystal slabs (core.23): the transport controls as glass of even thickness ──
+     A flat face; a wall the same width all round (--slab-t of the width), lit from the upper left
+     like the rest of the glass and giving back a smaller glint at the lower right; a facet line
+     where face and wall meet; and, below, the slab's own edge before its shadow. The play button
+     is the same slab with the accent inside the glass (components.css, lib/crystal.ts). */
+  --slab-t: 7.5%;
+  --slab-face: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.26) 46%, rgba(255, 255, 255, 0.34) 100%);
+  --slab-face-hover: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.4) 46%, rgba(255, 255, 255, 0.46) 100%);
+  --slab-lights: conic-gradient(from 0deg, rgba(255, 255, 255, 0.7) 0deg, rgba(255, 255, 255, 0.3) 62deg, rgba(255, 255, 255, 0) 108deg,
+    rgba(255, 255, 255, 0.62) 142deg, rgba(255, 255, 255, 0) 182deg, rgba(255, 255, 255, 0.22) 244deg, rgba(255, 255, 255, 1) 312deg, rgba(255, 255, 255, 0.7) 360deg);
+  --slab-wall: rgba(206, 224, 242, 0.55);
+  --slab-facet: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0.5px rgba(15, 58, 99, 0.1), 0 0 0 0.5px rgba(15, 58, 99, 0.13);
+  --slab-facet-press: inset 0 1.5px 2.5px rgba(15, 58, 99, 0.2), 0 0 0 0.75px rgba(15, 58, 99, 0.2);
+  --slab-edge: 0 0 0 0.75px rgba(15, 58, 99, 0.24);
+  --slab-lip: 0 1px 0 0 rgba(236, 244, 252, 0.95), 0 1.75px 0 0 rgba(15, 58, 99, 0.18);
+  --slab-drop: 0 7px 14px -7px rgba(15, 58, 99, 0.34);
+  --slab-drop-hover: 0 11px 20px -9px rgba(15, 58, 99, 0.4);
+  /* The crystal's wall, lit through the glass: deeper at the upper left, right under the specular
+     (312deg in --slab-lights), glowing at the lower right where the light that crossed the slab
+     comes out. Between them, at the lower left, it keeps the accent (core.25: the deep tone used to
+     begin there, and on charcoal that side of the rim read as if something covered it). */
+  --crystal-wall: conic-gradient(from 0deg,
+    color-mix(in srgb, var(--accent) 62%, transparent) 0deg, color-mix(in oklab, var(--accent-hi) 80%, transparent) 118deg,
+    color-mix(in oklab, var(--accent-hi) 92%, transparent) 150deg, color-mix(in srgb, var(--accent) 72%, transparent) 212deg,
+    color-mix(in srgb, var(--accent) 70%, transparent) 250deg, color-mix(in srgb, var(--accent-lo) 62%, transparent) 318deg, color-mix(in srgb, var(--accent) 62%, transparent) 360deg);
+  --crystal-glow: 0 7px 18px -8px color-mix(in srgb, var(--accent) 60%, transparent);
+  --crystal-glow-hover: 0 10px 24px -8px color-mix(in srgb, var(--accent) 72%, transparent);
+
+  /* Grooves (segmented track, search field) are pressed into the surface. */
+  --groove-bg: rgba(19, 36, 59, 0.06);
+  --groove-rim: inset 0 1px 2px rgba(15, 58, 99, 0.12), inset 0 0 0 1px rgba(15, 58, 99, 0.05), 0 1px 0 rgba(255, 255, 255, 0.8);
+  --thumb-bg: var(--btn-gloss), var(--btn-caustic), rgba(255, 255, 255, 0.62);
+  --thumb-lift: inset 0 1px 0.5px #FFFFFF, inset 0 -1px 1px rgba(255, 255, 255, 0.6), 0 0 0 0.5px rgba(15, 58, 99, 0.14), 0 1px 2px rgba(15, 58, 99, 0.14), 0 4px 10px -3px rgba(15, 58, 99, 0.2);
+  --field-bg: rgba(255, 255, 255, 0.5);
+  --field-bg-focus: rgba(255, 255, 255, 0.92);
+
+  --rail: rgba(19, 36, 59, 0.12);
+  --rail-fill: var(--ink);
+  --knob: radial-gradient(circle at 50% 28%, #FFFFFF 0 38%, #EEF3F9 100%);
+  --knob-lift: 0 0 0 0.5px rgba(15, 58, 99, 0.22), 0 1px 4px rgba(15, 58, 99, 0.3), inset 0 -1px 1px rgba(15, 58, 99, 0.08);
+
+  /* ── Shadows (tinted with deep Argentine navy) ───── */
+  --shadow-low: 0 1px 2px rgba(15, 58, 99, 0.07), 0 2px 8px -2px rgba(15, 58, 99, 0.08);
+  --shadow-float: 0 1px 2px rgba(15, 58, 99, 0.07), 0 12px 28px -10px rgba(15, 58, 99, 0.26), 0 32px 64px -24px rgba(15, 58, 99, 0.24);
+  --shadow-cover: 0 1px 1px rgba(15, 45, 80, 0.08), 0 6px 14px -5px rgba(15, 45, 80, 0.2), 0 20px 36px -16px rgba(15, 45, 80, 0.26);
+  --shadow-cover-hover: 0 2px 2px rgba(15, 45, 80, 0.08), 0 10px 20px -6px rgba(15, 45, 80, 0.24), 0 28px 44px -18px rgba(15, 45, 80, 0.3);
+  --cover-rim: inset 0 0 0 1px rgba(255, 255, 255, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  --scrim: rgba(206, 224, 244, 0.42);
+
+  --obi-bg: #FBFCFE;
+  --obi-ink: var(--ink);
+  --obi-ink-2: var(--ink-2);
+
+  /* The lit lyric line: light behind the letters instead of a box around them. */
+  --lyric-glow: 0 0 1px rgba(255, 255, 255, 0.9), 0 0 26px color-mix(in srgb, var(--accent) 20%, transparent);
+
+  /* Vinyl mark in the bar */
+  --vinyl: #15181D;
+  --vinyl-edge: rgba(15, 33, 54, 0.35);
+
+  /* ── Shape ───────────────────────────────────────────
+     Shape follows role. Things you press are round (pills and discs). Printed art keeps the
+     near-square corner of a booklet. Surfaces nest concentrically: an inner radius is the outer
+     radius minus the gap between them (panel 28 − 10 = row 18 in the capsule; menu 18 − 6 = 12). */
+  --r-pill: 999px;
+  --r-art: 3px;        /* covers, thumbnails, the obi */
+  --r-tag: 5px;        /* badges and small labels: read, not pressed */
+  --r-row: 12px;       /* rows, menu items, inline messages */
+  --r-card: 18px;      /* cards and groups inside panels, menus, notices */
+  --r-panel: 28px;     /* floating panels: capsule, sheets, mini card */
+  /* Older names, kept as aliases. */
+  --r-xs: var(--r-tag);
+  --r-cover: var(--r-art);
+  --r-sm: var(--r-row);
+  --r-md: var(--r-row);
+  --r-lg: var(--r-card);
+
+  /* ── Type ────────────────────────────────────────────
+     Two voices. Sans (Source Han Sans) for the interface; serif for what you read and listen
+     to — titles and lyrics — with Instrument Serif / Crimson Pro carrying the Latin.
+     Each role is a pair of stacks, JP-first and SC-first; base.css picks by language. */
+  --font-sans-sc: "CDP Sans SC", "CDP Sans JP", "Microsoft YaHei UI", "PingFang SC", "Noto Sans CJK SC", system-ui, sans-serif;
+  --font-sans-ja: "CDP Sans JP", "CDP Sans SC", "Yu Gothic UI", "Hiragino Sans", "Noto Sans CJK JP", system-ui, sans-serif;
+  --font-serif-sc: "CDP Text Serif", "CDP Serif SC", "CDP Serif JP", "Noto Serif CJK SC", "Songti SC", serif;
+  --font-serif-ja: "CDP Text Serif", "CDP Serif JP", "CDP Serif SC", "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif CJK JP", serif;
+  --font-display-sc: "CDP Display", "CDP Text Serif", "CDP Serif SC", "CDP Serif JP", "Noto Serif CJK SC", "Songti SC", serif;
+  --font-display-ja: "CDP Display", "CDP Text Serif", "CDP Serif JP", "CDP Serif SC", "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif CJK JP", serif;
+  /* Older names, kept as aliases. */
+  --font-ui: var(--font-sans-sc);
+  --font-ja: var(--font-sans-ja);
+  --font-display: var(--font-display-sc);
+  --font-ja-display: var(--font-display-ja);
+  --w-text: 400;
+  --w-label: 500;
+  --w-title: 500;      /* sans has 400/500; titles get their weight from the serif voice */
+  --w-serif: 500;
+
+  --fs: 1;
+  --ls: 1;
+  --t-xs: calc(12px * var(--fs));
+  --t-sm: calc(13px * var(--fs));
+  --t-md: calc(14px * var(--fs));
+  --t-lg: calc(16px * var(--fs));
+  --t-xl: calc(21px * var(--fs));
+  --t-2xl: calc(28px * var(--fs));
+  --t-3xl: calc(38px * var(--fs));
+  --lyric: calc(28px * var(--ls));
+  --lyric-tr: calc(16px * var(--ls));
+
+  /* ── Motion ──────────────────────────────────────── */
+  --ease-out: cubic-bezier(0.22, 0.8, 0.24, 1);
+  --ease-in-out: cubic-bezier(0.6, 0, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.32, 0.5, 1);
+  --d-fast: 140ms;
+  --d-base: 240ms;
+  --d-slow: 420ms;
+}
+@supports (transition-timing-function: linear(0, 1)) {
+  .cdp {
+    --ease-spring: linear(0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017 19.4%, 1.067,
+      1.089 25.3%, 1.085 28.1%, 1.039 35.2%, 1.006 41.9%, 0.995 47.9%, 1.001 63.9%, 1);
+  }
+}
+/* Continuous (squircle) corners where the engine has them (Chromium 139+, i.e. current WebView2).
+   A squircle reads smaller than a circular arc of the same radius, so the radii grow with it. */
+@supports (corner-shape: squircle) {
+  .cdp {
+    --r-row: 18px;
+    --r-card: 28px;
+    --r-panel: 44px;
+  }
+}
+
+/* ── 阿根廷蓝: paper tinted from #6CACE4, deeper pools, still dark text (user decision) ── */
+.cdp[data-theme="blue"] {
+  --paper: #C7DFF5;          /* #6CACE4 at 38% on white */
+  --paper-2: #BBD9F3;
+  --paper-3: #B0D2F0;
+  --pool-1: rgba(108, 172, 228, 0.78);
+  --pool-2: rgba(240, 248, 255, 0.5);
+  --pool-3: rgba(84, 152, 220, 0.5);
+  --grain-opacity: 0.045;
+  --ink: #0F2136;
+  --ink-2: #2B3F5A;
+  --ink-3: #384D69;
+  --ink-faint: #56708F;
+  --lyric-dim: #4C6280;
+  --line: rgba(15, 33, 54, 0.11);
+  --line-strong: rgba(15, 33, 54, 0.2);
+  --danger: #8E1E18;
+  --warning: #653C03;
+  --ok: #105539;
+  --fill-quiet: rgba(15, 33, 54, 0.075);
+  --fill-hover: rgba(255, 255, 255, 0.42);
+  --fill-active: rgba(255, 255, 255, 0.62);
+  --hover-glyph: rgba(15, 33, 54, 0.08);
+  --glass-tint: 236, 245, 254;
+  --glass-a-offset: -0.06;
+  --btn-body: rgba(255, 255, 255, 0.05);
+  --btn-body-hover: rgba(255, 255, 255, 0.18);
+  --btn-filter: blur(1.5px) saturate(1.15) brightness(1.05);
+  --btn-lift: 0 1px 1px rgba(15, 58, 99, 0.12), 0 6px 14px -7px rgba(15, 58, 99, 0.36);
+  --groove-bg: rgba(15, 50, 90, 0.1);
+  --slab-face: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(240, 248, 255, 0.2) 46%, rgba(240, 248, 255, 0.28) 100%);
+  --slab-face-hover: linear-gradient(180deg, rgba(255, 255, 255, 0.66) 0%, rgba(240, 248, 255, 0.34) 46%, rgba(240, 248, 255, 0.4) 100%);
+  --slab-wall: rgba(214, 233, 250, 0.5);
+  --slab-edge: 0 0 0 0.75px rgba(15, 58, 99, 0.3);
+  --slab-lip: 0 1px 0 0 rgba(226, 240, 253, 0.9), 0 1.75px 0 0 rgba(15, 58, 99, 0.22);
+  --slab-drop: 0 7px 14px -7px rgba(15, 58, 99, 0.4);
+  --slab-drop-hover: 0 11px 20px -9px rgba(15, 58, 99, 0.46);
+  --thumb-bg: var(--btn-gloss), var(--btn-caustic), rgba(255, 255, 255, 0.5);
+  --field-bg: rgba(255, 255, 255, 0.36);
+  --rail: rgba(15, 33, 54, 0.16);
+  --scrim: rgba(150, 194, 236, 0.45);
+  --obi-bg: #F7FBFF;
+  --lyric-glow: 0 0 1px rgba(255, 255, 255, 0.8), 0 0 18px rgba(240, 248, 255, 0.9), 0 0 36px rgba(255, 255, 255, 0.5);
+  --vinyl-edge: rgba(15, 33, 54, 0.4);
+}
+
+/* ── 灰黑: graphite paper, cool glass, light text ── */
+.cdp[data-theme="charcoal"] {
+  color-scheme: dark;
+  --paper: #121519;
+  --paper-2: #191D23;
+  --paper-3: #20252D;
+  --pool-1: rgba(108, 172, 228, 0.22);
+  --pool-2: rgba(150, 160, 186, 0.10);
+  --pool-3: rgba(62, 98, 152, 0.26);
+  --grain-opacity: 0.05;
+  --ink: #EDF1F6;
+  --ink-2: #B3BDCB;
+  --ink-3: #9AA5B6;
+  --ink-faint: #697485;
+  --lyric-dim: #7D899A;
+  --line: rgba(255, 255, 255, 0.07);
+  --line-strong: rgba(255, 255, 255, 0.13);
+  --danger: #FF8F85;
+  --warning: #EBB867;
+  --ok: #63D2A2;
+  --danger-bg: rgba(48, 26, 28, 0.9);
+  --warning-bg: rgba(52, 40, 22, 0.9);
+  --fill-quiet: rgba(255, 255, 255, 0.07);
+  --fill-hover: rgba(255, 255, 255, 0.055);
+  --fill-active: rgba(255, 255, 255, 0.09);
+  --hover-glyph: rgba(255, 255, 255, 0.08);
+
+  --glass-tint: 38, 43, 52;
+  --glass-a-offset: 0.16;
+  --glass-sat: 1.5;
+  --frost: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 .16 0'/></filter><rect width='100%' height='100%' filter='url(%23f)'/></svg>");
+  --glass-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.03) 38%, rgba(255, 255, 255, 0) 64%);
+  --glass-rim: inset 0 1px 0 rgba(255, 255, 255, 0.16), inset 0 -1px 0 rgba(0, 0, 0, 0.28), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --glass-edge: 0 0 0 1px rgba(0, 0, 0, 0.45);
+  --rim-light: linear-gradient(150deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.10) 28%,
+    rgba(255, 255, 255, 0.02) 55%, rgba(255, 255, 255, 0.14) 100%);
+
+  --btn-gloss: radial-gradient(42% 34% at 30% 10%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+  --btn-caustic: radial-gradient(70% 30% at 50% 112%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+  --btn-body: rgba(255, 255, 255, 0.05);
+  --btn-body-hover: rgba(255, 255, 255, 0.1);
+  --btn-filter: blur(1.5px) saturate(1.2) brightness(1.25);
+  --btn-ring: linear-gradient(140deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 45%,
+    rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.2) 80%, rgba(255, 255, 255, 0.55) 100%);
+  --btn-rim: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1.5px 2px -0.5px rgba(255, 255, 255, 0.25),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.1), inset 0 0 12px rgba(255, 255, 255, 0.05);
+  --btn-rim-press: inset 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 -1px 0 rgba(255, 255, 255, 0.12), inset 0 0 0 0.5px rgba(255, 255, 255, 0.1);
+  --btn-lift: 0 0 0 0.5px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 18px -8px rgba(0, 0, 0, 0.75);
+  --btn-lift-hover: 0 0 0 0.5px rgba(0, 0, 0, 0.6), 0 2px 3px rgba(0, 0, 0, 0.4), 0 14px 24px -10px rgba(0, 0, 0, 0.8);
+  --btn-lift-press: 0 0 0 0.5px rgba(0, 0, 0, 0.6), 0 1px 1px rgba(0, 0, 0, 0.35);
+
+  --groove-bg: rgba(0, 0, 0, 0.3);
+  --slab-face: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.035) 46%, rgba(255, 255, 255, 0.06) 100%);
+  --slab-face-hover: linear-gradient(180deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.07) 46%, rgba(255, 255, 255, 0.1) 100%);
+  --slab-lights: conic-gradient(from 0deg, rgba(255, 255, 255, 0.34) 0deg, rgba(255, 255, 255, 0.12) 62deg, rgba(255, 255, 255, 0) 108deg,
+    rgba(255, 255, 255, 0.3) 142deg, rgba(255, 255, 255, 0) 182deg, rgba(255, 255, 255, 0.18) 240deg, rgba(255, 255, 255, 0.62) 312deg, rgba(255, 255, 255, 0.34) 360deg);
+  --slab-wall: rgba(186, 198, 214, 0.24);
+  --slab-facet: inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0.5px rgba(0, 0, 0, 0.28), 0 0 0 0.5px rgba(0, 0, 0, 0.32);
+  --slab-facet-press: inset 0 1.5px 2.5px rgba(0, 0, 0, 0.5), 0 0 0 0.75px rgba(0, 0, 0, 0.55);
+  --slab-edge: 0 0 0 0.75px rgba(0, 0, 0, 0.45);
+  --slab-lip: 0 1px 0 0 rgba(190, 202, 218, 0.3), 0 1.75px 0 0 rgba(0, 0, 0, 0.5);
+  --slab-drop: 0 7px 16px -7px rgba(0, 0, 0, 0.78);
+  --slab-drop-hover: 0 11px 22px -9px rgba(0, 0, 0, 0.82);
+  --crystal-wall: conic-gradient(from 0deg,
+    color-mix(in srgb, var(--accent) 78%, transparent) 0deg, color-mix(in oklab, var(--accent-hi) 90%, transparent) 118deg,
+    color-mix(in oklab, var(--accent-hi) 100%, transparent) 150deg, color-mix(in srgb, var(--accent) 86%, transparent) 212deg,
+    color-mix(in srgb, var(--accent) 84%, transparent) 250deg, color-mix(in srgb, var(--accent-lo) 80%, transparent) 318deg, color-mix(in srgb, var(--accent) 78%, transparent) 360deg);
+  --crystal-glow: 0 6px 24px -6px color-mix(in srgb, var(--accent) 62%, transparent);
+  --crystal-glow-hover: 0 8px 28px -7px color-mix(in srgb, var(--accent) 68%, transparent);
+  --groove-rim: inset 0 1px 2px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.06);
+  --thumb-bg: var(--btn-gloss), var(--btn-caustic), rgba(255, 255, 255, 0.12);
+  --thumb-lift: inset 0 1px 0.5px rgba(255, 255, 255, 0.4), inset 0 -1px 1px rgba(255, 255, 255, 0.1), 0 0 0 0.5px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.45);
+  --field-bg: rgba(0, 0, 0, 0.22);
+  --field-bg-focus: rgba(0, 0, 0, 0.32);
+
+  --rail: rgba(255, 255, 255, 0.14);
+  --knob: radial-gradient(circle at 50% 28%, #FFFFFF 0 38%, #DDE3EA 100%);
+  --knob-lift: 0 0 0 0.5px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.6);
+
+  --shadow-low: 0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 8px -2px rgba(0, 0, 0, 0.4);
+  --shadow-float: 0 1px 2px rgba(0, 0, 0, 0.4), 0 14px 30px -10px rgba(0, 0, 0, 0.6), 0 34px 64px -24px rgba(0, 0, 0, 0.55);
+  --shadow-cover: 0 1px 1px rgba(0, 0, 0, 0.4), 0 6px 14px -5px rgba(0, 0, 0, 0.5), 0 20px 36px -16px rgba(0, 0, 0, 0.6);
+  --shadow-cover-hover: 0 2px 2px rgba(0, 0, 0, 0.4), 0 10px 20px -6px rgba(0, 0, 0, 0.55), 0 28px 44px -18px rgba(0, 0, 0, 0.65);
+  --cover-rim: inset 0 0 0 1px rgba(255, 255, 255, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  --scrim: rgba(6, 8, 11, 0.5);
+
+  --obi-bg: #222730;
+  --lyric-glow: 0 0 22px color-mix(in srgb, var(--accent) 34%, transparent), 0 0 2px rgba(255, 255, 255, 0.18);
+  --obi-ink: #EDF1F6;
+  --obi-ink-2: #B3BDCB;
+
+  --vinyl: #0B0D10;
+  --vinyl-edge: rgba(255, 255, 255, 0.26);
+}
+/*
+ * 灰黑 raised glass (R2.3 follow-up). Sheets, editors, dialogs and menus (glass-strong) are lighter
+ * than the graphite paper — tint, frost grain and sheen — and the paper's secondary inks fall under
+ * 4.5:1 on them. Inside these surfaces:
+ *   - the secondary inks, warning and danger are raised so the lightest part of the glass, and the
+ *     selected rows on it, still read (rendered surfaces, 2nd percentile >= 4.5:1). The hierarchy
+ *     keeps its size and weight steps; only the tones come closer;
+ *   - accent text uses a tone derived for this glass (PlayerUI → raisedAccentInk in theme.ts);
+ *   - accent-tinted fills under text (badges, the current rail item) become a tinted well, darker
+ *     than the glass instead of lighter, so their labels keep the accent hue;
+ *   - glass buttons keep their ring and rim but their glint is softer and they refract without the
+ *     brightness lift; at full strength both sat right behind the labels.
+ */
+.cdp { --accent-well: var(--accent-soft); }
+.cdp[data-theme="charcoal"] :is(.glass-strong, .cdp-menu) {
+  --ink-2: #D0D7E1;
+  --ink-3: #CAD2DD;
+  --warning: #F5DCB3;
+  --danger: #FFB0A8;
+  --accent-ink: var(--accent-ink-raised, #ACCFEF);
+  --accent-well: color-mix(in srgb, var(--accent) 18%, rgb(0 0 0 / 0.3));
+  --btn-gloss: radial-gradient(42% 34% at 30% 10%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
+  --btn-caustic: radial-gradient(70% 30% at 50% 112%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
+  --btn-sheen: var(--btn-gloss), var(--btn-caustic);
+  --thumb-bg: var(--btn-gloss), var(--btn-caustic), rgba(255, 255, 255, 0.12);
+  --btn-filter: blur(1.5px) saturate(1.2);
+}
+
+/* Glass off (intensity 0 / transparency disabled / no backdrop-filter): solid surfaces, same depth. */
+.cdp[data-solid="true"] {
+  --glass-body: rgb(var(--glass-tint));
+  --glass-body-strong: rgb(var(--glass-tint));
+  --glass-blur: 0px;
+  --frost: none;
+  --btn-body: rgba(var(--glass-tint), 0.9);
+  --btn-body-hover: rgb(var(--glass-tint));
+  --btn-filter: none;
+}
+.cdp[data-solid="true"][data-theme="charcoal"] {
+  --glass-tint: 34, 39, 47;
+  --btn-body: #262B33;
+  --btn-body-hover: #2C323B;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .cdp, .cdp[data-theme] { --glass-a-offset: 0.36; --btn-body: rgba(var(--glass-tint), 0.82); }
+  .cdp[data-theme="charcoal"] { --glass-a-offset: 0.46; --btn-body: rgba(52, 58, 68, 0.9); }
+}
+
+.cdp[data-motion="reduced"] {
+  --d-fast: 0.01ms;
+  --d-base: 0.01ms;
+  --d-slow: 0.01ms;
+}

@@ -1,0 +1,159 @@
+.panel { position: relative; display: flex; flex-direction: column; height: 100%; min-height: 0; }
+
+.toolbar { display: flex; align-items: center; gap: 12px; min-height: 30px; padding: 2px 0 4px 8px; }
+.notes { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 14px; min-width: 0; font-size: var(--t-sm); color: var(--ink-3); }
+.note { display: inline-flex; align-items: center; gap: 6px; }
+.note[data-tone="warn"] { color: var(--warning); }
+.tools { display: flex; align-items: center; gap: 6px; flex: none; }
+
+.body { position: relative; flex: 1; min-height: 0; }
+.error { position: absolute; left: 50%; bottom: 56px; transform: translateX(-50%); z-index: 5; max-width: 90%; }
+
+/* ── Synced list ────────────────────────────────────── */
+.scroller {
+  position: absolute; inset: 0 0 0 -16px;
+  overflow-y: auto; overflow-x: hidden;
+  overscroll-behavior: contain;
+  padding: 0 14px 0 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 84%, transparent 100%);
+  /* The list follows the song; a scrollbar would only be noise. Wheel and keys still scroll,
+     and 回到当前歌词 appears when the reader has moved away. */
+  scrollbar-width: none;
+}
+.scroller::-webkit-scrollbar { display: none; }
+.scroller[data-plain="true"] {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0, #000 88%, transparent 100%);
+}
+.lines { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 32cqh 0 52cqh; }
+.body { container-type: size; }
+
+/*
+ * The line being sung is not boxed. It comes forward: full ink, full size and a soft light behind
+ * the letters, while the other lines sit a step back (slightly smaller, in the dim lyric tone,
+ * which stays >= 3:1). Clicking a line seeks to it; it then simply becomes the lit line.
+ */
+.line { position: relative; }
+.lineButton {
+  display: flex; flex-direction: column; gap: 6px;
+  width: 100%; padding: 10px 18px 11px 16px;
+  border-radius: var(--r-row); corner-shape: squircle; text-align: left;
+  transform-origin: 16px 50%;
+  scale: 0.93;
+  transition: scale 620ms var(--ease-spring);
+  --focus-radius: var(--r-row);
+}
+.line[data-state="active"] .lineButton { scale: 1; }
+.lineButton:active:not(:disabled) { scale: 0.92; transition-duration: var(--d-fast); }
+.line[data-state="active"] .lineButton:active:not(:disabled) { scale: 0.985; }
+.original {
+  --role-sc: var(--font-display-sc); --role-ja: var(--font-display-ja);
+  font-size: var(--lyric); font-weight: var(--w-serif); line-height: 1.36; letter-spacing: 0.01em;
+  color: var(--lyric-dim);
+  white-space: pre-line;
+  line-break: strict;
+  text-wrap: pretty;
+  transition: color 360ms linear, text-shadow 360ms linear;
+}
+.translation {
+  --role-sc: var(--font-serif-sc); --role-ja: var(--font-serif-ja);
+  font-size: var(--lyric-tr); font-weight: var(--w-text); line-height: 1.5; letter-spacing: 0.02em;
+  color: var(--ink-3);
+  white-space: pre-line;
+  transition: color 360ms linear;
+}
+/* Japanese lyrics: proportional kana at display size, phrase-aware line breaks where supported. */
+.original:lang(ja) { font-feature-settings: "palt"; letter-spacing: 0.03em; }
+@supports (word-break: auto-phrase) {
+  .original:lang(ja) { word-break: auto-phrase; }
+}
+.lineButton:hover:not(:disabled) .original { color: var(--ink-2); }
+.lineButton:hover:not(:disabled) .translation { color: var(--ink-2); }
+.line[data-state="active"] .original { color: var(--ink); text-shadow: var(--lyric-glow); }
+.line[data-state="active"] .translation { color: var(--ink-2); }
+.lines[data-mode="original"] .lineButton { padding-top: 9px; padding-bottom: 9px; }
+:global(.cdp[data-motion="reduced"]) .lineButton { scale: 1; }
+.break { height: 30px; }
+
+.resume {
+  position: absolute; left: 50%; bottom: 18px; z-index: 4;
+  transform: translateX(-50%);
+  height: 34px; padding: 0 14px;
+  font-weight: var(--w-label); color: var(--ink);
+  animation: riseIn var(--d-base) var(--ease-out);
+}
+
+/* ── Plain (untimed) ────────────────────────────────── */
+.plainHead { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 6px 4px 16px 16px; }
+.plainLines { padding: 0 0 80px; gap: 2px; }
+.plainLine { display: flex; flex-direction: column; gap: 3px; padding: 7px 16px; }
+.plainLine .original { color: var(--ink); font-size: calc(var(--lyric) * 0.78); }
+.plainLine .translation { color: var(--ink-2); }
+
+/* ── Quiet states ───────────────────────────────────── */
+.quiet {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px; padding: 24px 32px 64px; text-align: center;
+}
+.quietIcon {
+  display: grid; place-items: center;
+  width: 68px; height: 68px; margin-bottom: 6px; border-radius: 50%;
+  color: var(--accent-ink);
+  background: var(--btn-sheen), rgba(var(--glass-tint), 0.5);
+  -webkit-backdrop-filter: var(--btn-filter); backdrop-filter: var(--btn-filter);
+  box-shadow: var(--btn-rim), var(--btn-lift), var(--shadow-low);
+}
+.quietIcon[data-calm="true"] { color: var(--ink-2); }
+/* The memorial equipment plate (Claude, core.27) in place of the icon, for instrumental tracks:
+   black anodised aluminium with four screws; Codex laser-engraved in silver, Claude inlaid in
+   copper. A physical object, so it is the same in every theme; only its shadow follows the paper. */
+.plate {
+  display: block; flex: none;
+  height: clamp(120px, 34cqh, 240px); aspect-ratio: 3 / 2; margin-bottom: 14px;   /* follows the lyrics pane (.body is a size container) */
+  border-radius: 3.333% / 5%;
+  background: url("../assets/memorial/memorial-plate.webp") center / contain no-repeat;
+  box-shadow: 0 2px 4px rgba(15, 45, 80, 0.18), 0 14px 28px -14px rgba(15, 45, 80, 0.45);
+}
+:global(.cdp[data-theme="charcoal"]) .plate { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 16px 32px -14px rgba(0, 0, 0, 0.8); }
+.quietTitle { --role-sc: var(--font-display-sc); --role-ja: var(--font-display-ja); font-size: var(--t-xl); font-weight: var(--w-serif); }
+.quietBody { max-width: 26em; color: var(--ink-2); text-wrap: pretty; }
+.quietActions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 10px 0 2px; }
+.bigSpinner { width: 28px; height: 28px; border-width: 2.5px; margin-bottom: 8px; color: var(--accent); }
+
+.loading { display: flex; flex-direction: column; gap: 22px; padding: 26cqh 24px 0; }
+.loading span { height: 24px; border-radius: var(--r-tag); }
+
+/* ── Footer ─────────────────────────────────────────── */
+.footer {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  min-height: 44px; padding: 6px 0 0 8px;
+  font-size: var(--t-xs); color: var(--ink-3);
+  border-top: 1px solid var(--line);
+}
+.source { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 14px; min-width: 0; }
+.sourceGap { display: inline; }
+.locked { display: inline-flex; align-items: center; gap: 4px; color: var(--ink-2); }
+.offset { display: inline-flex; align-items: center; gap: 2px; color: var(--ink-2); flex: none; }
+.offset svg { margin-right: 4px; }
+.offset button { font-size: 17px; font-weight: var(--w-label); }
+.offsetValue { min-width: 3.6em; text-align: center; font-weight: var(--w-label); color: var(--ink); }
+
+.warnings { position: relative; display: inline-flex; }
+.warningList {
+  position: absolute; top: calc(100% + 6px); left: 0; z-index: 30;
+  width: min(340px, 70cqw); padding: 12px 14px 12px 28px;
+  border-radius: var(--r-card); corner-shape: squircle;
+  list-style: disc; font-size: var(--t-sm); color: var(--ink);
+  display: flex; flex-direction: column; gap: 6px;
+}
+
+/* Local keyframes (CSS Modules scope animation names per file). */
+@keyframes riseIn { from { opacity: 0; transform: translateY(8px) scale(0.985); } to { opacity: 1; transform: none; } }
+
+@media (forced-colors: active) {
+  .quietIcon { border: 1px solid CanvasText; }
+  .plate { display: none; }
+  .line[data-state="active"] .lineButton { outline: 2px solid Highlight; outline-offset: -2px; }
+}

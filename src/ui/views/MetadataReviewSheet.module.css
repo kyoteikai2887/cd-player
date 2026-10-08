@@ -1,0 +1,46 @@
+.state { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 28px 4px; color: var(--ink-2); }
+.state[data-tone="warn"] { color: var(--warning); }
+
+.candidates { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+.candidate, .single {
+  width: 100%; padding: 12px; border-radius: var(--r-card); corner-shape: squircle; text-align: left;
+  background: var(--fill-hover);
+  box-shadow: inset 0 0 0 1px var(--line);
+  --focus-radius: var(--r-card);
+}
+.candidate[aria-checked="true"] { background: var(--btn-sheen), var(--fill-active); box-shadow: inset 0 0 0 1.5px var(--accent), var(--btn-lift); }
+/* On charcoal the button sheen reads as haze behind the title; the ring alone marks the choice. */
+:global(.cdp[data-theme="charcoal"]) .candidate[aria-checked="true"] { background: var(--fill-active); }
+.summary { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; align-items: start; }
+.summaryThumb { width: 64px; height: 64px; border-radius: var(--r-art); object-fit: cover; background: var(--paper-3); box-shadow: var(--shadow-low); display: block; }
+.summaryText { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.summaryTitle { font-weight: var(--w-label); }
+.summarySub, .summaryMeta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: var(--t-sm); color: var(--ink-2); }
+.summaryMeta { margin-top: 4px; color: var(--ink-3); }
+.notes { font-size: var(--t-xs); color: var(--ink-3); margin-top: 2px; }
+
+.changesTitle { margin-top: 22px; --role-sc: var(--font-display-sc); --role-ja: var(--font-display-ja); font-size: var(--t-lg); font-weight: var(--w-serif); }
+.changesHint { margin: 4px 0 12px; font-size: var(--t-sm); color: var(--ink-2); }
+.changes { display: flex; flex-direction: column; border-radius: var(--r-card); corner-shape: squircle; background: var(--fill-hover); box-shadow: inset 0 0 0 1px var(--line); }
+.change {
+  display: grid; grid-template-columns: minmax(150px, 0.8fr) minmax(0, 1.4fr); align-items: center; gap: 6px 16px;
+  padding: 12px 16px;
+}
+.change + .change { border-top: 1px solid var(--line); }
+.changeLabel { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.changeLabel input { width: 17px; height: 17px; accent-color: var(--accent-fill); flex: none; }
+.field { display: flex; flex-direction: column; gap: 3px; font-weight: var(--w-label); }
+.field :global(.cdp-badge) { align-self: flex-start; }
+.fieldTrack { font-size: var(--t-xs); font-weight: var(--w-text); color: var(--ink-3); }
+.values { display: flex; align-items: center; gap: 10px; min-width: 0; color: var(--ink-3); }
+.from { color: var(--ink-2); text-decoration: line-through; text-decoration-color: var(--line-strong); min-width: 0; overflow-wrap: anywhere; }
+.to { color: var(--ink); font-weight: var(--w-label); min-width: 0; overflow-wrap: anywhere; }
+.change[data-checked="false"] .to { color: var(--ink-2); font-weight: var(--w-text); }
+.change[data-checked="false"] .from { text-decoration: none; }
+.confirm { grid-column: 1 / -1; font-size: var(--t-xs); color: var(--warning); padding-left: 27px; }
+.coverThumb { display: inline-flex; flex-direction: column; align-items: center; gap: 4px; }
+.coverThumb img, .coverNone {
+  width: 56px; height: 56px; border-radius: var(--r-art); object-fit: cover; box-shadow: var(--shadow-low);
+  display: grid; place-items: center; font-size: 11px; color: var(--ink-3); background: var(--paper-2);
+}
+.coverThumb small { font-size: 11px; color: var(--ink-3); }

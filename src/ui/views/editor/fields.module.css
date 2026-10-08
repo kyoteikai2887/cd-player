@@ -1,0 +1,114 @@
+/* Text fields read as part of the page until touched: no box at rest, a pressed groove on hover and focus. */
+.area {
+  display: block; width: 100%; min-height: 34px;
+  padding: 6px 10px; margin: 0;
+  border: 0; border-radius: var(--r-row); corner-shape: squircle;
+  background: transparent; color: inherit;
+  font: inherit; line-height: 1.45;
+  resize: none; overflow: hidden;
+  field-sizing: content;
+  transition: background-color var(--d-fast) linear, box-shadow var(--d-fast) linear;
+  --focus-radius: var(--r-row);
+}
+.area:hover:not(:disabled) { background: var(--groove-bg); }
+.area:focus { outline: none; background: var(--field-bg-focus); box-shadow: var(--groove-rim), 0 0 0 2px var(--accent-ring); }
+.area::placeholder { color: var(--ink-3); font-style: normal; }
+
+.time {
+  width: 100%; height: 30px; padding: 0 10px;
+  border: 0; border-radius: var(--r-pill);
+  background: var(--groove-bg); box-shadow: var(--groove-rim);
+  color: var(--ink); font-size: var(--t-sm); font-weight: var(--w-label);
+  text-align: center;
+  transition: box-shadow var(--d-fast) linear, background-color var(--d-fast) linear;
+  --focus-radius: var(--r-pill);
+}
+.time::placeholder { color: var(--ink-3); font-weight: var(--w-text); }
+.time:focus { outline: none; background: var(--field-bg-focus); box-shadow: var(--groove-rim), 0 0 0 2px var(--accent-ring); }
+.time[aria-invalid="true"] { box-shadow: var(--groove-rim), 0 0 0 2px color-mix(in srgb, var(--danger) 70%, transparent); color: var(--danger); }
+.time:disabled { opacity: 0.5; }
+
+.lang { display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-sm); color: var(--ink-2); white-space: nowrap; }
+.lang select {
+  appearance: none; -webkit-appearance: none;
+  height: 30px; padding: 0 26px 0 12px;
+  border: 0; border-radius: var(--r-pill);
+  background-color: var(--btn-body);
+  -webkit-backdrop-filter: var(--btn-filter); backdrop-filter: var(--btn-filter);
+  box-shadow: var(--btn-rim), var(--btn-lift);
+  color: var(--ink); font-size: var(--t-sm); font-weight: var(--w-label);
+  background-image: var(--btn-gloss), var(--btn-caustic),
+    linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: 0 0, 0 0, calc(100% - 14px) 50%, calc(100% - 10px) 50%;
+  background-size: auto, auto, 4px 4px, 4px 4px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  --focus-radius: var(--r-pill);
+}
+.lang option { color: var(--ink); background: var(--paper); }
+
+@media (forced-colors: active) {
+  .area:focus, .time { border: 1px solid CanvasText; }
+}
+
+/* Single-line text inputs in forms: a pressed groove, like the time field but row-shaped. */
+.input {
+  width: 100%; height: 36px; padding: 0 12px;
+  border: 0; border-radius: var(--r-row); corner-shape: squircle;
+  background: var(--groove-bg); box-shadow: var(--groove-rim);
+  color: var(--ink); font: inherit; font-size: var(--t-base);
+  transition: box-shadow var(--d-fast) linear, background-color var(--d-fast) linear;
+  --focus-radius: var(--r-row);
+}
+.input::placeholder { color: var(--ink-3); }
+.input:focus { outline: none; background: var(--field-bg-focus); box-shadow: var(--groove-rim), 0 0 0 2px var(--accent-ring); }
+.input[aria-invalid="true"] { box-shadow: var(--groove-rim), 0 0 0 2px color-mix(in srgb, var(--danger) 70%, transparent); }
+.select {
+  appearance: none; -webkit-appearance: none;
+  width: 100%; height: 36px; padding: 0 30px 0 12px;
+  border: 0; border-radius: var(--r-row); corner-shape: squircle;
+  background-color: var(--groove-bg); box-shadow: var(--groove-rim);
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 16px) 50%, calc(100% - 12px) 50%;
+  background-size: 4px 4px, 4px 4px; background-repeat: no-repeat;
+  color: var(--ink); font: inherit; font-size: var(--t-base); cursor: pointer;
+  --focus-radius: var(--r-row);
+}
+.select:focus { outline: none; box-shadow: var(--groove-rim), 0 0 0 2px var(--accent-ring); }
+.select option { color: var(--ink); background: var(--paper); }
+
+.names {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  min-height: 36px; padding: 4px 6px;
+  border-radius: var(--r-row); corner-shape: squircle;
+  background: var(--groove-bg); box-shadow: var(--groove-rim);
+}
+.names:focus-within { background: var(--field-bg-focus); box-shadow: var(--groove-rim), 0 0 0 2px var(--accent-ring); }
+.names[data-invalid="true"] { box-shadow: var(--groove-rim), 0 0 0 2px color-mix(in srgb, var(--danger) 70%, transparent); }
+.nameChips { display: contents; list-style: none; }
+.nameChip {
+  display: inline-flex; align-items: center; gap: 2px; height: 28px; padding: 0 4px 0 11px;
+  border-radius: var(--r-pill); font-size: var(--t-sm); color: var(--ink);
+  background-color: var(--btn-body); background-image: var(--btn-gloss);
+  box-shadow: var(--btn-rim), var(--btn-lift);
+}
+.nameChip button {
+  display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
+  font-size: 15px; line-height: 1; color: var(--ink-2);
+  --focus-radius: 50%;
+}
+.nameChip button:hover { color: var(--ink); background: var(--hover-glyph); }
+.nameInput {
+  flex: 1 1 120px; min-width: 100px; height: 28px; padding: 0 6px;
+  border: 0; background: transparent; color: var(--ink); font: inherit; font-size: var(--t-sm);
+}
+.nameInput:focus { outline: none; }
+.nameInput::placeholder { color: var(--ink-3); }
+
+@media (forced-colors: active) {
+  .input, .select, .names { border: 1px solid CanvasText; }
+  .nameChip { border: 1px solid ButtonText; }
+}
+@media (forced-colors: active) {
+  .lang select { border: 1px solid ButtonText; }
+}

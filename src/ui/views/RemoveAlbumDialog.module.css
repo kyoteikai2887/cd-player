@@ -1,0 +1,61 @@
+/*
+ * Removing an album (R2.2): a small frosted pane in the album's own colours, centred over a scrim.
+ * Words are the content here: what stays, what goes, what stops.
+ */
+.overlay { position: absolute; inset: 0; z-index: 60; display: grid; place-items: center; padding: 16px; }
+.scrim { position: absolute; inset: 0; background: var(--scrim); animation: fadeIn var(--d-base) linear; }
+.panel {
+  position: relative;
+  width: min(500px, 100%); max-height: calc(100% - 32px);
+  display: flex; flex-direction: column;
+  border-radius: var(--r-panel); corner-shape: squircle;
+  overflow: hidden; outline: none;
+  animation: popIn var(--d-slow) var(--ease-out);
+  /* Frost: the cover's colour stays clearer at the top, behind the sleeve. */
+  --frost-clear: 40%;
+  --frost-clear-to: 0px;
+  --frost-field-from: 120px;
+}
+.head { position: relative; display: flex; align-items: center; gap: 18px; padding: 26px 28px 8px; }
+.cover { width: 84px; flex: none; border-radius: var(--r-art); box-shadow: var(--shadow-cover); }
+.headText { min-width: 0; }
+.kicker {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: var(--t-xs); font-weight: var(--w-label); letter-spacing: 0.12em; color: var(--danger);
+}
+.title {
+  --role-sc: var(--font-display-sc); --role-ja: var(--font-display-ja);
+  margin-top: 6px; font-size: var(--t-xl); line-height: 1.2; color: var(--ink);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.title:lang(ja) { font-feature-settings: "palt"; }
+.meta {
+  display: flex; flex-wrap: wrap; gap: 2px 14px; margin-top: 5px;
+  font-size: var(--t-sm); color: var(--ink-2);
+}
+.body { position: relative; padding: 14px 28px 4px; overflow-y: auto; }
+.facts { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.facts li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 11px; align-items: start; font-size: var(--t-sm); line-height: 1.6; color: var(--ink); }
+.facts li svg { margin-top: 3px; color: var(--ink-2); }
+.facts li[data-tone="warn"] { color: var(--danger); font-weight: var(--w-label); }
+.facts li[data-tone="warn"] svg { color: var(--danger); }
+.banner {
+  display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; align-items: start;
+  margin-bottom: 14px; padding: 10px 14px;
+  border-radius: var(--r-row); corner-shape: squircle;
+  font-size: var(--t-sm); line-height: 1.6; color: var(--ink);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.banner svg { margin-top: 3px; color: var(--ink-2); }
+.banner[data-tone="warn"] svg { color: var(--warning); }
+.error { margin-top: 12px; }
+.foot { position: relative; display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; padding: 18px 24px 22px; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popIn { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+@media (forced-colors: active) {
+  .panel { border: 1px solid CanvasText; background: Canvas; }
+  .banner { border: 1px solid CanvasText; }
+}

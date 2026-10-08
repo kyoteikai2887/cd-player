@@ -1,0 +1,57 @@
+.dock {
+  position: absolute; left: 0; right: 0; bottom: 18px; z-index: 20;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 0 24px;
+  pointer-events: none;
+}
+.dock > * { pointer-events: auto; }
+.error { align-self: center; }
+.capsule {
+  position: relative;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 12px;
+  width: min(940px, 100%); height: 74px; padding: 0 12px 0 12px;
+  border-radius: var(--r-panel); corner-shape: squircle;
+  overflow: hidden;
+  animation: riseIn var(--d-slow) var(--ease-out);
+  /* Frost: a little of the cover's colour stays clear behind the thumbnail. */
+  --frost-clear: 30%;
+  --frost-clear-to: 40px;
+  --frost-field-from: 74px;
+}
+.now {
+  display: flex; align-items: center; gap: 12px; min-width: 0;
+  height: 54px; padding: 0 10px 0 5px; margin-left: -2px;
+  border-radius: calc(var(--r-panel) - 10px); corner-shape: squircle; text-align: left;
+  --focus-radius: calc(var(--r-panel) - 10px);
+  transition: background-color var(--d-fast) linear;
+}
+.now:hover:not(:disabled) { background: var(--fill-hover); }
+.thumb { width: 46px; flex: none; border-radius: var(--r-art); box-shadow: var(--shadow-low); }
+.thumbEmpty {
+  display: grid; place-items: center; width: 46px; height: 46px; flex: none;
+  border-radius: var(--r-art); color: var(--ink-3); background: var(--paper-2);
+}
+.text { display: flex; flex-direction: column; min-width: 0; position: relative; z-index: 1; }
+.title {
+  display: flex; align-items: center; gap: 8px; min-width: 0;
+  --role-sc: var(--font-serif-sc); --role-ja: var(--font-serif-ja);
+  font-weight: var(--w-serif); font-size: calc(15px * var(--fs));
+  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+.sub { font-size: var(--t-sm); color: var(--ink-2); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.controls { display: flex; align-items: center; gap: 8px; position: relative; z-index: 1; }
+.side { display: flex; align-items: center; justify-content: flex-end; gap: 8px; min-width: 0; }
+.time { font-size: var(--t-xs); font-weight: var(--w-label); color: var(--ink-2); white-space: nowrap; margin-right: 4px; }
+.time span { color: var(--ink-3); }
+.line { position: absolute; left: 18px; right: 18px; bottom: 0; }
+
+@container (width < 1020px) {
+  .side :global(.cdp-range) { display: none; }
+  .time { display: none; }
+}
+@container (width < 760px) {
+  .capsule { grid-template-columns: minmax(0, 1fr) auto auto; }
+}
+
+/* Local keyframes (CSS Modules scope animation names per file). */
+@keyframes riseIn { from { opacity: 0; transform: translateY(8px) scale(0.985); } to { opacity: 1; transform: none; } }

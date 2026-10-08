@@ -1,0 +1,45 @@
+/*
+ * Printed CD (Claude, R2.1). Proportions follow a real 120 mm disc: 15 mm centre hole,
+ * clear hub to 33 mm, printable area to ~116 mm, then the bare polycarbonate rim.
+ */
+.disc {
+  position: relative; display: block;
+  aspect-ratio: 1; border-radius: 50%;
+  isolation: isolate;
+}
+.print {
+  position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
+  /* hole (r 6.3%) and the clear hub (to 13.8%) are cut out of the print */
+  -webkit-mask: radial-gradient(circle, transparent 0 13.6%, #000 14%);
+  mask: radial-gradient(circle, transparent 0 13.6%, #000 14%);
+  animation: turn 6s linear infinite;
+  animation-play-state: paused;
+  will-change: transform;
+}
+.disc[data-spinning="true"] .print { animation-play-state: running; }
+.art { position: absolute; inset: -2%; width: 104%; border-radius: 0; box-shadow: none; }
+.art img { border-radius: 0; }
+/* Clear hub with its stacking ring and the hole showing what is behind. */
+.hub {
+  position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+  background:
+    radial-gradient(circle, transparent 0 6.2%, rgba(255, 255, 255, 0.55) 6.4% 6.9%, rgba(255, 255, 255, 0.16) 7.1% 10.6%,
+      rgba(255, 255, 255, 0.5) 10.8% 11.4%, rgba(255, 255, 255, 0.14) 11.6% 13.6%, rgba(20, 37, 61, 0.16) 13.8% 14.2%, transparent 14.4%),
+    radial-gradient(circle, transparent 0 96.4%, rgba(255, 255, 255, 0.75) 96.8%, rgba(206, 216, 230, 0.9) 98.6%, rgba(20, 37, 61, 0.25) 100%);
+}
+/* Fixed light across the surface: a soft diagonal sheen plus a hint of the data side's rainbow at the rim. */
+.light {
+  position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+  background:
+    linear-gradient(128deg, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0) 34%, rgba(255, 255, 255, 0) 64%, rgba(255, 255, 255, 0.22) 100%),
+    conic-gradient(from 210deg, rgba(255, 170, 210, 0.0), rgba(170, 220, 255, 0.28) 10%, rgba(255, 240, 180, 0.22) 18%, rgba(255, 170, 210, 0) 28%, rgba(255, 170, 210, 0) 60%,
+      rgba(180, 255, 230, 0.22) 70%, rgba(200, 180, 255, 0.26) 80%, rgba(255, 170, 210, 0) 90%);
+  -webkit-mask: radial-gradient(circle, transparent 0 14%, #000 15%);
+  mask: radial-gradient(circle, transparent 0 14%, #000 15%);
+  mix-blend-mode: soft-light;
+}
+:global(.cdp[data-motion="reduced"]) .print { animation: none; }
+@keyframes turn { to { transform: rotate(360deg); } }
+@media (forced-colors: active) {
+  .disc { forced-color-adjust: none; outline: 1px solid CanvasText; }
+}

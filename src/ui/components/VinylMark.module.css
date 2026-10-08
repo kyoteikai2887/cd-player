@@ -1,0 +1,24 @@
+.mark {
+  position: relative; display: block; flex: none;
+  width: var(--size); height: var(--size);
+  border-radius: 50%;
+}
+.disc {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.18)) drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+}
+/* The label covers 12/32 of the record, centred. */
+.label {
+  position: absolute; left: 31.25%; top: 31.25%; width: 37.5%; height: 37.5%;
+  animation: turn 1.8s linear infinite;   /* 33⅓ rpm */
+  animation-play-state: paused;
+  will-change: transform;
+}
+.mark[data-spinning="true"] .label { animation-play-state: running; }
+:global(.cdp[data-motion="reduced"]) .label { animation: none; }
+
+@keyframes turn { to { transform: rotate(360deg); } }
+
+@media (forced-colors: active) {
+  .mark { forced-color-adjust: none; }
+}

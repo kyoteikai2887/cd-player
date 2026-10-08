@@ -1,0 +1,147 @@
+/* Base layer for everything inside a PlayerUI surface. Resets use :where() (zero specificity)
+   so component CSS Modules always win regardless of bundle order. */
+.cdp {
+  position: relative;
+  box-sizing: border-box;
+  height: var(--cdp-viewport-h, 100dvh);
+  width: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--role-sc);
+  font-size: var(--t-md);
+  font-weight: var(--w-text);
+  line-height: 1.5;
+  font-synthesis: none;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  color-scheme: light;
+  container: surface / size;
+  isolation: isolate;
+}
+.cdp *, .cdp *::before, .cdp *::after { box-sizing: border-box; }
+:where(.cdp) :where(h1, h2, h3, h4, p, ol, ul, figure, dl, dd) { margin: 0; padding: 0; }
+:where(.cdp) :where(ol, ul) { list-style: none; }
+:where(.cdp) :where(button, input, select, textarea) { font: inherit; color: inherit; }
+:where(.cdp) :where(button) { cursor: pointer; background: none; border: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+:where(.cdp) :where(button:disabled) { cursor: default; }
+:where(.cdp) :where(img) { display: block; max-width: 100%; }
+/* Type: a role (sans / serif / display) is a pair of stacks, one led by JP glyph forms and one by
+   SC forms. Every element picks the stack of its own language, so Japanese titles get Japanese
+   kanji and Chinese translations get Chinese ones. A module chooses a role by setting the pair:
+     .title { --role-sc: var(--font-serif-sc); --role-ja: var(--font-serif-ja); }
+   and everything inside keeps that role until something sets it again. */
+:where(.cdp) { --role-sc: var(--font-sans-sc); --role-ja: var(--font-sans-ja); }
+:where(.cdp) :where(:not(:lang(ja))) { font-family: var(--role-sc); }
+:where(.cdp) :where(:lang(ja)) { font-family: var(--role-ja); }
+:where(.cdp) :where(.serif) { --role-sc: var(--font-serif-sc); --role-ja: var(--font-serif-ja); font-weight: var(--w-serif); }
+:where(.cdp) :where(.display) { --role-sc: var(--font-display-sc); --role-ja: var(--font-display-ja); font-weight: var(--w-serif); }
+:where(.cdp) :where(.sans) { --role-sc: var(--font-sans-sc); --role-ja: var(--font-sans-ja); }
+/* Japanese titles and lyrics use proportional kana (palt), as Japanese typesetting does at large sizes. */
+:where(.cdp) :where(.display:lang(ja), .serif:lang(ja), .palt:lang(ja)) { font-feature-settings: "palt"; letter-spacing: 0.02em; }
+:where(.cdp) :where(.num) { font-variant-numeric: tabular-nums; }
+
+/* Focus: an accent ring with a paper halo so it reads on glass, on covers and on dark paper. */
+:where(.cdp) :where(:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--paper) 85%, transparent);
+  border-radius: var(--focus-radius, var(--r-sm));
+}
+
+.cdp ::selection { background: var(--accent-soft); color: var(--ink); }
+
+/* Quiet scrollbars that still exist (Windows users scroll with the bar). The legacy pseudo-elements
+   are used on purpose: setting scrollbar-width/scrollbar-color would switch Windows back to the
+   native bar with its light track. */
+.cdp ::-webkit-scrollbar { width: 12px; height: 12px; }
+.cdp ::-webkit-scrollbar-track { background: transparent; }
+.cdp ::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+}
+.cdp ::-webkit-scrollbar-thumb:hover { background-color: var(--ink-faint); }
+
+/*
+ * Frosted glass for floating panels. Sheen, a fine matte grain and the tinted body as background;
+ * lit rim and depth as shadows; a thin edge that catches light (gradient border drawn by
+ * ::before with a mask). Few surfaces, mostly static; list rows and tiles never get a backdrop blur.
+ */
+.cdp .glass, .cdp .glass-flat {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+}
+.cdp .glass { box-shadow: var(--glass-rim), var(--glass-edge), var(--shadow-float); }
+.cdp .glass-flat { box-shadow: var(--glass-rim), var(--glass-edge), var(--shadow-low); }
+.cdp .glass-strong { background: var(--glass-bg-strong); }
+:where(.cdp) :where(.glass, .glass-flat) { position: relative; }
+.cdp .glass::before, .cdp .glass-flat::before {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  corner-shape: inherit;
+  padding: 1px;
+  background: var(--rim-light);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 0;
+}
+.cdp[data-solid="true"] .glass::before, .cdp[data-solid="true"] .glass-flat::before { opacity: 0.6; }
+/* Glass whose body is frost (R2.2, components.css): keeps the rim and depth, drops the see-through body. */
+.cdp .glass.glass--frost { background: none; -webkit-backdrop-filter: none; backdrop-filter: none; isolation: isolate; }
+/* Frost that lets a little of what is behind show through, blurred and pressed into a safe grey
+   range (the player capsule: scrolling reads as sliding beneath it). Values from lib/frost.ts. */
+.cdp .glass.glass--frost-see { -webkit-backdrop-filter: var(--frost-see-filter); backdrop-filter: var(--frost-see-filter); }
+.cdp .glass--frost-see > .cdp-frost { opacity: var(--frost-opacity, 1); }
+/* Glass off (or transparency off): the frost is whole again. */
+.cdp[data-solid="true"] .glass.glass--frost-see { -webkit-backdrop-filter: none; backdrop-filter: none; }
+.cdp[data-solid="true"] .glass--frost-see > .cdp-frost { opacity: 1; }
+
+.cdp .sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+.cdp .clamp-1 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cdp .clamp-2 {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+@keyframes cdp-spin { to { transform: rotate(360deg); } }
+@keyframes cdp-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cdp-rise-in { from { opacity: 0; transform: translateY(8px) scale(0.985); } to { opacity: 1; transform: none; } }
+@keyframes cdp-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes cdp-eq {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
+
+.cdp[data-motion="reduced"] *, .cdp[data-motion="reduced"] *::before, .cdp[data-motion="reduced"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Hidden or occluded surfaces stop every decorative animation; audio is unaffected. */
+.cdp[data-visible="false"] *, .cdp[data-visible="false"] *::before, .cdp[data-visible="false"] *::after {
+  animation-play-state: paused !important;
+}
+
+@media (forced-colors: active) {
+  .cdp { background: Canvas; color: CanvasText; }
+  .cdp .glass, .cdp .glass-flat {
+    background: Canvas; backdrop-filter: none; -webkit-backdrop-filter: none;
+    box-shadow: none; border: 1px solid CanvasText;
+  }
+  .cdp .glass::before, .cdp .glass-flat::before { display: none; }
+  .cdp .glass.glass--frost, .cdp .glass.glass--frost-see { background: Canvas; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  :where(.cdp) :where(:focus-visible) { outline: 2px solid Highlight; box-shadow: none; }
+}

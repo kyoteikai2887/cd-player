@@ -1,0 +1,19 @@
+{
+  "masterSize": [
+    1254,
+    1254
+  ],
+  "frames": [
+    16,
+    24,
+    32,
+    48,
+    64,
+    128,
+    256
+  ],
+  "transparent": true,
+  "icoSHA256": "9291cb2471d579a5dda6b016da417ea9fedb9dd157c880780ae49123ed99d872",
+  "masterSHA256": "23db9ad32be2c0dcaa1ece25ccace048527deb829b7b99daa8cc16a3a8f30462",
+  "conversionOnly": true
+}

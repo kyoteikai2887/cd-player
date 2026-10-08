@@ -1,0 +1,147 @@
+/* The mini surface paints no page background: a transparent native window shows the desktop. */
+:global(.cdp[data-surface="mini"]) { background: transparent; }
+
+.window { position: absolute; inset: 0; display: grid; }
+/* Browser demo only: a stand-in desktop so the glass has something to show. */
+.window[data-frame="preview"] {
+  place-items: center;
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 10%, #c9def7 0%, transparent 70%),
+    radial-gradient(ellipse 60% 70% at 90% 90%, #d8d4f3 0%, transparent 70%),
+    linear-gradient(160deg, #8fb8e6, #b6cbea 45%, #c6bfe6);
+}
+:global(.cdp[data-theme="charcoal"]) .window[data-frame="preview"] {
+  background:
+    radial-gradient(ellipse 60% 60% at 18% 12%, rgba(108, 172, 228, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 70% at 92% 88%, rgba(150, 110, 200, 0.35) 0%, transparent 70%),
+    linear-gradient(160deg, #1d2633, #262a3a 50%, #1a1d26);
+}
+.window[data-frame="transparent"] { padding: 12px; }
+.window[data-frame="opaque"], .window[data-frame="material"] { padding: 0; }
+
+/*
+ * The card is the theme's floating glass. How see-through it may be depends on what is behind it:
+ *   css    — browser demo: CSS blurs the stand-in desktop
+ *   native — the host provides Acrylic behind a transparent window (CSS blur is then a no-op)
+ *   solid  — a transparent window without a native material, or an opaque window: near-opaque
+ */
+.card {
+  position: relative;
+  display: flex; flex-direction: column;
+  width: 360px; height: 92px;
+  border-radius: var(--r-panel); corner-shape: squircle;
+  overflow: hidden;
+  --mini-a: calc(var(--glass-a) + var(--glass-a-offset) + 0.08);
+  background: var(--glass-sheen), var(--frost), rgba(var(--glass-tint), var(--mini-a));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  box-shadow: var(--glass-rim), var(--glass-edge), 0 2px 4px rgba(0, 0, 0, 0.1), 0 14px 30px -10px rgba(0, 0, 0, 0.38);
+  user-select: none;
+  cursor: default;
+  transition: height var(--d-base) var(--ease-out);
+}
+.card::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; corner-shape: inherit; padding: 1px; pointer-events: none;
+  background: var(--rim-light);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.card[data-material="solid"] { --mini-a: 0.94; -webkit-backdrop-filter: none; backdrop-filter: none; }
+:global(.cdp[data-theme="charcoal"]) .card[data-material="solid"] { --mini-a: 0.97; }
+:global(.cdp[data-solid="true"]) .card { --mini-a: 1; }
+.card[data-lyrics="true"] { height: 140px; }
+/* Frost body (R2.2): the playing album's colours under a grained field; the rim stays. */
+.card[data-frost="true"] {
+  background: none; -webkit-backdrop-filter: none; backdrop-filter: none; isolation: isolate;
+  --frost-clear: 24%; --frost-clear-to: 56px; --frost-field-from: 92px;
+}
+.card[data-frost="true"]::before { z-index: 1; }
+.window[data-frame="transparent"] .card,
+.window[data-frame="opaque"] .card,
+.window[data-frame="material"] .card { width: 100%; height: 100%; }
+.window[data-frame="opaque"] .card { box-shadow: var(--glass-rim); }
+.window[data-frame="opaque"] .card::before { display: none; }
+/* An opaque or material window has the host's own (circular) corners; the card matches them exactly. */
+.window[data-frame="opaque"] .card, .window[data-frame="material"] .card { corner-shape: round; }
+.window[data-frame="opaque"][data-radius="0"] .card, .window[data-frame="material"][data-radius="0"] .card { border-radius: 0; }
+.window[data-frame="opaque"][data-radius="8"] .card, .window[data-frame="material"][data-radius="8"] .card { border-radius: 8px; }
+/* Over a native material the window's own shadow does the work; the card keeps its tint and inner rim.
+   (CSS blur is a no-op over a transparent native window; the browser preview uses it as a stand-in.) */
+.window[data-frame="material"] .card { box-shadow: var(--glass-rim); }
+.card[data-entering="true"] { animation: riseIn 320ms var(--ease-out); }
+
+.main {
+  position: relative; z-index: 1;
+  flex: none; height: 92px;
+  display: grid; grid-template-columns: 62px minmax(0, 1fr) auto; align-items: center; gap: 12px;
+  padding: 0 12px 0 15px;
+}
+.art { width: 62px; border-radius: var(--r-art); box-shadow: var(--shadow-cover); }
+.artEmpty { display: grid; place-items: center; width: 62px; height: 62px; border-radius: var(--r-art); color: var(--ink-3); background: var(--fill-quiet); }
+.text { min-width: 0; padding-top: 2px; }
+.title {
+  --role-sc: var(--font-serif-sc); --role-ja: var(--font-serif-ja);
+  font-size: calc(15.5px * var(--fs)); font-weight: var(--w-serif); line-height: 1.4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sub { font-size: var(--t-xs); color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 1px; }
+.controls { display: flex; align-items: center; gap: 4px; margin-top: 10px; }
+.controls :global(.cdp-icon-btn) { width: 32px; height: 32px; }
+
+.progress {
+  position: absolute; z-index: 1; left: 18px; right: 18px; bottom: 7px; height: 2.5px;
+  border-radius: 2px; overflow: hidden;
+  background: var(--rail);
+}
+.progress i {
+  position: absolute; inset: 0; border-radius: inherit;
+  background: var(--accent-fill);
+  transform-origin: left center; transform: scaleX(0); will-change: transform;
+}
+
+/* Window chrome: above the transport, revealed on hover or keyboard focus. */
+.chrome {
+  position: absolute; top: 5px; right: 8px; z-index: 2;
+  display: flex; gap: 1px; padding: 1px;
+  border-radius: 999px;
+  opacity: 0; transform: translateY(-3px);
+  transition: opacity var(--d-fast) linear, transform var(--d-fast) var(--ease-out);
+}
+.chrome :global(.cdp-icon-btn) { width: 24px; height: 24px; }
+.card:hover .chrome, .card:focus-within .chrome, .card[data-show-controls="true"] .chrome { opacity: 1; transform: none; }
+
+.lyric {
+  position: absolute; z-index: 1; left: 0; right: 0; top: 86px; height: 44px;
+  padding: 0 18px 0 18px;
+  display: flex; align-items: center;
+}
+.lyric::before { content: ""; position: absolute; left: 16px; right: 16px; top: 0; height: 1px; background: var(--line); }
+/* With frost, the left of the card is kept clear for the art down to its bottom edge; the lyric
+   line runs under that clear part too, where a light cover came through behind its first words.
+   Under the lyric the field is completed: paper at (field - clear) / (1 - clear), clear = 24%. */
+.card[data-frost="true"] .lyric {
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--paper) calc((var(--frost-field) - var(--frost-clear)) / 0.76), transparent) var(--frost-clear-to),
+    transparent var(--frost-field-from));
+}
+.lyricLine { min-width: 0; width: 100%; animation: fadeIn var(--d-base) linear; }
+.lyricOriginal {
+  --role-sc: var(--font-display-sc); --role-ja: var(--font-display-ja);
+  font-size: calc(15.5px * var(--fs)); font-weight: var(--w-serif); line-height: 1.4; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.lyricOriginal:lang(ja), .title:lang(ja) { font-feature-settings: "palt"; letter-spacing: 0.02em; }
+.lyricTranslation { --role-sc: var(--font-serif-sc); --role-ja: var(--font-serif-ja); font-size: var(--t-xs); color: var(--ink-2); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.lyricIdle { color: var(--ink-3); }
+
+.error { position: absolute; left: 10px; right: 10px; bottom: 12px; z-index: 3; justify-content: space-between; }
+
+/* Local keyframes (CSS Modules scope animation names per file). */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes riseIn { from { opacity: 0; transform: translateY(8px) scale(0.985); } to { opacity: 1; transform: none; } }
+
+@media (forced-colors: active) {
+  .card { border: 1px solid CanvasText; background: Canvas; backdrop-filter: none; }
+  .card::before { display: none; }
+  .progress { background: GrayText; forced-color-adjust: none; }
+  .progress i { background: Highlight; }
+  .chrome { opacity: 1; transform: none; }
+}

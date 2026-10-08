@@ -1,0 +1,59 @@
+html, body { margin: 0; height: 100%; }
+#root { height: 100%; }
+body { font-family: "CDP Sans SC", "Microsoft YaHei UI", "PingFang SC", "Noto Sans CJK SC", sans-serif; background: #E9EFF7; color: #14253D; }
+.pv { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.pv-bar { display: flex; align-items: center; gap: 18px; height: 44px; padding: 0 16px; background: #14253D; color: #E8EEF7; flex: none; font-size: 13px; }
+.pv-brand { font-weight: 650; }
+.pv-tabs { display: flex; gap: 4px; }
+.pv-tabs a { color: #B9C8DD; text-decoration: none; padding: 5px 12px; border-radius: 999px; }
+.pv-tabs a[aria-current="page"] { background: rgba(255,255,255,.14); color: #fff; }
+.pv-note { margin-left: auto; color: #9FB0C8; font-size: 12px; }
+.pv-live { position: relative; flex: 1; min-height: 0; }
+.pv-live-window { position: absolute; inset: 0; --cdp-viewport-h: 100%; }
+.pv-live-window[hidden] { display: none; }
+.pv-tray { position: absolute; inset: 0; display: grid; place-content: center; gap: 12px; text-align: center; background: linear-gradient(160deg, #9fbfe6, #c8c3e6); }
+.pv-tray button { font: inherit; padding: 8px 18px; border-radius: 999px; border: 0; background: #fff; cursor: pointer; }
+
+.pv-states { flex: 1; min-height: 0; display: grid; grid-template-columns: 236px minmax(0, 1fr); }
+.pv-list { overflow-y: auto; padding: 14px 10px 30px 14px; background: #F4F7FB; border-right: 1px solid rgba(20,37,61,.08); font-size: 13px; }
+.pv-list h2 { font-size: 12px; color: #5F708A; margin: 14px 8px 6px; font-weight: 650; }
+.pv-list ul { list-style: none; margin: 0; padding: 0; }
+.pv-list a { display: block; padding: 6px 8px; border-radius: 8px; color: #14253D; text-decoration: none; }
+.pv-list a:hover { background: rgba(20,37,61,.06); }
+.pv-list a[aria-current="true"] { background: #fff; box-shadow: 0 0 0 1px rgba(20,37,61,.08); font-weight: 600; }
+.pv-main { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; min-width: 0; }
+.pv-caption { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 14px 24px 0; }
+.pv-caption h1 { font-size: 17px; margin: 0; }
+.pv-caption p { margin: 4px 0 0; font-size: 12.5px; color: #4E5E76; }
+.pv-size { margin-left: 8px; color: #5F708A; }
+.pv-result { font-size: 12.5px; color: #4E5E76; display: flex; gap: 8px; align-items: center; }
+.pv-stage { position: relative; min-height: 0; display: grid; place-items: center; }
+.pv-scaled { position: relative; overflow: hidden; border-radius: 10px; box-shadow: 0 0 0 1px rgba(20,37,61,.12), 0 20px 50px -20px rgba(20,37,61,.45); }
+.pv-frame { position: relative; overflow: hidden; background: #F5F8FC; }
+/* The stand-in desktop is behind the window, as Mica is in WebView2, so glass inside the app must not
+   blur it: a no-op filter makes the frame its own backdrop root and the page stays translucent. */
+.pv-frame[data-desktop="true"] { background: transparent; filter: opacity(1); }
+.pv-scaled[data-desktop="true"][data-theme="charcoal"], .pv-shot[data-desktop="true"][data-theme="charcoal"] {
+  background: radial-gradient(ellipse at 18% 12%, rgba(108,172,228,.5), transparent 60%), radial-gradient(ellipse at 90% 88%, rgba(150,110,200,.4), transparent 60%), linear-gradient(160deg, #1d2633, #262a3a 50%, #1a1d26);
+}
+.pv-scaled[data-desktop="true"], .pv-shot[data-desktop="true"] {
+  background: radial-gradient(ellipse at 20% 10%, #c9def7, transparent 60%), radial-gradient(ellipse at 90% 90%, #d8d4f3, transparent 60%), linear-gradient(160deg, #8fb3e0, #b9cbe9 45%, #c3bde3);
+}
+.pv-scaled[data-desktop="true"] { border-radius: 14px; }
+.pv-log { margin: 0; padding: 8px 24px 12px 40px; font: 12px/1.6 ui-monospace, Consolas, monospace; color: #4E5E76; min-height: 30px; max-height: 110px; overflow: auto; }
+.pv-shot { display: inline-block; }
+.pv-shot[data-desktop="true"] { padding: 28px; }
+
+@media (max-width: 760px) {
+  .pv-note { display: none; }
+  .pv-states { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); }
+  .pv-list { max-height: 30vh; border-right: 0; border-bottom: 1px solid rgba(20,37,61,.08); }
+  .pv-caption { flex-wrap: wrap; padding: 10px 16px 0; }
+  .pv-log { display: none; }
+}
+
+.pv-themes { display: flex; gap: 2px; padding: 2px; border-radius: 999px; background: rgba(255,255,255,.1); }
+.pv-themes button { font: inherit; font-size: 12px; color: #B9C8DD; background: none; border: 0; padding: 4px 12px; border-radius: 999px; cursor: pointer; }
+.pv-themes button[aria-pressed="true"] { background: rgba(255,255,255,.18); color: #fff; }
+.pv-caption > label + label { margin-left: 14px; }
+.pv-caption { gap: 10px; }

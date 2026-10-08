@@ -1,0 +1,452 @@
+/* Shared primitives. Views use CSS Modules; these few building blocks are global and prefixed.
+ *
+ * Controls are clear glass laid on the frosted panels: an almost untinted body that lightly
+ * blurs and brightens what is behind it, a curved specular band on top, light gathered at the
+ * lower edge, and a rim that flashes at two opposite corners (drawn by ::before).
+ *
+ * Specificity: position is set with :where() and motion uses the individual translate/scale
+ * properties, so a module class can still position or transform one of these controls (for
+ * example the play button that appears over an album cover).
+ */
+
+/* ── Clear glass, shared by every pressable surface ────────── */
+:where(.cdp) :where(.cdp-btn, .cdp-icon-btn, .cdp-play, .cdp-chip) { position: relative; }
+/* Controls and labels always speak in the interface voice, even inside a serif title. */
+:where(.cdp) :where(.cdp-btn, .cdp-chip, .cdp-badge, .cdp-seg, .cdp-menu, .cdp-inline-error) {
+  --role-sc: var(--font-sans-sc); --role-ja: var(--font-sans-ja);
+  font-feature-settings: normal; letter-spacing: normal;
+}
+.cdp .cdp-btn--quiet, .cdp .cdp-icon-btn--glass, .cdp .cdp-chip {
+  color: var(--ink);
+  background: var(--btn-sheen), var(--btn-body);
+  -webkit-backdrop-filter: var(--btn-filter);
+  backdrop-filter: var(--btn-filter);
+  box-shadow: var(--btn-rim), var(--btn-lift);
+}
+.cdp .cdp-btn--quiet::before, .cdp .cdp-btn--danger::before, .cdp .cdp-icon-btn--glass::before, .cdp .cdp-chip::before,
+.cdp .cdp-icon-btn:hover:not(:disabled)::before, .cdp .cdp-icon-btn[aria-pressed="true"]::before,
+.cdp .cdp-btn--primary::before, .cdp .cdp-play::before {
+  content: ""; position: absolute; inset: 0;
+  border-radius: inherit; corner-shape: inherit;
+  padding: 1.25px;
+  background: var(--btn-ring);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.cdp .cdp-btn--quiet:hover:not(:disabled), .cdp .cdp-icon-btn--glass:hover:not(:disabled),
+.cdp button.cdp-chip:hover:not(:disabled) {
+  background: var(--btn-sheen), var(--btn-body-hover);
+  box-shadow: var(--btn-rim), var(--btn-lift-hover);
+  translate: 0 -1px;
+}
+.cdp .cdp-btn--quiet:active:not(:disabled), .cdp .cdp-icon-btn--glass:active:not(:disabled),
+.cdp button.cdp-chip:active:not(:disabled) {
+  box-shadow: var(--btn-rim-press), var(--btn-lift-press);
+  translate: 0 0.5px; scale: 0.975;
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.cdp .cdp-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: calc(36px + 2px * (var(--fs) - 1) * 10);
+  padding: 0 17px;
+  border-radius: var(--r-pill);
+  font-size: var(--t-md); font-weight: var(--w-label); letter-spacing: 0.01em;
+  white-space: nowrap;
+  transition: translate var(--d-fast) var(--ease-out), scale var(--d-fast) var(--ease-out),
+    background-color var(--d-fast) linear, box-shadow var(--d-base) var(--ease-out), color var(--d-fast) linear;
+  --focus-radius: var(--r-pill);
+}
+.cdp .cdp-btn:disabled { opacity: 0.45; }
+.cdp .cdp-btn svg { position: relative; flex: none; }
+.cdp .cdp-btn:active:not(:disabled) { scale: 0.975; }
+
+/* Accent glass (R2.1): the one coloured object in a group of pill buttons (Apply, Save). It used to be enamel —
+   an opaque gradient with a dark edge and a heavy coloured shadow — and sat apart from the clear
+   controls around it. Now it is the same clear glass tinted with the accent: the body carries just
+   enough colour for its glyph (--accent-glass-auto, from PlayerUI), the gloss and rim match its
+   neighbours, and the lift is theirs, faintly tinted. With glass off it pours opaque. */
+.cdp { --accent-glass: var(--accent-glass-auto, 82%); }
+.cdp[data-solid="true"] { --accent-glass: 100%; }
+.cdp .cdp-btn--primary {
+  color: var(--on-accent);
+  background: var(--accent-fill);
+  background:
+    radial-gradient(120% 64% at 50% -12%, rgba(255, 255, 255, 0.58) 0%, rgba(255, 255, 255, 0.16) 46%, rgba(255, 255, 255, 0) 64%),
+    radial-gradient(76% 50% at 50% 118%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0) 70%),
+    linear-gradient(180deg, color-mix(in srgb, var(--accent-hi) var(--accent-glass), transparent) 0%,
+      color-mix(in srgb, var(--accent-fill) var(--accent-glass), transparent) 64%);
+  -webkit-backdrop-filter: var(--btn-filter);
+  backdrop-filter: var(--btn-filter);
+  --accent-lift: 0 1px 1px rgba(15, 58, 99, 0.08), 0 6px 14px -7px var(--accent-shadow);
+  --accent-lift-hover: 0 2px 2px rgba(15, 58, 99, 0.09), 0 11px 20px -9px var(--accent-shadow);
+  --accent-rim: inset 0 1px 0.5px rgba(255, 255, 255, 0.85), inset 0 -1px 1px rgba(255, 255, 255, 0.4),
+    0 0 0 0.75px color-mix(in srgb, var(--accent-edge) 55%, transparent);
+  box-shadow: var(--accent-rim), var(--accent-lift);
+}
+.cdp[data-theme="charcoal"] .cdp-btn--primary {
+  /* On dark paper the drop lights its surroundings a little rather than casting a shadow. */
+  --accent-lift: 0 0 0 0.5px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(0, 0, 0, 0.35), 0 4px 18px -6px var(--accent-shadow);
+  --accent-lift-hover: 0 0 0 0.5px rgba(0, 0, 0, 0.55), 0 2px 3px rgba(0, 0, 0, 0.35), 0 6px 24px -6px var(--accent-shadow);
+  --accent-rim: inset 0 1px 0.5px rgba(255, 255, 255, 0.6), inset 0 -1px 1px rgba(255, 255, 255, 0.22);
+}
+.cdp .cdp-btn--primary::before {
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.18) 30%,
+    rgba(255, 255, 255, 0) 55%, rgba(255, 255, 255, 0.4) 100%);
+}
+.cdp .cdp-btn--primary:hover:not(:disabled) {
+  box-shadow: var(--accent-rim), var(--accent-lift-hover);
+}
+.cdp .cdp-btn--primary:active:not(:disabled) {
+  box-shadow: inset 0 1px 3px rgba(8, 30, 54, 0.2), inset 0 -1px 0 rgba(255, 255, 255, 0.3),
+    0 0 0 0.75px color-mix(in srgb, var(--accent-edge) 55%, transparent), 0 1px 1px rgba(8, 30, 54, 0.1);
+}
+
+/* Danger (R2.2): clear glass with the danger tone in its glyph, word and a faint ring. Reserved for
+   actions that take something out of the collection. */
+.cdp .cdp-btn--danger {
+  color: var(--danger);
+  background: var(--btn-sheen), var(--btn-body);
+  -webkit-backdrop-filter: var(--btn-filter);
+  backdrop-filter: var(--btn-filter);
+  box-shadow: var(--btn-rim), 0 0 0 1px color-mix(in srgb, var(--danger) 34%, transparent), var(--btn-lift);
+}
+.cdp .cdp-btn--danger:hover:not(:disabled) {
+  background: var(--btn-sheen), color-mix(in srgb, var(--danger) 10%, var(--btn-body-hover));
+  box-shadow: var(--btn-rim), 0 0 0 1px color-mix(in srgb, var(--danger) 50%, transparent), var(--btn-lift-hover);
+  translate: 0 -1px;
+}
+.cdp .cdp-btn--danger:active:not(:disabled) { box-shadow: var(--btn-rim-press), 0 0 0 1px color-mix(in srgb, var(--danger) 50%, transparent); }
+
+.cdp .cdp-btn--text { height: 30px; padding: 0 10px; color: var(--accent-ink); font-weight: var(--w-label); }
+.cdp .cdp-btn--text:hover:not(:disabled) { background: var(--accent-soft); }
+
+/* Icon buttons rest bare on glass and paper; a clear glass bead rises under them on hover. */
+.cdp .cdp-icon-btn {
+  display: inline-grid; place-items: center; flex: none;
+  width: 36px; height: 36px; border-radius: var(--r-pill);
+  color: var(--ink-2);
+  transition: translate var(--d-fast) var(--ease-out), scale var(--d-fast) var(--ease-out),
+    background-color var(--d-fast) linear, box-shadow var(--d-base) var(--ease-out), color var(--d-fast) linear;
+  --focus-radius: var(--r-pill);
+}
+.cdp .cdp-icon-btn svg { position: relative; }
+.cdp .cdp-icon-btn:hover:not(:disabled) {
+  color: var(--ink);
+  background: var(--btn-sheen), var(--btn-body-hover);
+  -webkit-backdrop-filter: var(--btn-filter);
+  backdrop-filter: var(--btn-filter);
+  box-shadow: var(--btn-rim), var(--btn-lift);
+}
+.cdp .cdp-icon-btn:active:not(:disabled) { scale: 0.92; box-shadow: var(--btn-rim-press); }
+.cdp .cdp-icon-btn:disabled { opacity: 0.38; }
+.cdp .cdp-icon-btn[aria-pressed="true"] {
+  color: var(--accent-ink);
+  background: var(--btn-sheen), var(--accent-soft);
+  box-shadow: var(--btn-rim), 0 0 0 1px var(--accent-ring);
+}
+.cdp .cdp-icon-btn--glass { color: var(--ink); }
+.cdp .cdp-icon-btn--sm { width: 30px; height: 30px; }
+.cdp .cdp-icon-btn--lg { width: 46px; height: 46px; }
+
+/* ── Crystal (core.23) ──────────────────────────────────────
+ * The round controls are slabs of glass of even thickness (tokens.css, --slab-*): a flat face; a
+ * wall of the same width all round, drawn by ::before, that catches the light at the upper left
+ * and gives back a glint at the lower right; a facet line where face and wall meet, drawn by
+ * ::after; and the slab's own edge showing below it before its shadow. Pressing pushes the slab
+ * down onto its edge. Glass off pours the same slab opaque, so its outline and layers remain.
+ */
+.cdp .cdp-icon-btn--glass {
+  background: var(--slab-face);
+  box-shadow: var(--slab-edge), var(--slab-lip), var(--slab-drop);
+}
+.cdp .cdp-icon-btn--glass::before, .cdp .cdp-icon-btn:hover:not(:disabled)::before {
+  padding: var(--slab-t);
+  background: var(--slab-lights), var(--slab-wall);
+}
+.cdp .cdp-icon-btn--glass::after, .cdp .cdp-icon-btn:hover:not(:disabled)::after, .cdp .cdp-play::after {
+  content: ""; position: absolute; inset: var(--slab-t);
+  border-radius: inherit; corner-shape: inherit;
+  box-shadow: var(--slab-facet);
+  pointer-events: none;
+}
+.cdp .cdp-icon-btn:hover:not(:disabled), .cdp .cdp-icon-btn--glass:hover:not(:disabled) {
+  background: var(--slab-face-hover);
+  box-shadow: var(--slab-edge), var(--slab-lip), var(--slab-drop-hover);
+  translate: 0 -1px;
+}
+.cdp .cdp-icon-btn--glass:active:not(:disabled), .cdp .cdp-icon-btn:active:not(:disabled) {
+  box-shadow: var(--slab-edge), var(--slab-drop);
+  translate: 0 1.5px; scale: 1;
+}
+.cdp .cdp-icon-btn:active:not(:disabled)::after { box-shadow: var(--slab-facet-press); }
+/* A control that is on (shuffle, repeat, mute): the slab takes a little of the accent. */
+.cdp .cdp-icon-btn[aria-pressed="true"] {
+  background: linear-gradient(var(--accent-soft), var(--accent-soft)), var(--slab-face);
+  box-shadow: var(--slab-edge), 0 0 0 1.5px var(--accent-ring), var(--slab-drop);
+}
+.cdp .cdp-icon-btn[aria-pressed="true"]::before { padding: var(--slab-t); background: var(--slab-lights), var(--slab-wall); }
+
+/* The play button: the same slab with the accent inside the glass. What is behind is pressed into
+   a safe range and seen through the tint (--crystal-filter, --crystal-tint and the glyph colour
+   come from lib/crystal.ts). Light travels inside the glass to its wall, so the wall glows in the
+   accent like an edge-lit pane; the light that comes through gathers along the lower edge and
+   falls on the surface below as a coloured glow. */
+.cdp .cdp-play {
+  display: inline-grid; place-items: center; flex: none;
+  width: 56px; height: 56px; border-radius: 50%;
+  color: var(--crystal-glyph);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.03) 26%, rgba(255, 255, 255, 0) 40%),
+    radial-gradient(70% 50% at 62% 96%, color-mix(in oklab, var(--accent) 85%, white) 0%, transparent 100%),
+    linear-gradient(color-mix(in srgb, var(--accent-fill) var(--crystal-tint), transparent), color-mix(in srgb, var(--accent-fill) var(--crystal-tint), transparent)),
+    var(--crystal-base, transparent);
+  -webkit-backdrop-filter: var(--crystal-filter);
+  backdrop-filter: var(--crystal-filter);
+  box-shadow: var(--slab-edge), 0 1px 0 0 color-mix(in srgb, var(--accent-lo) 90%, transparent),
+    0 1.75px 0 0 rgba(0, 0, 0, 0.3), var(--slab-drop), var(--crystal-glow);
+  transition: translate var(--d-fast) var(--ease-out), box-shadow var(--d-base) var(--ease-out), background-color var(--d-fast) linear;
+  --focus-radius: 50%;
+}
+.cdp .cdp-play::before {
+  padding: var(--slab-t);
+  background: var(--slab-lights), var(--crystal-wall);
+}
+/* Light that crossed the glass comes back along the inside of the lower right wall. */
+.cdp .cdp-play::after {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), inset -1.5px -1.5px 1px color-mix(in oklab, var(--accent-hi) 70%, transparent),
+    0 0 0 0.5px rgba(0, 0, 0, 0.35);
+}
+.cdp .cdp-play svg { position: relative; filter: drop-shadow(var(--crystal-glyph-shadow, 0 1px 1px rgba(0, 0, 0, 0.35))); }
+.cdp .cdp-play:hover:not(:disabled) {
+  translate: 0 -1px;
+  box-shadow: var(--slab-edge), 0 1px 0 0 color-mix(in srgb, var(--accent-lo) 90%, transparent),
+    0 1.75px 0 0 rgba(0, 0, 0, 0.3), var(--slab-drop-hover), var(--crystal-glow-hover);
+}
+.cdp .cdp-play:active:not(:disabled) {
+  translate: 0 1.5px;
+  box-shadow: var(--slab-edge), var(--slab-drop), var(--crystal-glow);
+}
+.cdp .cdp-play:active:not(:disabled)::after { box-shadow: var(--slab-facet-press); }
+.cdp .cdp-play:disabled { opacity: 0.45; }
+.cdp .cdp-play--sm { width: 42px; height: 42px; }
+.cdp .cdp-play--xs { width: 34px; height: 34px; }
+/* Glass off, or no backdrop filter: the slab is poured opaque over the paper; the tint, wall,
+   facet and edge stay, so it keeps its outline and depth. */
+.cdp[data-solid="true"] { --crystal-base: var(--paper-2); }
+.cdp[data-solid="true"] .cdp-play { -webkit-backdrop-filter: none; backdrop-filter: none; }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .cdp { --crystal-base: var(--paper-2); }
+}
+
+/* ── Chips & badges ──────────────────────────────────────── */
+.cdp .cdp-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 20px; padding: 0 7px;
+  border-radius: var(--r-tag);
+  font-size: calc(11.5px * var(--fs)); font-weight: var(--w-label); line-height: 1;
+  color: var(--ink-2);
+  background: var(--fill-quiet);
+  box-shadow: inset 0 0 0 1px var(--line);
+  white-space: nowrap; vertical-align: middle;
+}
+.cdp .cdp-badge--accent { color: var(--accent-ink); background: var(--accent-well); box-shadow: none; }
+.cdp .cdp-badge--warn { color: var(--warning); background: color-mix(in srgb, var(--warning) 14%, transparent); box-shadow: none; }
+
+.cdp .cdp-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 28px; padding: 0 11px;
+  border-radius: var(--r-pill);
+  font-size: var(--t-sm); color: var(--ink-2);
+  transition: translate var(--d-fast) var(--ease-out), scale var(--d-fast) var(--ease-out), box-shadow var(--d-base) var(--ease-out);
+}
+.cdp .cdp-chip svg { position: relative; }
+.cdp button.cdp-chip:hover:not(:disabled) { color: var(--ink); }
+
+/* ── Segmented control: a groove with a raised glass thumb ── */
+.cdp .cdp-seg {
+  position: relative; display: inline-flex; padding: 3px; gap: 2px;
+  border-radius: var(--r-pill);
+  background: var(--groove-bg);
+  box-shadow: var(--groove-rim);
+}
+.cdp .cdp-seg button {
+  position: relative; z-index: 1;
+  height: 28px; padding: 0 14px; border-radius: var(--r-pill);
+  font-size: var(--t-sm); font-weight: var(--w-label); color: var(--ink-2);
+  transition: color var(--d-fast) linear, background-color var(--d-base) var(--ease-out), box-shadow var(--d-base) var(--ease-out);
+  --focus-radius: var(--r-pill);
+}
+.cdp .cdp-seg button:hover:not([aria-pressed="true"]):not([aria-selected="true"]) { color: var(--ink); }
+/* Icon segments (R2.1): icons only, the chosen option unfolds its word. */
+.cdp .cdp-seg--icons button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0;
+  height: 34px; min-width: 40px; padding: 0 11px;
+}
+.cdp .cdp-seg--icons .cdp-seg__word {
+  display: inline-block; overflow: hidden; white-space: nowrap;
+  max-width: 0; opacity: 0;
+  transition: max-width var(--d-base) var(--ease-out), opacity var(--d-fast) linear, margin var(--d-base) var(--ease-out);
+}
+.cdp .cdp-seg--icons button[aria-pressed="true"] .cdp-seg__word,
+.cdp .cdp-seg--icons button[aria-selected="true"] .cdp-seg__word { max-width: 6em; opacity: 1; margin-left: 7px; }
+.cdp .cdp-seg--icons button[aria-pressed="true"], .cdp .cdp-seg--icons button[aria-selected="true"] { padding: 0 14px 0 12px; }
+.cdp .cdp-seg button[aria-pressed="true"], .cdp .cdp-seg button[aria-selected="true"] {
+  color: var(--ink);
+  background: var(--thumb-bg);
+  box-shadow: var(--thumb-lift);
+}
+.cdp .cdp-seg button[aria-pressed="true"]::before, .cdp .cdp-seg button[aria-selected="true"]::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: var(--btn-ring);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ── Range slider (native input, styled) ─────────────────── */
+.cdp .cdp-range {
+  --fill: 0;
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 20px; margin: 0; background: transparent; cursor: pointer;
+  --focus-radius: var(--r-pill);
+}
+.cdp .cdp-range::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 999px;
+  background: linear-gradient(to right, var(--range-fill, var(--ink-2)) calc(var(--fill) * 100%), var(--rail) 0);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06);
+}
+.cdp .cdp-range::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 15px; height: 15px; margin-top: -5.5px; border-radius: 50%;
+  background: var(--knob);
+  box-shadow: var(--knob-lift), inset 0 -1px 1px rgba(0, 0, 0, 0.06);
+  transition: transform var(--d-fast) var(--ease-out);
+}
+.cdp .cdp-range:hover::-webkit-slider-thumb { transform: scale(1.12); }
+.cdp .cdp-range::-moz-range-track { height: 4px; border-radius: 999px; background: var(--rail); }
+.cdp .cdp-range::-moz-range-progress { height: 4px; border-radius: 999px; background: var(--range-fill, var(--ink-2)); }
+.cdp .cdp-range::-moz-range-thumb { width: 15px; height: 15px; border: 0; border-radius: 50%; background: var(--knob); box-shadow: var(--knob-lift); }
+
+/* ── Inline error (ActionResult ok:false) ────────────────── */
+.cdp .cdp-inline-error {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 6px 6px 12px;
+  border-radius: var(--r-row); corner-shape: squircle;
+  font-size: var(--t-sm); color: var(--danger);
+  background: var(--danger-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--danger) 30%, transparent), 0 6px 16px -8px rgba(0, 0, 0, 0.3);
+  animation: cdp-rise-in var(--d-base) var(--ease-out);
+}
+.cdp .cdp-inline-error button {
+  width: 22px; height: 22px; border-radius: 50%; line-height: 1; font-size: 16px; color: inherit;
+  --focus-radius: 50%;
+}
+.cdp .cdp-inline-error button:hover { background: color-mix(in srgb, var(--danger) 12%, transparent); }
+
+/* ── Spinner ─────────────────────────────────────────────── */
+.cdp .cdp-spinner {
+  display: inline-block; width: 16px; height: 16px; flex: none;
+  border-radius: 50%;
+  border: 2px solid currentColor; border-right-color: transparent;
+  opacity: 0.75;
+  animation: cdp-spin 0.8s linear infinite;
+}
+
+/* ── Menus ───────────────────────────────────────────────── */
+.cdp .cdp-menu {
+  position: absolute; z-index: 40; min-width: 200px; padding: 6px;
+  border-radius: var(--r-card); corner-shape: squircle;
+  background: var(--glass-bg-strong);
+  animation: cdp-rise-in var(--d-fast) var(--ease-out);
+}
+.cdp .cdp-menu [role="menuitem"] {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  height: 34px; padding: 0 10px; border-radius: calc(var(--r-card) - 6px); corner-shape: squircle;
+  font-size: var(--t-md); color: var(--ink); text-align: left; white-space: nowrap;
+  --focus-radius: calc(var(--r-card) - 6px);
+}
+.cdp .cdp-menu [role="menuitem"] svg { color: var(--ink-2); }
+.cdp .cdp-menu [role="menuitem"]:hover:not(:disabled), .cdp .cdp-menu [role="menuitem"]:focus-visible { background: var(--accent-soft); }
+.cdp .cdp-menu [role="menuitem"]:disabled { opacity: 0.45; }
+.cdp .cdp-menu hr { border: 0; height: 1px; margin: 5px 8px; background: var(--line); }
+
+/* ── Skeleton ────────────────────────────────────────────── */
+.cdp .cdp-skeleton {
+  border-radius: var(--r-tag);
+  background: linear-gradient(90deg, var(--fill-quiet) 0%, var(--line-strong) 40%, var(--fill-quiet) 80%);
+  background-size: 200% 100%;
+  animation: cdp-shimmer 1.6s linear infinite;
+}
+
+/* ── Equalizer glyph for "now playing" rows ─────────────── */
+.cdp .cdp-eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; color: var(--accent-ink); }
+.cdp .cdp-eq i {
+  display: block; width: 2.5px; height: 100%; border-radius: 2px; background: currentColor;
+  transform-origin: bottom; animation: cdp-eq 0.9s ease-in-out infinite;
+}
+.cdp .cdp-eq i:nth-child(2) { animation-delay: -0.3s; }
+.cdp .cdp-eq i:nth-child(3) { animation-delay: -0.6s; }
+.cdp .cdp-eq[data-paused="true"] i { animation-play-state: paused; transform: scaleY(0.45); }
+
+@media (forced-colors: active) {
+  .cdp .cdp-seg button[aria-pressed="true"], .cdp .cdp-seg button[aria-selected="true"] { outline: 2px solid Highlight; outline-offset: -2px; }
+  .cdp .cdp-icon-btn[aria-pressed="true"] { outline: 2px solid Highlight; }
+  .cdp .cdp-play, .cdp .cdp-btn--primary, .cdp .cdp-btn--quiet, .cdp .cdp-btn--danger, .cdp .cdp-icon-btn--glass, .cdp .cdp-chip { border: 1px solid ButtonText; }
+  .cdp .cdp-btn--quiet::before, .cdp .cdp-icon-btn::before, .cdp .cdp-chip::before, .cdp .cdp-play::before,
+  .cdp .cdp-btn--primary::before, .cdp .cdp-seg button::before { display: none; }
+  .cdp .cdp-icon-btn::after, .cdp .cdp-play::after { display: none; }
+  /* The crystal's backdrop filter darkens what is behind it; in high contrast it is a plain system button. */
+  .cdp .cdp-play, .cdp .cdp-icon-btn--glass, .cdp .cdp-icon-btn:hover:not(:disabled) { background: ButtonFace; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .cdp .cdp-play svg { filter: none; }
+  .cdp .cdp-range { forced-color-adjust: none; }
+  .cdp .cdp-range::-webkit-slider-runnable-track { background: linear-gradient(to right, Highlight calc(var(--fill) * 100%), GrayText 0); box-shadow: none; }
+  .cdp .cdp-range::-webkit-slider-thumb { background: ButtonText; box-shadow: 0 0 0 2px Canvas; }
+  .cdp .cdp-range::-moz-range-track { background: GrayText; }
+  .cdp .cdp-range::-moz-range-progress { background: Highlight; }
+  .cdp .cdp-range::-moz-range-thumb { background: ButtonText; }
+  /* The EQ bars are painted backgrounds, which forced colours would erase; draw them in text colour. */
+  .cdp .cdp-eq i { forced-color-adjust: none; background: CanvasText; }
+}
+
+/* ── Frost (R2.2) ────────────────────────────────────────────
+ * The stage's material, shared: the album's cover blurred into light, a field of paper laid over
+ * it where text sits, and a fine grain that reads as frosted paper on the light themes and as
+ * bead-blasted metal on charcoal. Strengths and text tones come from lib/frost.ts (useFrostStyle),
+ * derived so text reads over any cover. A surface can keep part of the light clear by setting
+ * --frost-clear (paper opacity there) up to --frost-clear-to, reaching the full field at
+ * --frost-field-from (both lengths from the left edge).
+ */
+.cdp .cdp-frost {
+  position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
+  border-radius: inherit; corner-shape: inherit;
+  background:
+    radial-gradient(ellipse 60% 90% at 18% 50%, var(--pool-1) 0%, transparent 72%),
+    radial-gradient(ellipse 50% 80% at 90% 20%, var(--pool-2) 0%, transparent 70%),
+    var(--paper-2);
+}
+.cdp .cdp-frost img {
+  position: absolute; left: -12%; top: -60%; width: 124%; height: 220%;
+  object-fit: cover;
+  filter: blur(var(--frost-blur, 42px)) saturate(1.7);
+  opacity: var(--frost-art, 0.8);
+}
+.cdp .cdp-frost::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    var(--frost-grain, var(--grain)),
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--paper) var(--frost-clear, var(--frost-field)), transparent) var(--frost-clear-to, 0px),
+      color-mix(in srgb, var(--paper) var(--frost-field), transparent) var(--frost-field-from, 0px));
+  background-blend-mode: soft-light, normal;
+}
+@media (forced-colors: active) {
+  .cdp .cdp-frost { background: Canvas; }
+  .cdp .cdp-frost img, .cdp .cdp-frost::after { display: none; }
+}

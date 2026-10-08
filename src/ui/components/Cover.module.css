@@ -1,0 +1,39 @@
+.cover {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--r-cover);
+  overflow: hidden;
+  background: var(--cover-tint, var(--paper-3));
+  box-shadow: var(--shadow-cover);
+  isolation: isolate;
+}
+/* A crisp acrylic edge, like light catching the rim of a jewel case. */
+.cover::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--cover-rim);
+  pointer-events: none;
+  z-index: 2;
+}
+.cover img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity var(--d-base) linear;
+}
+.cover[data-fit="contain"] img { object-fit: contain; background: var(--paper-2); }
+.cover[data-status="loading"] img { opacity: 0; }
+
+.placeholder { position: absolute; inset: 0; }
+.placeholder svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.placeholderTitle {
+  position: absolute; left: 9%; right: 9%; bottom: 8%;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  font-size: max(10px, min(15px, 7cqi));
+  --role-sc: var(--font-serif-sc); --role-ja: var(--font-serif-ja);
+  font-weight: var(--w-serif); line-height: 1.3; letter-spacing: 0.01em;
+  color: rgba(19, 36, 59, 0.72);
+}
+.cover { container-type: inline-size; }

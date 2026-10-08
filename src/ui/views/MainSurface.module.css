@@ -1,0 +1,56 @@
+.main {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+}
+/* Light falling through a window onto paper: still pools of the theme's blue and a faint grain,
+   which gives the floating glass something to refract. Nothing here animates. */
+.backdrop {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 62% 56% at 6% -8%, var(--pool-1) 0%, transparent 70%),
+    radial-gradient(ellipse 48% 44% at 104% 34%, var(--pool-2) 0%, transparent 72%),
+    radial-gradient(ellipse 72% 46% at 58% 114%, var(--pool-3) 0%, transparent 70%),
+    radial-gradient(ellipse 34% 30% at 30% 62%, var(--pool-2) 0%, transparent 70%),
+    var(--paper);
+}
+.backdrop::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: var(--grain-opacity);
+  pointer-events: none;
+}
+/* With a native material behind the window (Mica), the paper thins so it can show through. */
+:global(.cdp[data-backdrop="mica"]) .backdrop { opacity: 0.82; }
+:global(.cdp[data-backdrop="mica"]) { background: transparent; }
+
+.frame {
+  position: relative; flex: 1; min-height: 0;
+  display: flex; flex-direction: column;
+}
+.frame[data-covered="true"] { visibility: hidden; }
+.views { position: relative; flex: 1; min-height: 0; }
+/* The bar floats over the scrolling shelf; it turns to glass once covers pass beneath it. */
+.barWrap {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+  transition: background-color var(--d-base) linear, box-shadow var(--d-base) linear;
+}
+.barWrap[data-scrolled="true"] {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  box-shadow: var(--glass-rim), 0 1px 0 var(--line-strong), 0 10px 26px -18px rgba(0, 0, 0, 0.35);
+}
+/* Over Mica the page itself is translucent (the paper is at 82%), so the blur the bar takes of it
+   is translucent too, and the sharp shelf underneath showed through it as a faint ghost (WebView2,
+   core.15). Two zero-offset shadows in paper colour fill the blurred copy in to opaque before the
+   glass is laid on it; the rest of the window keeps the Mica showing through. */
+@media (forced-colors: none) {
+  :global(.cdp[data-backdrop="mica"]) .barWrap[data-scrolled="true"] {
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)) drop-shadow(0 0 0 var(--paper)) drop-shadow(0 0 0 var(--paper));
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)) drop-shadow(0 0 0 var(--paper)) drop-shadow(0 0 0 var(--paper));
+  }
+}
+@media (forced-colors: active) {
+  .backdrop::after { display: none; }
+  .barWrap[data-scrolled="true"] { background: Canvas; backdrop-filter: none; border-bottom: 1px solid CanvasText; }
+}

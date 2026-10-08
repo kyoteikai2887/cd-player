@@ -1,0 +1,103 @@
+.group + .group { margin-top: 26px; }
+.groupTitle { font-size: var(--t-sm); font-weight: var(--w-label); color: var(--ink-2); margin: 0 0 6px 4px; }
+.groupBody {
+  border-radius: var(--r-card); corner-shape: squircle;
+  background: var(--fill-hover);
+  box-shadow: inset 0 0 0 1px var(--line), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  padding: 2px 16px;
+}
+.row {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  min-height: 54px; padding: 10px 0;
+}
+.row + .row { border-top: 1px solid var(--line); }
+.rowLabel { display: flex; flex-direction: column; min-width: 0; font-weight: var(--w-label); }
+.rowLabel small { font-size: var(--t-xs); font-weight: var(--w-text); color: var(--ink-3); margin-top: 2px; line-height: 1.45; }
+.rowControl { display: flex; justify-content: flex-end; flex: none; }
+
+.themes { display: flex; gap: 10px; }
+.theme {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  font-size: var(--t-xs); font-weight: var(--w-label); color: var(--ink-2);
+  --focus-radius: var(--r-row);
+}
+/* Each swatch is a tiny picture of its theme: paper, a light pool, a cover and a glass bar. */
+.themePreview {
+  position: relative; display: block; width: 66px; height: 44px; border-radius: calc(var(--r-row) - 2px); corner-shape: squircle; overflow: hidden;
+  background: radial-gradient(ellipse 80% 70% at 10% 0%, rgba(108, 172, 228, 0.35), transparent 70%), #F6F9FD;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+.theme[data-theme-swatch="blue"] .themePreview { background: radial-gradient(ellipse 80% 70% at 10% 0%, rgba(108, 172, 228, 0.75), transparent 70%), #D3E6F7; }
+.theme[data-theme-swatch="charcoal"] .themePreview { background: radial-gradient(ellipse 80% 70% at 10% 0%, rgba(108, 172, 228, 0.3), transparent 70%), #14171C; }
+.themePreview i:first-child { position: absolute; left: 8px; top: 7px; width: 17px; height: 17px; border-radius: 3px; background: linear-gradient(135deg, #bff3f1, #6CACE4 60%, #2b6fb0); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
+.themePreview i:nth-child(2) { position: absolute; left: 31px; top: 10px; width: 26px; height: 4px; border-radius: 2px; background: #14253D; box-shadow: 0 7px 0 rgba(20, 37, 61, 0.35); }
+.themePreview i:last-child {
+  position: absolute; left: 6px; right: 6px; bottom: 5px; height: 9px; border-radius: 5px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.55));
+  box-shadow: inset 0 1px 0 #fff, 0 2px 4px rgba(15, 58, 99, 0.2);
+}
+.theme[data-theme-swatch="charcoal"] .themePreview i:nth-child(2) { background: #EDF1F6; box-shadow: 0 7px 0 rgba(237, 241, 246, 0.4); }
+.theme[data-theme-swatch="charcoal"] .themePreview i:last-child {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+.theme[aria-pressed="true"] { color: var(--ink); }
+.theme[aria-pressed="true"] .themePreview { box-shadow: inset 0 0 0 1px var(--line-strong), 0 0 0 2px var(--paper), 0 0 0 4px var(--accent); }
+
+.accents { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; max-width: 230px; }
+.swatch {
+  display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --focus-radius: 50%;
+}
+.swatch svg { opacity: 0; }
+.swatch[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--paper), 0 0 0 3.5px var(--ink-2); }
+.swatch[aria-pressed="true"] svg { opacity: 1; }
+.custom {
+  position: relative; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+  color: var(--ink-2);
+  background: conic-gradient(#ff8a8a, #ffd27a, #9be38f, #7fd6ff, #9b8cff, #ff8ad8, #ff8a8a);
+  cursor: pointer;
+}
+.custom svg { position: relative; z-index: 1; color: #fff; filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.5)); }
+.custom input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.custom:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.custom[data-active="true"] { box-shadow: 0 0 0 2px var(--paper), 0 0 0 3.5px var(--ink-2); }
+
+.slider { display: flex; align-items: center; gap: 10px; width: 200px; }
+.slider input { flex: 1; --range-fill: var(--accent-fill); }
+.sliderValue { min-width: 3.2em; text-align: right; font-size: var(--t-sm); font-weight: var(--w-label); color: var(--ink-2); }
+
+.switch {
+  position: relative; width: 44px; height: 26px; border-radius: var(--r-pill); flex: none;
+  background: var(--groove-bg);
+  box-shadow: var(--groove-rim);
+  transition: background-color var(--d-base) linear;
+  --focus-radius: var(--r-pill);
+}
+.switch i {
+  position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--knob); box-shadow: var(--knob-lift), inset 0 -1px 1px rgba(0, 0, 0, 0.08);
+  transition: transform var(--d-base) var(--ease-spring);
+}
+.switch[aria-checked="true"] {
+  /* The same accent glass as Play (components.css). */
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent-hi) var(--accent-glass), transparent),
+    color-mix(in srgb, var(--accent-fill) var(--accent-glass), transparent) 70%);
+  box-shadow: inset 0 1px 2px rgba(8, 30, 54, 0.14), 0 0 0 0.75px color-mix(in srgb, var(--accent-edge) 55%, transparent);
+}
+.switch[aria-checked="true"] i { transform: translateX(18px); }
+
+.libraryActions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.about { margin-top: 22px; font-size: var(--t-xs); color: var(--ink-3); text-align: center; }
+
+/* High contrast: the swatches are pictures of colours, so they keep them; selection uses system colours. */
+@media (forced-colors: active) {
+  .themePreview, .swatch, .custom { forced-color-adjust: none; border: 1px solid CanvasText; }
+  .theme[aria-pressed="true"] .themePreview, .swatch[aria-pressed="true"] { outline: 3px solid Highlight; outline-offset: 2px; box-shadow: none; }
+  .switch { border: 1px solid ButtonText; }
+  .switch i { background: ButtonText; forced-color-adjust: none; }
+  .switch[aria-checked="true"] { background: Highlight; forced-color-adjust: none; }
+  .switch[aria-checked="true"] i { background: HighlightText; }
+}

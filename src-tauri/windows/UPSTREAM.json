@@ -1,0 +1,14 @@
+{
+  "url": "https://raw.githubusercontent.com/tauri-apps/tauri/tauri-cli-v2.12.1/crates/tauri-bundler/src/bundle/windows/nsis/installer.nsi",
+  "tag": "tauri-cli-v2.12.1",
+  "sha256": "dabed59013b1d78b879a1a85bc7f2eed2993b33a9a90cdabe5946de3d3950597",
+  "changes": [
+    "Replace both CheckIfAppIsRunning calls with CD_CheckAppStopped",
+    "Remove delete-app-data checkbox and APPDATA removal block",
+    "Remove product registration on uninstall; keep all profile files",
+    "Explicit installed-version comparison in onInit; reject silent downgrade before resource copying",
+    "Use stable bundle identifier for uninstall/product registration keys",
+    "Before replacing resources, run this product registered uninstaller in /S /UPDATE mode to remove its exact old resource list; preserve unrelated files"
+  ],
+  "license": "MIT OR Apache-2.0; full texts distributed as licenses/npm/@tauri-apps+cli@2.12.1/LICENSE-MIT and LICENSE-APACHE-2.0"
+}

@@ -1,0 +1,74 @@
+.play { position: relative; }
+.busyRing {
+  position: absolute; inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  border-right-color: transparent; border-bottom-color: transparent;
+  opacity: 0;
+  animation: spin 0.9s linear infinite, fadeIn var(--d-base) linear 300ms forwards;
+}
+
+/* ── Seek ─────────────────────────────────────────────── */
+.seek {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px;
+  width: 100%;
+}
+.seek[data-variant="line"] { grid-template-columns: 1fr; gap: 0; }
+.time { font-size: var(--t-xs); color: var(--ink-2); min-width: 3.4em; font-weight: var(--w-label); }
+.timeEnd { text-align: right; }
+
+.track { position: relative; height: 20px; }
+.rail {
+  position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px;
+  border-radius: 999px; overflow: hidden;
+  background: var(--rail);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06);
+  transition: height var(--d-fast) var(--ease-out), margin var(--d-fast) var(--ease-out);
+}
+.fill {
+  position: absolute; inset: 0;
+  transform-origin: left center;
+  will-change: transform;
+  background: var(--rail-fill);
+  border-radius: inherit;
+}
+.thumbTrack { position: absolute; inset: 0; pointer-events: none; will-change: transform; }
+.thumb {
+  position: absolute; top: 50%; left: 0;
+  width: 12px; height: 12px; margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  background: var(--knob);
+  box-shadow: var(--knob-lift);
+  opacity: 0; transform: scale(0.6);
+  transition: opacity var(--d-fast) linear, transform var(--d-fast) var(--ease-out);
+  pointer-events: none;
+}
+.track:hover .rail, .seek[data-dragging="true"] .rail, .track:has(.input:focus-visible) .rail { height: 6px; margin-top: -3px; }
+.track:hover .thumb, .seek[data-dragging="true"] .thumb, .track:has(.input:focus-visible) .thumb { opacity: 1; transform: none; }
+.track:has(.input:focus-visible) .rail { outline: 2px solid var(--accent); outline-offset: 3px; }
+.input {
+  position: absolute; inset: 0; width: 100%; height: 100%; margin: 0;
+  opacity: 0; cursor: pointer;
+}
+.input:disabled { cursor: default; }
+.input:focus-visible { outline: none; box-shadow: none; }
+
+.seek[data-variant="line"] .track { height: 12px; }
+.seek[data-variant="line"] .rail { height: 3px; margin-top: -1.5px; background: var(--rail); }
+.seek[data-variant="line"] .fill { background: var(--accent-fill); }
+.seek[data-variant="line"] .thumb { width: 10px; height: 10px; margin: -5px 0 0 -5px; }
+
+/* ── Volume ───────────────────────────────────────────── */
+.volume { display: flex; align-items: center; gap: 4px; width: 148px; }
+.volume[data-compact="true"] { width: 118px; }
+.volume input { flex: 1; min-width: 0; }
+
+/* Local keyframes (CSS Modules scope animation names per file). */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (forced-colors: active) {
+  .rail { background: GrayText; forced-color-adjust: none; }
+  .fill { background: Highlight; }
+  .thumb { background: Highlight; opacity: 1; transform: none; }
+}

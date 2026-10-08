@@ -1,0 +1,195 @@
+/*
+ * Lyrics editor (Claude, R2), inside the shared EditorFrame.
+ * Toolbar · banners (conflict, import, confirm) · lines · footer (listen / tap / save).
+ * Rows are plain until touched; the controls inside them are clear glass.
+ */
+/* ── Toolbar ──────────────────────────────────────── */
+.toolbar {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px;
+  padding: 2px 18px 12px 22px;
+  border-bottom: 1px solid var(--line);
+}
+.toolbarGap { flex: 1; min-width: 4px; }
+/* The two toggles (translation column, lock) show when they are on, e.g. after an import opened the column. */
+.toolbar :global(.cdp-chip[aria-pressed="true"]) { box-shadow: inset 0 0 0 1.5px var(--accent), var(--btn-lift); }
+@media (forced-colors: active) { .toolbar :global(.cdp-chip[aria-pressed="true"]) { outline: 2px solid Highlight; } }
+/* Narrow windows: the two toggles keep their icons (and names for assistive tech), the offset its value. */
+@container (width < 1060px) {
+  .toolbar { column-gap: 8px; }
+  .chipLabel, .offsetLabel { display: none; }
+  .toolbar :global(.cdp-chip) { padding-inline: 9px; }
+}
+.offset { display: inline-flex; align-items: center; gap: 2px; font-size: var(--t-sm); color: var(--ink-2); }
+.offsetIcon { margin-right: 5px; color: var(--ink-3); }
+.offsetLabel { margin-right: 4px; }
+.offsetValue { min-width: 3.6em; text-align: center; font-weight: var(--w-label); color: var(--ink); }
+.offset :global(.cdp-icon-btn) { font-size: 17px; }
+
+/* ── Lines ────────────────────────────────────────── */
+.body { position: relative; flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 8px 14px 24px 14px; container-type: inline-size; scrollbar-gutter: stable; }
+/* Header and rows share one grid; the tool column is sized for its buttons so text columns line up. */
+.columns, .line {
+  display: grid; align-items: start; column-gap: 10px;
+  grid-template-columns: 36px 116px minmax(0, 1fr) 150px;
+}
+.columns[data-kind="plain"], .lines[data-kind="plain"] .line { grid-template-columns: 36px minmax(0, 1fr) 60px; }
+.columns {
+  padding: 6px 8px 8px; font-size: var(--t-xs); color: var(--ink-3); letter-spacing: 0.04em;
+}
+.columns .texts > span { padding-left: 10px; }
+.timeHead { text-align: center; }
+.lines { display: flex; flex-direction: column; }
+.line {
+  position: relative;
+  padding: 5px 8px;
+  border-radius: var(--r-row); corner-shape: squircle;
+  transition: background-color var(--d-fast) linear;
+}
+.line + .line::before { content: ""; position: absolute; top: 0; left: 52px; right: 12px; height: 1px; background: var(--line); }
+.line:hover, .line:focus-within { background: var(--fill-hover); }
+.line:hover::before, .line:hover + .line::before, .line:focus-within::before, .line:focus-within + .line::before { opacity: 0; }
+.gutter { position: relative; display: grid; place-items: center; height: 34px; }
+.number { font-size: var(--t-xs); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.cursorButton {
+  display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
+  font-size: var(--t-xs); color: var(--ink-3);
+  --focus-radius: 50%;
+}
+.cursorButton:hover { background: var(--hover-glyph); color: var(--ink); }
+.cursorButton[aria-pressed="true"] { color: var(--on-accent); background: var(--accent-fill); box-shadow: 0 0 0 4px var(--accent-soft); }
+/* The line heard right now: a small light in the gutter, the time in accent ink. */
+.playing {
+  position: absolute; left: -2px; top: 50%; width: 4px; height: 18px; margin-top: -9px;
+  border-radius: 2px; background: var(--accent-fill); opacity: 0;
+  box-shadow: 0 0 10px var(--accent-shadow);
+  transition: opacity var(--d-base) linear;
+}
+.line[data-playing="true"] .playing { opacity: 1; }
+.line[data-playing="true"] .timeCell input { color: var(--accent-ink); }
+.line[data-cursor="true"] { background: var(--accent-soft); transition: none; }
+.line[data-cursor="true"]::before, .line[data-cursor="true"] + .line::before { opacity: 0; }
+.timeCell { padding-top: 2px; }
+.texts { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; min-width: 0; }
+.texts[data-translation="true"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 10px; }
+.original {
+  --role-sc: var(--font-display-sc); --role-ja: var(--font-display-ja);
+  font-size: calc(18px * var(--ls)); font-weight: var(--w-serif); line-height: 1.4; color: var(--ink);
+}
+.original:lang(ja) { font-feature-settings: "palt"; letter-spacing: 0.02em; }
+.translation {
+  --role-sc: var(--font-serif-sc); --role-ja: var(--font-serif-ja);
+  font-size: calc(15px * var(--ls)); color: var(--ink-2); padding-top: 8px;
+}
+.line[data-break="true"] .original::placeholder { color: var(--ink-3); font-size: var(--t-sm); letter-spacing: 0.12em; }
+.line[data-break="true"] .original { padding-right: 18px; }
+.line[data-break="true"] .texts::after {
+  content: ""; position: absolute; left: 4.2em; right: 0; top: 50%; border-top: 1px dashed var(--line-strong); pointer-events: none;
+}
+.line[data-break="true"] .texts { position: relative; }
+.line[data-break="true"]:focus-within .texts::after { display: none; }
+.tools { display: flex; align-items: center; justify-content: flex-end; gap: 0; padding-top: 2px; opacity: 0; transition: opacity var(--d-fast) linear; }
+.line:hover .tools, .line:focus-within .tools { opacity: 1; }
+.nudge { font-size: 11.5px; font-weight: var(--w-label); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.issue { grid-column: 2 / -1; margin: 2px 0 4px 10px; font-size: var(--t-xs); color: var(--danger); }
+.line[data-invalid="true"] { box-shadow: inset 3px 0 0 color-mix(in srgb, var(--danger) 70%, transparent); }
+.addLine {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin: 10px 0 0 52px; height: 32px; padding: 0 12px;
+  border-radius: var(--r-pill); font-size: var(--t-sm); color: var(--ink-2);
+  --focus-radius: var(--r-pill);
+}
+.addLine:hover { color: var(--ink); background: var(--hover-glyph); }
+@container (width < 860px) {
+  .texts[data-translation="true"] { grid-template-columns: minmax(0, 1fr); }
+  .columns .texts > span + span { display: none; }
+  .translation { padding-top: 0; }
+}
+
+/* ── Empty / waiting ──────────────────────────────── */
+.waiting { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 60px 24px; }
+.waitingText { display: inline-flex; align-items: center; gap: 10px; color: var(--ink-2); }
+.emptyState { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12cqh 24px; text-align: center; color: var(--ink-3); }
+.emptyTitle { --role-sc: var(--font-display-sc); --role-ja: var(--font-display-ja); font-size: var(--t-xl); font-weight: var(--w-serif); color: var(--ink); }
+.emptyBody { max-width: 30em; color: var(--ink-2); text-wrap: balance; }
+.emptyActions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; }
+
+/* ── Footer ───────────────────────────────────────── */
+.footer {
+  display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr) auto; align-items: center; gap: 12px 18px;
+  padding: 12px 16px 14px 22px;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(to bottom, rgba(var(--glass-tint), 0.18), rgba(var(--glass-tint), 0.32));
+}
+.footerTransport { display: flex; align-items: center; min-width: 0; }
+.transport { display: flex; align-items: center; gap: 12px; width: min(360px, 34cqw); min-width: 240px; }
+.transport > :last-child { flex: 1; min-width: 0; }
+.footerMain { min-width: 0; display: flex; align-items: center; }
+.footerActions { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
+.tapBar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.tapButton { height: 40px; padding: 0 20px; font-size: var(--t-md); }
+.tapButton kbd {
+  margin-left: 4px; padding: 1px 6px; border-radius: var(--r-tag);
+  font: inherit; font-size: var(--t-xs); background: rgba(255, 255, 255, 0.28); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+.tapHint { font-size: var(--t-xs); color: var(--ink-3); }
+.closeAsk { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 8px; font-size: var(--t-sm); color: var(--ink); }
+.closeAsk > span { margin-right: 4px; }
+
+/* ── Compare ──────────────────────────────────────── */
+/* Two quiet columns; only what differs is lit: struck warm on the saved side, accent on the draft. */
+.compare { padding: 8px 8px 0; }
+.compareHead { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px; margin: 2px 0 12px; }
+.compareLead { flex: 1 1 320px; font-size: var(--t-sm); color: var(--ink-2); }
+.compareLead strong { font-weight: var(--w-label); color: var(--ink); }
+.compareFields { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.compareFields div {
+  display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px;
+  border-radius: var(--r-pill); font-size: var(--t-xs); background: var(--fill-quiet); box-shadow: inset 0 0 0 1px var(--line);
+}
+.compareFields dt { color: var(--ink-3); }
+.compareFields dd { display: inline-flex; align-items: baseline; gap: 6px; color: var(--ink); font-weight: var(--w-label); }
+.compareFields del, .compareTime del { text-decoration: none; color: color-mix(in srgb, var(--warning) 80%, var(--ink-2)); }
+/* Accent text on a tinted pill or tag: a step toward ink keeps 4.5:1 there in every theme. */
+.compareFields ins, .compareTime ins { text-decoration: none; color: color-mix(in srgb, var(--accent-ink) 82%, var(--ink)); }
+.compareTable { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.compareTable th { padding: 0 12px 8px; text-align: left; font-size: var(--t-xs); font-weight: var(--w-label); color: var(--ink-3); letter-spacing: 0.04em; }
+.compareTable th:first-child { width: 104px; }
+.compareTable td { padding: 10px 12px; vertical-align: top; font-size: var(--t-sm); border-top: 1px solid var(--line); }
+.compareTable td[data-side="draft"] { border-left: 1px solid var(--line); }
+.compareTime { color: var(--ink-3); font-size: var(--t-xs); padding-top: 13px !important; }
+.compareTime del, .compareTime ins { display: block; }
+.compareTag {
+  display: inline-block; margin-top: 6px; padding: 1px 7px; border-radius: var(--r-tag);
+  font-size: 11px; font-weight: var(--w-label); letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--accent-ink) 82%, var(--ink)); background: var(--accent-well);
+}
+tr[data-status="onlyLatest"] .compareTag { color: var(--warning); background: var(--warning-bg); }
+.compareTable tr[data-status="same"] td[data-side] { color: var(--ink-3); }
+.compareTable tr[data-status="same"] .compareOriginal { color: var(--ink-2); }
+.compareOriginal {
+  --role-sc: var(--font-display-sc); --role-ja: var(--font-display-ja);
+  display: block; width: fit-content; max-width: 100%; font-size: var(--t-md); line-height: 1.5; white-space: pre-line; color: var(--ink);
+}
+.compareOriginal:lang(ja) { font-feature-settings: "palt"; letter-spacing: 0.02em; }
+.compareTranslation {
+  --role-sc: var(--font-serif-sc); --role-ja: var(--font-serif-ja);
+  display: block; width: fit-content; max-width: 100%; margin-top: 3px; color: var(--ink-2); white-space: pre-line;
+}
+.compareOriginal[data-diff], .compareTranslation[data-diff] { margin-inline: -5px; padding: 0 5px; border-radius: var(--r-tag); }
+td[data-side="latest"] [data-diff] { background: color-mix(in srgb, var(--warning) 13%, transparent); color: var(--ink); }
+td[data-side="draft"] [data-diff] { background: var(--accent-soft); color: var(--ink); }
+.compareNone { color: var(--ink-3); font-size: var(--t-xs); }
+.compareBreak { color: var(--ink-3); font-size: var(--t-xs); letter-spacing: 0.1em; }
+.compareFold td { padding: 4px 12px; }
+.compareFold :global(.cdp-btn) { height: 28px; font-size: var(--t-xs); color: var(--ink-3); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rise { from { opacity: 0; transform: translateY(10px) scale(0.99); } to { opacity: 1; transform: none; } }
+
+@media (forced-colors: active) {
+  .line[data-cursor="true"] { outline: 2px solid Highlight; }
+  .line[data-playing="true"] .playing { background: Highlight; forced-color-adjust: none; }
+  .line[data-invalid="true"] { outline: 2px solid Mark; }
+  [data-diff] { outline: 1px solid Highlight; }
+  .compareTable td { border-color: CanvasText; }
+}
