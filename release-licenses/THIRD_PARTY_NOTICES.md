@@ -2,7 +2,7 @@
 
 原创项目代码使用 MIT；下列依赖与字体继续使用各自许可证，不能据项目 MIT 声明重新授权。准确版本以 pnpm-lock.yaml 与 src-tauri/Cargo.lock 为准。
 
-Windows 便携包随附 licenses/：完整 Node.js 24.19.0 LICENSE、npm / Rust 组件声明、字体 OFL 和美术声明。源码对应集合在 release-licenses/。INDEX.json 有 1215 条记录，保守覆盖开发与其他平台依赖，不表示都编入当前程序。
+Windows 便携包随附 licenses/：完整 Node.js 24.19.0 LICENSE、npm / Rust 组件声明、字体 OFL 和美术声明。源码对应集合在 release-licenses/。INDEX.json 有 1218 条记录，保守覆盖开发与其他平台依赖，不表示都编入当前程序。
 
 | 组件 | 用途 | 许可 |
 |---|---|---|
@@ -19,3 +19,5 @@ Windows 便携包随附 licenses/：完整 Node.js 24.19.0 LICENSE、npm / Rust 
 Node.js 对应源码：https://github.com/nodejs/node/tree/v24.19.0 。Tauri：https://github.com/tauri-apps/tauri 。music-metadata：https://github.com/Borewit/music-metadata 。
 
 本项目独立适配歌词提供方的普通响应，没有嵌入 LDDC 的 Python/Qt 引擎、解密或登录代码；在线内容不随程序、演示或源码分发。原始音乐及商业封面不包含在公开材料中。美术范围另见根目录 ARTWORK_NOTICE.md。
+
+候选修复版补齐 webview2-com 0.39.1、webview2-com-sys 0.39.1 和 webview2-com-macros 0.8.1 的 MIT 正文；这些版本原已在 Cargo.lock 中，通过缓存包的来源提交获取同一上游仓库的完整许可。windows-core 0.62.2 的 MIT / Apache-2.0 正文已随原集合提供。

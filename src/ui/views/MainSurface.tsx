@@ -180,7 +180,7 @@ export function MainSurface({ snapshot }: { snapshot: UISnapshot }) {
             onOpenAlbum={openAlbum} onOpenNowPlaying={openNowPlaying} heroAlbumId={effective.name === 'library' ? heroAlbumId : null}
             playingAlbumId={currentAlbum?.id ?? null} />
           {effective.name === 'album' && routeAlbum && (
-            <AlbumDetail key={routeAlbum.id} album={routeAlbum} lyricsByCurrent={snapshot.lyrics}
+            <AlbumDetail key={routeAlbum.id} album={routeAlbum} lyricsByCurrent={snapshot.lyrics} tasks={snapshot.tasks}
               onOpenNowPlaying={openNowPlaying} onEditMetadata={trackId => setMetaEdit({ albumId: routeAlbum.id, trackId })}
               onRemove={() => openRemoval(routeAlbum.id)} />
           )}

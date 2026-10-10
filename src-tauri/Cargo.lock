@@ -285,7 +285,7 @@ dependencies = [
 
 [[package]]
 name = "cd-player-desktop"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "dunce",
  "serde",
@@ -295,6 +295,8 @@ dependencies = [
  "tauri-plugin-dialog",
  "tokio",
  "uuid",
+ "webview2-com",
+ "windows-core",
  "windows-sys 0.61.2",
 ]
 

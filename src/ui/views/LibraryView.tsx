@@ -54,6 +54,9 @@ export const LibraryView = memo(function LibraryView({ hidden, tab, sort, query,
   );
 
   return (
+    <>
+    {/* Wide windows (V1.1): two discs at the sides of the desk, out of the way of everything. */}
+    {!hidden && library.albums.length > 0 && <span className={styles.sides} aria-hidden="true" data-decor="sides"><i data-side="start" /><i data-side="end" /></span>}
     <section ref={scroller} className={styles.scroller} data-scroller="library" data-hidden={hidden ? 'true' : 'false'} inert={hidden || undefined}
       aria-hidden={hidden || undefined} aria-label="收藏">
       {!library.albums.length ? <EmptyLibrary /> : (
@@ -93,6 +96,7 @@ export const LibraryView = memo(function LibraryView({ hidden, tab, sort, query,
         </div>
       )}
     </section>
+    </>
   );
 });
 

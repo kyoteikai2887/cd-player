@@ -42,16 +42,12 @@
 .facts dd { color: var(--ink); font-weight: var(--w-label); }
 .nowButton :global(.cdp-eq) { height: 14px; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 24px; }
-.status {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px;
-  margin-top: 18px; font-size: var(--t-xs); color: var(--ink-2);
+/* A metadata lookup the user started, while it runs (V1.1: the standing status row moved to the info sheet). */
+.task {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 16px; font-size: var(--t-sm); color: var(--ink-2);
 }
-.status:empty { display: none; }
-.statusText { display: inline-flex; align-items: center; gap: 5px; }
-.rip { display: inline-flex; flex-wrap: wrap; gap: 12px; }
-.rip span { display: inline-flex; align-items: center; gap: 3px; }
-.rip span[data-on="false"] { color: var(--ink-3); }
-.rip span[data-on="true"] svg { color: var(--ok); }
+:global(.cdp) .task :global(.cdp-spinner) { width: 14px; height: 14px; color: var(--accent-ink); }
 
 /* ── Track list ─────────────────────────────────────── */
 .tracks { margin-top: 48px; }

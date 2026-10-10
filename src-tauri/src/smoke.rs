@@ -892,6 +892,54 @@ async fn run_materials(app: &tauri::AppHandle) -> Result<Value, String> {
 }
 #[cfg(not(windows))]
 async fn run_materials(_: &tauri::AppHandle) -> Result<Value, String> { Err("Material diagnostic requires Windows".into()) }
+// Own-window reload, isolated fixture only. This does not put Windows to sleep
+// and cannot prove that the intermittent Modern Standby failure is eliminated.
+async fn run_renderer_recovery(app: &tauri::AppHandle) -> Result<Value, String> {
+    let healthy = |state: &NativeState| {
+        state.ready.lock().unwrap().len() == 2 && state.responsive.load(Ordering::SeqCst)
+            && state.snapshots.lock().unwrap().get("main").is_some_and(|s| s.value["host"]["coreStatus"] == "ready")
+    };
+    wait_until(app, healthy).await?;
+    let initial = app.state::<NativeState>().snapshots.lock().unwrap()["main"].value.clone();
+    let mut checks = Vec::new();
+    let main = app.get_webview_window("main").unwrap();
+    let now = app.state::<NativeState>().started.elapsed().as_secs_f64()*1000.0;
+    let dirty = dispatch_action(app.clone(), main.clone(), "main".into(),
+        json!({"type":"reportUnsavedChanges","surface":"main","dirty":true}), now+4000.0).await?;
+    if dirty["ok"] != true { return Err("Fixture dirty report rejected".into()); }
+    let revision = app.state::<NativeState>().dirty.lock().unwrap().0;
+    if reload_surfaces(app, revision-1).is_ok()
+        || !app.state::<NativeState>().dirty.lock().unwrap().1.contains("main")
+        || app.state::<NativeState>().ready.lock().unwrap().len() != 2 {
+        return Err("An expired recovery approval discarded a newer draft".into());
+    }
+    checks.push(json!({"name":"Changed draft revision rejects recovery and retains both surfaces and dirty state","passed":true}));
+    for cycle in 0..2 {
+        if cycle == 1 {
+            let track = initial["library"]["tracks"][0]["id"].as_str().ok_or("Synthetic audio missing")?;
+            if core_action(app,"main",json!({"type":"playTracks","trackIds":[track],"startIndex":0})).await["ok"] != true {
+                return Err("Playback before reload failed".into());
+            }
+            switch_window(app,"mini")?;
+        }
+        let revision = app.state::<NativeState>().dirty.lock().unwrap().0;
+        reload_surfaces(app,revision)?;
+        wait_until(app,healthy).await?;
+        let after=app.state::<NativeState>().snapshots.lock().unwrap()["main"].value.clone();
+        if after["library"]!=initial["library"] || after["settings"]!=initial["settings"]
+            || after["player"]["status"]!="idle" || !app.state::<NativeState>().dirty.lock().unwrap().1.is_empty() {
+            return Err("Reload changed saved data or resumed prior audio/drafts".into());
+        }
+        switch_window(app,"full")?;
+        let result=core_action(app,"main",json!({"type":"setVolume","volume":initial["player"]["volume"]})).await;
+        if result["ok"]!=true { return Err("New renderer action relay did not reconnect".into()); }
+        checks.push(json!({"name":format!("Reload cycle {cycle}: two surfaces, heartbeat and actions restored; saved data unchanged; audio remains idle"),"passed":true}));
+    }
+    let errors=app.state::<NativeState>().failures.lock().unwrap().clone();
+    if !errors.is_empty() { return Err(format!("Frontend errors: {errors:?}")); }
+    Ok(json!({"passed":true,"rendererRecovery":true,"checks":checks,"frontendErrors":errors,
+        "physicalSleepTested":false,"realUserDataAccessed":false,"limits":["No real Modern Standby, GPU crash, or human native confirmation click was simulated"]}))
+}
 pub fn start(app: tauri::AppHandle) {
     tauri::async_runtime::spawn(async move {
         let options = options().unwrap().unwrap();
@@ -902,6 +950,8 @@ pub fn start(app: tauri::AppHandle) {
         };
         let result = if let Err(error) = prepared {
             Err(error)
+        } else if std::env::args().any(|arg| arg == "--smoke-renderer-recovery") {
+            run_renderer_recovery(&app).await
         } else if recovery() {
             run_recovery(&app).await
         } else if materials() {

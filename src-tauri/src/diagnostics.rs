@@ -253,6 +253,14 @@ impl Recorder {
             self.write(json!({"event":event,"version":env!("CARGO_PKG_VERSION")}));
         }
     }
+    pub fn renderer(&self, surface: &str, event: &str, kind: Option<i32>) {
+        if !matches!(surface, "main" | "mini") || !matches!(event,
+            "process_failed" | "observer_failed" | "resume_failed" |
+            "recovery_requested" | "recovery_cancelled" | "recovery_started" | "recovery_failed" | "surface_ready" | "frontend_error") {
+            return;
+        }
+        self.write(json!({"event":"renderer","surface":surface,"operation":event,"kind":kind.filter(|n| (0..=10).contains(n))}));
+    }
     pub fn health(&self, ready: bool) {
         self.write(json!({"event":"health","ready":ready}));
     }
@@ -312,6 +320,22 @@ mod tests {
                 .starts_with("cd-diagnostics-"));
             fs::remove_dir_all(p).unwrap();
         }
+    }
+    #[test]
+    fn renderer_records_only_known_surfaces_operations_and_bounded_numeric_kinds() {
+        let temp = Temp::new();
+        let r = Recorder::new(&temp.0);
+        r.renderer("main", "process_failed", Some(2));
+        r.renderer("mini", "surface_ready", None);
+        r.renderer("main", "frontend_error", None);
+        r.renderer("private song", "process_failed", Some(4));
+        r.renderer("main", "private lyrics", Some(4));
+        r.renderer("main", "process_failed", Some(9000));
+        r.finish();
+        let text = fs::read_to_string(temp.0.join("logs/diagnostics.ndjson")).unwrap();
+        assert_eq!(text.lines().count(), 4);
+        assert!(!text.contains("private") && !text.contains("9000"));
+        assert!(text.contains("\"kind\":2") && text.contains("\"kind\":null"));
     }
     #[test]
     fn rotation_keeps_four_bounded_files_and_the_newest_complete_record() {

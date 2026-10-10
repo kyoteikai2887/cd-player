@@ -87,7 +87,7 @@ describe('the stage etching', () => {
 });
 
 describe('the plate in the lyrics pane', () => {
-  test('takes the icon\'s place for an instrumental track; the words stay', async () => {
+  test('takes the icon\'s place for an instrumental track; the title stays, the repeated sentence goes (V1.1)', async () => {
     const { snapshot, done } = await snapshotOf('instrumental');
     try {
       const v = view(snapshot, { route: { name: 'nowPlaying' } });
@@ -96,18 +96,21 @@ describe('the plate in the lyrics pane', () => {
       expect(plate!.getAttribute('aria-hidden')).toBe('true');
       const quiet = plate!.parentElement!;
       expect(within(quiet).getByText('纯音乐')).toBeTruthy();
-      expect(within(quiet).getByText('这首被标记为纯音乐，没有歌词。')).toBeTruthy();
-      expect(quiet.querySelector('svg')).toBeNull();                       // no icon beside the plate
+      expect(within(quiet).queryByText('这首被标记为纯音乐，没有歌词。')).toBeNull();
+      // The only icon is the high-contrast stand-in, hidden from assistive technology like the plate.
+      const icons = [...quiet.querySelectorAll('svg')];
+      expect(icons.every(svg => svg.closest('[aria-hidden="true"]'))).toBe(true);
     } finally { done(); }
   });
 
-  test('switched off, the instrumental state is the plain icon again', async () => {
+  test('switched off, the instrumental state is the plain icon and its sentence again', async () => {
     const { snapshot, done } = await snapshotOf('instrumental');
     try {
       const v = view(withPlates(snapshot, false), { route: { name: 'nowPlaying' } });
       expect(v.container.querySelector('[data-memorial]')).toBeNull();
       const title = screen.getAllByText('纯音乐').find(el => el.tagName === 'P')!;
       expect(title.parentElement!.querySelector('svg')).not.toBeNull();
+      expect(within(title.parentElement!).getByText('这首被标记为纯音乐，没有歌词。')).toBeTruthy();
     } finally { done(); }
   });
 
@@ -117,6 +120,19 @@ describe('the plate in the lyrics pane', () => {
       try {
         const v = view(snapshot, { route: { name: 'nowPlaying' } });
         expect(v.container.querySelector('[data-memorial="plate"]')).toBeNull();
+      } finally { cleanup(); done(); }
+    }
+  });
+
+  test('a lookup that is searching, found nothing or failed is not instrumental either', async () => {
+    for (const lookup of ['searching', 'notFound', 'failed'] as const) {
+      const { snapshot, done } = await snapshotOf('missing');
+      try {
+        const doc = snapshot.lyrics!;
+        expect(doc.kind).toBe('missing');
+        const v = view({ ...snapshot, lyrics: { ...doc, lookup } }, { route: { name: 'nowPlaying' } });
+        expect(v.container.querySelector('[data-memorial="plate"]')).toBeNull();
+        expect(screen.queryByText('纯音乐')).toBeNull();
       } finally { cleanup(); done(); }
     }
   });

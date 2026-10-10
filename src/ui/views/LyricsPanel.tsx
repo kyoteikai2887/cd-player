@@ -72,7 +72,10 @@ export function LyricsPanel({ snapshot, preview }: { snapshot: UISnapshot; previ
         )}
         {lyrics.kind === 'plain' && <PlainLyrics lines={lyrics.lines} mode={mode} lang={lang} trLang={trLang}
           onTime={() => send({ type: 'openLyricsEditor', trackId: currentTrack.id })} />}
-        {lyrics.kind === 'instrumental' && <Quiet icon="note" title="纯音乐" body="这首被标记为纯音乐，没有歌词。" plate={showMemorialPlates(settings)} />}
+        {/* V1.1: with the plate, the title says it all; the plain icon keeps its sentence. */}
+        {lyrics.kind === 'instrumental' && (showMemorialPlates(settings)
+          ? <Quiet icon="note" title="纯音乐" plate />
+          : <Quiet icon="note" title="纯音乐" body="这首被标记为纯音乐，没有歌词。" />)}
         {lyrics.kind === 'spoken' && <Quiet icon="mic" title="念白" body="这首被标记为念白，比如广播剧或 Talk，没有歌词。" />}
         {lyrics.kind === 'missing' && (
           <Missing lyrics={lyrics} taskId={task?.id ?? null}
@@ -387,14 +390,16 @@ function Missing({ lyrics, taskId, onLookup, onSearch, onImport, onEdit, onInstr
 }
 
 /** plate: the memorial equipment plate takes the icon's place (instrumental tracks only). */
-function Quiet({ icon, title, body, plate = false }: { icon: 'note' | 'mic' | 'disc'; title: string; body: string; plate?: boolean }) {
+function Quiet({ icon, title, body, plate = false }: { icon: 'note' | 'mic' | 'disc'; title: string; body?: string; plate?: boolean }) {
   return (
-    <div className={styles.quiet}>
+    <div className={styles.quiet} data-plate={plate ? 'true' : undefined}>
       {plate
         ? <span className={styles.plate} aria-hidden="true" data-memorial="plate" />
         : <span className={styles.quietIcon} data-calm="true"><Icon name={icon} size={28} /></span>}
+      {/* High contrast hides the plate's picture; the note then stands in for it. */}
+      {plate && <span className={styles.plateFallback} aria-hidden="true"><Icon name={icon} size={28} /></span>}
       <p className={styles.quietTitle}>{title}</p>
-      <p className={styles.quietBody}>{body}</p>
+      {body && <p className={styles.quietBody}>{body}</p>}
     </div>
   );
 }

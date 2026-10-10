@@ -11,8 +11,8 @@ import { CoverLight } from './CoverLight.tsx';
  * material, shared by the surfaces that carry an album. Place it first inside a positioned,
  * isolated container; the container takes useFrostStyle(surface). Decorative.
  */
-export function Frost({ cover, className, style }: { cover: CoverImage | null; className?: string; style?: CSSProperties }) {
-  return <CoverLight cover={cover} style={style} className={className ? `cdp-frost ${className}` : 'cdp-frost'} />;
+export function Frost({ cover, className, style, layers }: { cover: CoverImage | null; className?: string; style?: CSSProperties; layers?: number }) {
+  return <CoverLight cover={cover} style={style} layers={layers} className={className ? `cdp-frost ${className}` : 'cdp-frost'} />;
 }
 
 /**

@@ -118,7 +118,18 @@ async function start() {
       },
       report: (backendReady) => invoke("core_heartbeat", { backendReady }),
     });
-    window.addEventListener("pagehide", stopHeartbeat, { once: true });
+    const wakeHeartbeat = () => {
+      if (document.visibilityState === "visible") stopHeartbeat.wake();
+    };
+    window.addEventListener("focus", wakeHeartbeat);
+    window.addEventListener("pageshow", wakeHeartbeat);
+    document.addEventListener("visibilitychange", wakeHeartbeat);
+    window.addEventListener("pagehide", () => {
+      stopHeartbeat();
+      window.removeEventListener("focus", wakeHeartbeat);
+      window.removeEventListener("pageshow", wakeHeartbeat);
+      document.removeEventListener("visibilitychange", wakeHeartbeat);
+    }, { once: true });
   }
   const bridge = await createNativeBridge(surface);
   createRoot(document.getElementById("root")!).render(

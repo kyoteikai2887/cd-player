@@ -30,10 +30,10 @@ export function MiniSurface({ snapshot }: { snapshot: UISnapshot }) {
     : host.capabilities.transparentWindow ? 'transparent' : 'opaque';
   // How see-through the card may be depends on what the window shows behind it (see the CSS).
   const material = frame === 'preview' ? 'css' : frame === 'material' ? 'native' : 'solid';
-  // R2.2: without a native material behind it, the card is frost in the playing album's colours
-  // (a small stage on the desktop); over Acrylic it stays a light tint so the material shows.
-  const frosted = material !== 'native';
-  const frost = useFrostStyle('mini');
+  // V1.1 round 2: in every frame the card is lit by the playing album like the stage (lib/frost.ts
+  // derives the inks): opaque frost on the desktop, or the same light let a little thinner over a
+  // native material so the material still shows. No album, or a cover that fails: the theme's pools.
+  const frost = useFrostStyle(material === 'native' ? 'miniNative' : 'mini');
 
   // Entrance only when this surface becomes visible (false → true); never on every render.
   const [entering, setEntering] = useState(false);
@@ -70,12 +70,12 @@ export function MiniSurface({ snapshot }: { snapshot: UISnapshot }) {
   const lang = langHint(currentTrack?.title, currentTrack?.language, currentAlbum?.language);
   return (
     <div className={styles.window} data-frame={frame} data-radius={host.nativeCornerRadius}>
-      <div className={styles.card} data-material={material} data-frost={frosted ? 'true' : 'false'} style={frosted ? frost : undefined}
+      <div className={styles.card} data-material={material} data-frost="true" style={frost}
         data-lyrics={showLyrics ? 'true' : 'false'} data-entering={entering ? 'true' : 'false'}
         data-show-controls={boot.miniShowControls ? 'true' : 'false'}
         onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={endDrag} onPointerCancel={endDrag}
         onDoubleClick={event => { if (!(event.target as HTMLElement).closest('button')) void run({ type: 'setWindowMode', mode: 'full' }, { slot: 'mini' }); }}>
-        {frosted && <Frost cover={currentAlbum?.cover ?? null} />}
+        <Frost cover={currentAlbum?.cover ?? null} className={styles.light} layers={2} />
         <div className={styles.main}>
           {currentAlbum ? (
             <Cover albumId={currentAlbum.id} title={currentAlbum.title} cover={currentAlbum.cover} className={styles.art} showTitleOnPlaceholder={false} />

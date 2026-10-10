@@ -19,6 +19,7 @@ mod hotkeys;
 mod materials;
 mod startup;
 mod diagnostics;
+mod renderer;
 #[cfg(debug_assertions)]
 mod smoke;
 
@@ -140,6 +141,7 @@ struct NativeState {
     dirty: Mutex<(u64, HashSet<String>)>,
     ready: Mutex<HashSet<String>>,
     quit_pending: AtomicBool,
+    recovery_pending: AtomicBool,
     exiting: AtomicBool,
     window_serial: tokio::sync::Mutex<()>,
     diagnostic: bool,
@@ -308,6 +310,10 @@ fn switch_window_until(
     }
     let window = app.get_webview_window(target).ok_or("Window unavailable")?;
     let was_visible = window.is_visible().map_err(|e| e.to_string())?;
+    // The hidden main surface owns audio/core, even when opening the mini.
+    for surface in ["main", "mini"] {
+        if let Some(view) = app.get_webview_window(surface) { renderer::resume(&view); }
+    }
     window.show().map_err(|e| e.to_string())?;
     if !window.is_visible().map_err(|e| e.to_string())? {
         return Err("Target was not shown".into());
@@ -413,6 +419,7 @@ async fn frontend_error(
         message.chars().take(1000).collect::<String>()
     );
     eprintln!("Frontend initialization: {message}");
+    state.logs.renderer(window.label(), "frontend_error", None);
     let mut failures = state.failures.lock().unwrap();
     if failures.len() < 50 {
         failures.push(message);
@@ -542,6 +549,7 @@ async fn surface_ready(
 ) -> Result<(), String> {
     check(&window, &state, false)?;
     let first = state.ready.lock().unwrap().insert(window.label().into());
+    if first { state.logs.renderer(window.label(), "surface_ready", None); }
     let show = !state.diagnostic;
     #[cfg(debug_assertions)]
     let show = show || smoke::manual();
@@ -615,6 +623,59 @@ async fn dispatch_action(
         }
         _ => Ok(core_action_until(&app, &surface, action, deadline_ms).await),
     }
+}
+fn reload_surfaces(app: &tauri::AppHandle, confirmed_revision: u64) -> Result<(), String> {
+    let state = app.state::<NativeState>();
+    if state.exiting.load(Ordering::SeqCst) { return Err("播放器正在退出。".into()); }
+    {
+        let mut dirty = state.dirty.lock().unwrap();
+        // The user must confirm again if drafts changed while the native prompt was open.
+        if dirty.0 != confirmed_revision { return Err("草稿状态已变化，请再次确认恢复。".into()); }
+        dirty.0 += 1;
+        dirty.1.clear();
+    }
+    state.ready.lock().unwrap().clear();
+    state.snapshots.lock().unwrap().clear();
+    state.backend_ready.store(false, Ordering::SeqCst);
+    state.responsive.store(false, Ordering::SeqCst);
+    state.logs.health(false);
+    for (_, pending) in state.pending.lock().unwrap().drain() {
+        let _ = pending.sender.send(unavailable());
+    }
+    *state.mode.lock().unwrap() = "full".into();
+    state.logs.renderer("main", "recovery_started", None);
+    for surface in ["mini", "main"] {
+        let window = app.get_webview_window(surface).ok_or("Window unavailable")?;
+        renderer::resume(&window);
+        window.reload().map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
+fn request_renderer_recovery(app: tauri::AppHandle) {
+    let state = app.state::<NativeState>();
+    if state.exiting.load(Ordering::SeqCst) || state.quit_pending.load(Ordering::SeqCst)
+        || state.recovery_pending.swap(true, Ordering::SeqCst) { return; }
+    state.logs.renderer("main", "recovery_requested", None);
+    tauri::async_runtime::spawn(async move {
+        let revision = app.state::<NativeState>().dirty.lock().unwrap().0;
+        let dialog_app = app.clone();
+        let accepted = tauri::async_runtime::spawn_blocking(move || {
+            dialog_app.dialog()
+                .message("重新加载播放器界面会停止播放，并丢弃未保存的歌词或资料草稿。已保存的收藏和设置会保留。是否恢复界面？")
+                .title("CD 播放器 · 恢复界面")
+                .buttons(MessageDialogButtons::OkCancel).blocking_show()
+        }).await.unwrap_or(false);
+        if accepted {
+            let state = app.state::<NativeState>();
+            let _serial = state.window_serial.lock().await;
+            if let Err(error) = reload_surfaces(&app, revision) {
+                state.logs.renderer("main", "recovery_failed", None);
+                app.dialog().message(format!("恢复界面未完成：{error}\n如窗口仍空白，请从托盘退出后重新打开播放器。"))
+                    .title("CD 播放器").show(|_| {});
+            }
+        } else { app.state::<NativeState>().logs.renderer("main", "recovery_cancelled", None); }
+        app.state::<NativeState>().recovery_pending.store(false, Ordering::SeqCst);
+    });
 }
 fn request_exit(app: tauri::AppHandle) {
     if app
@@ -773,7 +834,7 @@ fn main() {
       app.manage(startup::acquire_instance(&directory)?);
       let (child,origin) = launch_backend(runtime,assets,directory.clone())?;
       let logs=diagnostics::Recorder::new(&directory); logs.lifecycle("started");
-      app.manage(NativeState { origin:origin.clone(),started:Instant::now(),child:Mutex::new(Some(child)),snapshots:Mutex::new(HashMap::new()),pending:Mutex::new(HashMap::new()),logs,mode:Mutex::new("full".into()),dirty:Mutex::new((0,HashSet::new())),ready:Mutex::new(HashSet::new()),quit_pending:AtomicBool::new(false),exiting:AtomicBool::new(false),window_serial:tokio::sync::Mutex::new(()),diagnostic,failures:Mutex::new(Vec::new()),last_heartbeat_ms:AtomicU64::new(0),backend_ready:AtomicBool::new(false),responsive:AtomicBool::new(false),materials:Mutex::new(materials::State::new()) });
+      app.manage(NativeState { origin:origin.clone(),started:Instant::now(),child:Mutex::new(Some(child)),snapshots:Mutex::new(HashMap::new()),pending:Mutex::new(HashMap::new()),logs,mode:Mutex::new("full".into()),dirty:Mutex::new((0,HashSet::new())),ready:Mutex::new(HashSet::new()),quit_pending:AtomicBool::new(false),recovery_pending:AtomicBool::new(false),exiting:AtomicBool::new(false),window_serial:tokio::sync::Mutex::new(()),diagnostic,failures:Mutex::new(Vec::new()),last_heartbeat_ms:AtomicU64::new(0),backend_ready:AtomicBool::new(false),responsive:AtomicBool::new(false),materials:Mutex::new(materials::State::new()) });
       app.add_capability(tauri::ipc::CapabilityBuilder::new("owned-loopback-events").windows(["main","mini"]).local(false).remote(format!("{origin}/*")).permission("core:event:allow-listen").permission("core:event:allow-unlisten"))?;
       app.add_capability(tauri::ipc::CapabilityBuilder::new("owned-loopback-ui").windows(["main","mini"]).local(false).remote(format!("{origin}/*"))
         .permission("allow-surface-name").permission("allow-clock-sample").permission("allow-request-snapshot")
@@ -797,7 +858,17 @@ fn main() {
             builder = builder.initialization_script("window.AudioContext=new Proxy(window.AudioContext,{construct(T,args){const c=Reflect.construct(T,args);window.__CD_OUTPUT_TEST_CONTEXT__=c;return c;}});");
         }
         let window = builder.initialization_script("window.addEventListener('error',e=>{window.__TAURI_INTERNALS__?.invoke('frontend_error',{message:e.message||'resource failed: '+e.target?.src}).catch(()=>{});},true);").build()?; let handle = app.handle().clone();
-        window.on_window_event(move |event| { if let tauri::WindowEvent::CloseRequested { api,.. } = event { if !handle.state::<NativeState>().exiting.load(Ordering::SeqCst) { api.prevent_close(); let _ = hide_windows(&handle); } } });
+        renderer::observe(&window);
+        window.on_window_event(move |event| {
+            if let tauri::WindowEvent::CloseRequested { api,.. } = event {
+                if !handle.state::<NativeState>().exiting.load(Ordering::SeqCst) { api.prevent_close(); let _ = hide_windows(&handle); }
+            }
+            if matches!(event, tauri::WindowEvent::Focused(true)) {
+                for surface in ["main", "mini"] {
+                    if let Some(view) = handle.get_webview_window(surface) { renderer::resume(&view); }
+                }
+            }
+        });
       }
       #[cfg(windows)] {
         #[cfg(debug_assertions)] let enable_shortcuts = !diagnostic || smoke::hotkeys();
@@ -807,7 +878,7 @@ fn main() {
       let menu = tauri::menu::Menu::with_items(app,&[
         &tauri::menu::MenuItem::with_id(app,"main","显示主窗口",true,None::<&str>)?, &tauri::menu::MenuItem::with_id(app,"mini","显示迷你播放器",true,None::<&str>)?,
         &tauri::menu::MenuItem::with_id(app,"play","播放 / 暂停",true,None::<&str>)?, &tauri::menu::MenuItem::with_id(app,"previous","上一首",true,None::<&str>)?, &tauri::menu::MenuItem::with_id(app,"next","下一首",true,None::<&str>)?,
-        &tauri::menu::MenuItem::with_id(app,"shortcuts","快捷键说明",true,None::<&str>)?, &tauri::menu::MenuItem::with_id(app,"exit","退出",true,None::<&str>)? ])?;
+        &tauri::menu::MenuItem::with_id(app,"shortcuts","快捷键说明",true,None::<&str>)?, &tauri::menu::MenuItem::with_id(app,"recover","恢复界面…",true,None::<&str>)?, &tauri::menu::MenuItem::with_id(app,"exit","退出",true,None::<&str>)? ])?;
       let tray_icon = app.default_window_icon().cloned()
         .ok_or_else(|| std::io::Error::other("The embedded application icon is missing"))?;
       tauri::tray::TrayIconBuilder::with_id("player-tray").icon(tray_icon).tooltip("CD 播放器").menu(&menu).show_menu_on_left_click(false)
@@ -815,6 +886,7 @@ fn main() {
           "main" => { let _ = switch_window(app,"full"); }, "mini" => { let _ = switch_window(app,"mini"); },
           "play"|"previous"|"next" => { let app = app.clone(); let action = match event.id.as_ref() { "play"=>"togglePlayback", "previous"=>"previous", _=>"next" }; tauri::async_runtime::spawn(async move { let _ = core_action(&app,"main",json!({"type":action})).await; }); },
           "shortcuts" => show_shortcuts(app),
+          "recover" => request_renderer_recovery(app.clone()),
           "exit" => request_exit(app.clone()), _ => {} })
         .on_tray_icon_event(|tray,event| { if let tauri::tray::TrayIconEvent::Click { button:tauri::tray::MouseButton::Left,button_state:tauri::tray::MouseButtonState::Up,.. } = event { let _ = switch_window(tray.app_handle(),"full"); } }).build(app)?;
       let health_app=app.handle().clone();

@@ -47,6 +47,7 @@ export const Spotlight = memo(function Spotlight({ onOpenAlbum, onOpenNowPlaying
   const pick = useMemo(() => spotlightAlbum(library.albums, currentAlbum), [library.albums, currentAlbum]);
   if (!pick) return null;
   const { album, inPlayer } = pick;
+  const etch = showMemorialPlates(settings);
   const lang = langHint(album.title, null, album.language);
   const discs = groupByDisc(album, index);
   const facts: { icon: IconName; value: string; label: string; num?: boolean }[] = [
@@ -57,9 +58,10 @@ export const Spotlight = memo(function Spotlight({ onOpenAlbum, onOpenNowPlaying
     ...(album.catalogNumber ? [{ icon: 'tag' as const, value: album.catalogNumber, label: '品番', num: true }] : []),
   ];
   return (
-    <section className={styles.stage} style={frost} data-in-player={inPlayer ? 'true' : 'false'} aria-label={inPlayer ? '播放器里的专辑' : '最新加入的专辑'}>
-      <Frost cover={album.cover} />
-      {showMemorialPlates(settings) && <span className={styles.etch} aria-hidden="true" data-memorial="etch" />}
+    <section className={styles.stage} style={frost} data-in-player={inPlayer ? 'true' : 'false'} data-etch={etch ? 'true' : 'false'}
+      aria-label={inPlayer ? '播放器里的专辑' : '最新加入的专辑'}>
+      <Frost cover={album.cover} className={styles.light} layers={2} />
+      {etch && <span className={styles.etch} aria-hidden="true" data-memorial="etch"><i className={styles.etchFloor} /></span>}
       <div className={styles.art}>
         <StageDisc album={album} inPlayer={inPlayer} />
         <button type="button" className={styles.case} onClick={() => onOpenAlbum(album.id)} aria-label={`打开专辑：${album.title}`} title="打开专辑">

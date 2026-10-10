@@ -16,7 +16,7 @@ import type { Scenario } from './scenarios.ts';
  *  #/live           interactive demo on Codex's mock session (main + mini, shared core)
  *                   ?scenario=missing&lyrics=five|sources|many|none|fail|slow picks the lyric candidate search (R2.3)
  *  #/states/<id>    static state matrix rendered from plain snapshots and a logging action stub
- * ?shot=<id>[&theme=light|blue|charcoal] renders one static frame at 1:1 without chrome (screenshots).
+ * ?shot=<id>[&theme=light|blue|charcoal][&w=1920&h=1080] renders one static frame at 1:1 without chrome (screenshots).
  */
 const THEMES: ThemeName[] = ['light', 'blue', 'charcoal'];
 const isTheme = (value: string | null): value is ThemeName => !!value && (THEMES as string[]).includes(value);
@@ -39,7 +39,10 @@ export function PreviewApp() {
     const theme = params.get('theme');
     // &accent=RRGGBB: the same scenario with another accent (the settings sheet's colour), for checks.
     const accent = /^[0-9a-f]{6}$/i.test(params.get('accent') ?? '') ? '#' + params.get('accent')!.toUpperCase() : null;
-    return scenario ? <ShotFrame scenario={scenario} theme={isTheme(theme) ? theme : null} accent={accent} /> : <p>未知场景 {shot}</p>;
+    // &w=1920&h=1080: the same scenario at another window size in CSS px (V1.1, wide screens).
+    const size = (key: 'w' | 'h') => { const n = Number(params.get(key)); return Number.isFinite(n) && n >= 320 && n <= 4000 ? Math.round(n) : null; };
+    const sized = scenario && (size('w') || size('h')) ? { ...scenario, width: size('w') ?? scenario.width, height: size('h') ?? scenario.height } : scenario;
+    return sized ? <ShotFrame scenario={sized} theme={isTheme(theme) ? theme : null} accent={accent} /> : <p>未知场景 {shot}</p>;
   }
   const page = hash.startsWith('#/states') ? 'states' : 'live';
   return (

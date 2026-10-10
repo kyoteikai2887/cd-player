@@ -26,7 +26,7 @@
 .time::placeholder { color: var(--ink-3); font-weight: var(--w-text); }
 .time:focus { outline: none; background: var(--field-bg-focus); box-shadow: var(--groove-rim), 0 0 0 2px var(--accent-ring); }
 .time[aria-invalid="true"] { box-shadow: var(--groove-rim), 0 0 0 2px color-mix(in srgb, var(--danger) 70%, transparent); color: var(--danger); }
-.time:disabled { opacity: 0.5; }
+.time:disabled { opacity: var(--o-disabled); }
 
 .lang { display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-sm); color: var(--ink-2); white-space: nowrap; }
 .lang select {

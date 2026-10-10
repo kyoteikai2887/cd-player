@@ -7,7 +7,7 @@ import { createHash } from 'node:crypto';
 export const PORTABLE_DOCS = {
   'V1_USER_GUIDE_ZH.md':'说明.md', 'V1_RELEASE_NOTES_ZH.md':'版本说明.md', 'COLLABORATION_ZH.md':'合作纪念.md', 'PUBLICATION_STATUS_ZH.md':'公开发布准备.md', 'ONLINE_ZH.md':'在线说明.md', 'PATH_RECOVERY_ZH.md':'目录恢复说明.md',
   'STARTUP_RECOVERY_ZH.md':'启动修复说明.md', 'V1_PROGRESS_ZH.md':'项目进度.md', 'SHORTCUTS_ZH.md':'快捷键.md',
-  'BACKUP_ZH.md':'BACKUP_ZH.md', 'DIAGNOSTICS_ZH.md':'故障记录说明.md',
+  'BACKUP_ZH.md':'BACKUP_ZH.md', 'DIAGNOSTICS_ZH.md':'故障记录说明.md', 'SLEEP_WAKE_RECOVERY_ZH.md':'休眠恢复说明.md',
 } as const;
 export interface PortableOptions { project: string; output: string; licenses: string }
 const digest=(bytes:Uint8Array)=>createHash('sha256').update(bytes).digest('hex');

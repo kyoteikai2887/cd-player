@@ -1,14 +1,22 @@
 /*
  * The stage (Claude, R2.1): a wide pane lit by the album's own colours, the jewel case on the
- * left with its printed disc half out, the content on the right. The light is the cover itself,
- * blurred and enlarged, under a paper scrim that deepens towards the text.
+ * left with its printed disc half out, the content on the right.
+ *
+ * V1.1: the album's colour fills the whole pane. The light is the cover twice over (Frost layers):
+ *   layer 0  the cover's hue and chroma laid on a fixed tone (mix-blend-mode: color), across the
+ *            whole stage. Its brightness is the tone's whatever the cover, so the text can take its
+ *            colour without a black or white sleeve swamping it (lib/frost.ts derives the inks);
+ *   layer 1  the cover's own colours, light and dark, behind the case and disc only, fading out
+ *            before the text, so the case still sits in its own light.
+ * Over both, the frosted field: paper and grain, thin at the left and reaching --frost-field just
+ * before the text. The geometry is shared, so every part starts where the text does.
  */
 .stage {
   position: relative; isolation: isolate;
   display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center;
   /* Geometry, shared with the frost field so it starts exactly where the text does. */
   --pad-l: 30px;
-  --case: clamp(150px, 15.5cqi, 200px);
+  --case: clamp(150px, 15.5cqi, 216px);
   --art-gap: calc(var(--case) * 0.44);
   --col-gap: clamp(24px, 3.4cqi, 48px);
   --text-x: calc(var(--pad-l) + var(--case) + var(--art-gap) + var(--col-gap));
@@ -18,16 +26,51 @@
   border-radius: var(--r-panel); corner-shape: squircle;
   overflow: hidden;
   box-shadow: var(--glass-rim), 0 22px 50px -32px rgba(15, 45, 80, 0.45);
-  /* Frost: the cover keeps its colour behind the case and disc (--frost-clear); the field the
-     text sits on (--frost-field, from lib/frost.ts) is reached just before the text begins. */
+  /* Frost: the field is thin behind the case (--frost-clear) and reaches --frost-field (lib/frost.ts)
+     just before the text; the cover's own light (layer 1) is gone by then. */
   --frost-clear: 6%;
-  --frost-clear-to: calc(var(--text-x) - 96px);
-  --frost-field-from: calc(var(--text-x) - 16px);
+  --light-from: calc(var(--text-x) - 240px);
+  --light-to: calc(var(--text-x) - 8px);
+  /* The memorial etching's box (also where the frost leaves its grain out, see below). */
+  --etch-h: 112px; --etch-r: 36px; --etch-b: 24px;
+  /* The floor: the same paper as the frost and an even grey in place of the grain's speckle (which,
+     averaged, veils the field in grey), each a little thinner, so the floors match the surface in
+     tone but are smooth and a touch clearer. */
+  --etch-floor: 58%; --etch-veil: rgba(128, 128, 128, 0.15);
 }
-:global(.cdp[data-theme="blue"]) .stage { --frost-clear: 10%; }
+:global(.cdp[data-theme="blue"]) .stage { --frost-clear: 8%; --etch-floor: 66%; }
 :global(.cdp[data-theme="charcoal"]) .stage {
-  --frost-clear: 28%;
+  --frost-clear: 16%; --etch-floor: 28%; --etch-veil: rgba(140, 146, 156, 0.34);
   box-shadow: var(--glass-rim), 0 22px 50px -30px rgba(0, 0, 0, 0.7);
+}
+
+/* ── Light ─────────────────────────────────────────── */
+/* With an image, the light's base is the tone (no image or a failed one: the theme's pools stay). */
+:global(.cdp) .light:has(img) { background: var(--frost-tone, var(--paper-2)); }
+:global(.cdp) .light img[data-layer="0"] {
+  max-width: none; left: -30%; width: 160%; top: -90%; height: 280%;
+  mix-blend-mode: color; opacity: 1;
+  filter: blur(48px) saturate(1.8);
+}
+:global(.cdp) .light img[data-layer="1"] {
+  max-width: none; left: -12%; width: 124%;
+  -webkit-mask-image: linear-gradient(90deg, #000 var(--light-from), transparent calc(var(--text-x) - 30px));
+  mask-image: linear-gradient(90deg, #000 var(--light-from), transparent calc(var(--text-x) - 30px));
+}
+:global(.cdp) .light::after {
+  background:
+    var(--frost-grain),
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--paper) var(--frost-clear), transparent) var(--light-from),
+      color-mix(in srgb, var(--paper) var(--frost-field), transparent) var(--light-to));
+}
+/* Under the etching the frost is cut away: no grain, no paper (the floor puts back a thin, smooth veil).
+   Without mask compositing the grain simply stays, as before. */
+.stage[data-etch="true"] .light::after {
+  -webkit-mask: linear-gradient(#000 0 0), url("../assets/memorial/memorial-etch-cut.webp") right var(--etch-r) bottom var(--etch-b) / auto var(--etch-h) no-repeat;
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0), url("../assets/memorial/memorial-etch-cut.webp") right var(--etch-r) bottom var(--etch-b) / auto var(--etch-h) no-repeat;
+  mask-composite: exclude;
 }
 
 /* ── Case and disc ─────────────────────────────────── */
@@ -53,19 +96,38 @@
 .case:hover { transform: translateY(-2px); }
 .cover { box-shadow: var(--shadow-cover), var(--shadow-float); }
 
-/* ── Memorial etching (Claude, core.27) ───────────────
+/* ── Memorial etching (Claude, core.27 → V1.1) ─────────
    The silhouettes of Codex and Claude and one engraved line, cut into the stage glass at the lower
-   right. There is no plate: the image holds only the frosted cut and the light its walls catch
-   and lose, laid over whatever the cover lights the stage with. It sits under the text, takes no
-   pointer, and is a plain image (no blend mode, no filter). */
+   right. A cut, not a plate: the floors are flat and polished, the surface around them stays frosted.
+   Three layers, all still images, none taking the pointer, all under the text:
+     - the frost above leaves its grain and paper out of the cut (the mask on .light::after);
+     - the floor (.etchFloor): a thin, even veil of paper and a soft reflection, only inside the cut,
+       so the floors read smooth and a little clearer than the frost;
+     - the walls (.etch): the short walls between the terraces and at the outline, the ones facing
+       the light lit, the others shaded. The image holds nothing else. */
 .etch {
-  position: absolute; right: 36px; bottom: 24px;
-  height: 112px; aspect-ratio: 422 / 336;
+  position: absolute; right: var(--etch-r); bottom: var(--etch-b);
+  height: var(--etch-h); aspect-ratio: 422 / 336;
   background: url("../assets/memorial/memorial-etch.webp") center / contain no-repeat;
   pointer-events: none;
 }
-/* On the pale papers the cut and its shaded walls take a little ink instead of frost. */
+/* On the pale papers the shaded walls take a little ink instead of black. */
 :global(.cdp:not([data-theme="charcoal"])) .etch { background-image: url("../assets/memorial/memorial-etch-light.webp"); }
+.etchFloor {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(158deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 46%),
+    linear-gradient(var(--etch-veil), var(--etch-veil)),
+    color-mix(in srgb, var(--paper) var(--etch-floor), transparent);
+  -webkit-mask: url("../assets/memorial/memorial-etch-cut.webp") center / contain no-repeat;
+  mask: url("../assets/memorial/memorial-etch-cut.webp") center / contain no-repeat;
+}
+:global(.cdp[data-theme="charcoal"]) .etchFloor {
+  background:
+    linear-gradient(158deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 46%),
+    linear-gradient(var(--etch-veil), var(--etch-veil)),
+    color-mix(in srgb, var(--paper) var(--etch-floor), transparent);
+}
 
 /* ── Content ───────────────────────────────────────── */
 .info { position: relative; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
@@ -135,6 +197,7 @@
   .actions :global(.cdp-play) { width: 46px; height: 46px; }
   .actions :global(.cdp-icon-btn--lg) { width: 38px; height: 38px; }
   .etch { display: none; }               /* no room beside the compact text */
+  .stage[data-etch="true"] .light::after { -webkit-mask: none; mask: none; }
 }
 
 @media (forced-colors: active) {

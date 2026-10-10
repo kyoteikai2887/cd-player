@@ -28,3 +28,9 @@ core.16出现过一次原生扫描响应超时，随后重跑通过，本节点�
 在独立静音原创音频库、未连接检查器的情况下，普通及强制流式两种模式分别做18秒双窗口隐藏待机，然后12个队列项连续播完（含相邻重复曲目）。播放中穿插重新扫描、暂停/恢复，最后恢复窗口并退出、重开资料锁。两模式共52个原生操作结果，无响应超时；本机样本中位15ms、P95 22ms、最大85ms。曲目、队列项、歌词归属和原音频/附件哈希检查通过。
 
 这是约四分钟的有限联调，不能代替小时压力或物理声卡验收，也不承诺流式逐采样gapless。原生17项基础联调与输出关闭/重试另行记录在TESTING.md。
+
+## 1.0.1-rc.1 界面恢复记录
+
+候选版新增 `renderer` 事件，字段为窗口 main/mini、固定 operation 和可选的 WebView2 故障类型数字 kind。operation 仅允许 process_failed、observer_failed、resume_failed、recovery_requested、recovery_cancelled、recovery_started、recovery_failed、surface_ready、frontend_error。初始化异常只记录发生，不记录异常正文。既有本地轮转、容量和隐私规则保持。
+
+托盘“恢复界面…”可在界面空白时独立操作，但会停止播放并丢弃未保存草稿，因此每次都需原生确认。确认期间 dirty 状态变化会拒绝恢复。详细排查与真实待机复测范围见 SLEEP_WAKE_RECOVERY_ZH.md。

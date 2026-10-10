@@ -80,7 +80,7 @@ const executable = path.join(
 );
 const child = spawn(
   executable,
-  ["--smoke-data", directory, "--smoke-report", report],
+  ["--smoke-data", directory, "--smoke-report", report, ...(process.argv.includes("--renderer-recovery") ? ["--smoke-renderer-recovery"] : [])],
   { cwd: root, windowsHide: true, stdio: ["ignore", "inherit", "inherit"] },
 );
 const timeout = setTimeout(() => child.kill(), 60000);
@@ -106,9 +106,9 @@ try {
     await writeFile(path.join(workspace, 'startup-recovery.json'), JSON.stringify(recovery, null, 2));
     console.log('遗留锁经原生实例保护自动恢复，原锁保留，随后正常关闭并重新取得资料锁。');
   }
-  if (!reopened.view().settings.miniAlwaysOnTop)
+  if (!result.rendererRecovery && !reopened.view().settings.miniAlwaysOnTop)
     throw Error("Native settings did not persist");
-  if (result.passed && !Object.keys(reopened.read().excludedTrackIds ?? {}).length)
+  if (!result.rendererRecovery && result.passed && !Object.keys(reopened.read().excludedTrackIds ?? {}).length)
     throw Error('Native removal exclusions did not persist');
   if (JSON.stringify(await fingerprints(fixture)) !== JSON.stringify(originalFiles))
     throw Error('Collection removal changed original audio or sidecar files');
@@ -119,7 +119,15 @@ try {
     console.log('关联后的合成库已通过原生联调，曲目编号保持，原音乐与附件未修改。');
   }
   console.log("后台正常关闭，资料锁已释放，设置已保存。");
-  console.log('原始合成音乐与附件哈希未变，移除记录已持久化。');
+  if (result.rendererRecovery) {
+    const records=(await readFile(path.join(directory,'logs/diagnostics.ndjson'),'utf8')).trim().split('\n').map(line=>JSON.parse(line));
+    if(records.some(r=>['observer_failed','resume_failed','recovery_failed','frontend_error'].includes(r.operation)))
+      throw Error('Renderer observer/resume reported a native failure');
+    if(records.filter(r=>r.operation==='recovery_started').length!==2 || records.filter(r=>r.operation==='surface_ready').length!==6)
+      throw Error('Two renderer recoveries did not publish bounded native diagnostics');
+    await writeFile(path.join(workspace,'renderer-diagnostics.json'),JSON.stringify({passed:true,recoveryCycles:2,readySurfaces:6,observerAndResumeFailed:false,physicalSleepTested:false},null,2));
+    console.log('两轮双窗口恢复和原生诊断通过；原始合成音乐与附件哈希未变。');
+  } else console.log('原始合成音乐与附件哈希未变，移除记录已持久化。');
 } finally {
   await reopened.close();
 }

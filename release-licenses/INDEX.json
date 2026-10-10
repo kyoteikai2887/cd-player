@@ -7288,5 +7288,26 @@
     "package": "CD Player memorial silhouettes: Codex and Claude",
     "license": "Project distribution and display; separate artwork notice",
     "file": "artwork/MEMORIAL_ARTWORK_ZH.md"
+  },
+  {
+    "kind": "rust",
+    "package": "webview2-com-0.39.1",
+    "license": "MIT",
+    "file": "rust/webview2-com-0.39.1/LICENSE",
+    "source": "https://raw.githubusercontent.com/wravery/webview2-rs/edc2caf886175ccaebe86078c9cfe1ae2a187328/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "webview2-com-sys-0.39.1",
+    "license": "MIT",
+    "file": "rust/webview2-com-sys-0.39.1/LICENSE",
+    "source": "https://raw.githubusercontent.com/wravery/webview2-rs/edc2caf886175ccaebe86078c9cfe1ae2a187328/LICENSE"
+  },
+  {
+    "kind": "rust",
+    "package": "webview2-com-macros-0.8.1",
+    "license": "MIT",
+    "file": "rust/webview2-com-macros-0.8.1/LICENSE",
+    "source": "https://raw.githubusercontent.com/wravery/webview2-rs/dffa41a8a46d3f5565eefbff2de57d38d399f158/LICENSE"
   }
 ]

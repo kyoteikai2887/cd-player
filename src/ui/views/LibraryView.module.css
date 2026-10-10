@@ -4,7 +4,64 @@
   scrollbar-gutter: stable;
 }
 .scroller[data-hidden="true"] { content-visibility: hidden; visibility: hidden; pointer-events: none; }
-.inner { max-width: 1320px; margin: 0 auto; padding: calc(var(--bar-h, 64px) + 8px) 32px 148px 36px; }
+/* The shelf widens with the window (V1.1) up to a width where a row of covers still reads as one
+   shelf; the covers and the stage's case and title keep their own caps, so wider means more covers
+   per row and more air on the stage, not bigger ones. */
+.inner { max-width: var(--shelf-max); margin: 0 auto; padding: calc(var(--bar-h, 64px) + 8px) 32px 148px 36px; }
+.scroller, .sides { --shelf-max: clamp(1320px, 82cqi, 1840px); }
+
+/* ── Sides (V1.1) ──────────────────────────────────────
+   On a wide window the shelf leaves two bands of paper. Each holds the edge of a compact disc lying
+   on the desk, its centre off the window: a clear polycarbonate hub, the mirror band, the data area
+   with the faint rainbow a disc throws, and the rim. They take no colour from the album (the stage
+   has that), do not move, take no pointer and sit under everything; they only appear where the band
+   is wide enough to hold them clear of the covers, and leave in high contrast. */
+.sides {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  /* Paper beside the shelf, to the shelf's own padding. */
+  --band: calc((100cqi - var(--shelf-max)) / 2 + 24px);
+  --d: clamp(520px, 56cqh, 820px);
+  --rim: color-mix(in srgb, var(--ink) 9%, transparent);
+  --rim-hi: rgba(255, 255, 255, 0.85);
+  --face: rgba(255, 255, 255, 0.22);
+  --data: rgba(255, 255, 255, 0.12);
+  --track: color-mix(in srgb, var(--ink) 4%, transparent);
+  --rainbow-a: 0.16;
+}
+:global(.cdp[data-theme="charcoal"]) .sides {
+  --rim: rgba(255, 255, 255, 0.07);
+  --rim-hi: rgba(255, 255, 255, 0.16);
+  --face: rgba(255, 255, 255, 0.025);
+  --data: rgba(255, 255, 255, 0.03);
+  --track: rgba(255, 255, 255, 0.025);
+  --rainbow-a: 0.09;
+}
+.sides i {
+  position: absolute; width: var(--d); aspect-ratio: 1; border-radius: 50%;
+  /* rim, data area with two faint session rings, mirror band, stacking ring, clear hub, centre hole */
+  background: radial-gradient(circle closest-side,
+    transparent 0 14.8%, var(--rim) 14.8% 15.4%, var(--face) 15.4% 25.2%, var(--rim) 25.2% 25.7%, var(--face) 25.7% 33.2%,
+    var(--rim-hi) 33.2% 33.5%, var(--data) 33.5% 45.2%, var(--rim) 45.2% 45.6%,
+    var(--data) 45.6% 66.8%, var(--track) 66.8% 67.1%, var(--data) 67.1% 84.4%, var(--track) 84.4% 84.7%, var(--data) 84.7% 97.2%,
+    var(--rim-hi) 97.2% 97.8%, var(--rim) 97.8% 100%, transparent 100%);
+}
+/* The rainbow a disc throws: two soft spectral sweeps over the data area only. */
+.sides i::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from var(--glint, 200deg),
+    transparent 0deg, rgb(255 120 160 / var(--rainbow-a)) 14deg, rgb(255 210 120 / var(--rainbow-a)) 26deg,
+    rgb(140 230 170 / var(--rainbow-a)) 38deg, rgb(120 190 255 / var(--rainbow-a)) 50deg, rgb(180 140 255 / var(--rainbow-a)) 62deg,
+    transparent 78deg, transparent 180deg,
+    rgb(180 140 255 / calc(var(--rainbow-a) * 0.6)) 196deg, rgb(120 190 255 / calc(var(--rainbow-a) * 0.6)) 206deg,
+    rgb(140 230 170 / calc(var(--rainbow-a) * 0.6)) 216deg, rgb(255 210 120 / calc(var(--rainbow-a) * 0.6)) 226deg, transparent 240deg);
+  -webkit-mask: radial-gradient(circle closest-side, transparent 0 45%, #000 52% 92%, transparent 97%);
+  mask: radial-gradient(circle closest-side, transparent 0 45%, #000 52% 92%, transparent 97%);
+}
+/* The disc's edge stops short of the shelf's padding; its centre is off the window. */
+.sides i[data-side="start"] { left: calc(var(--band) - 20px - var(--d)); top: calc(40% - var(--d) / 2); --glint: 300deg; }
+.sides i[data-side="end"] { right: calc(var(--band) - 20px - var(--d)); top: calc(66% - var(--d) / 2); --glint: 300deg; }
+/* Only where the band can hold the edge of a disc clear of the covers. */
+@container surface (width < 1760px) { .sides { display: none; } }
 
 .head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 24px; padding: 0 2px; }
 /* Collection totals as icon + number, the way a box set lists its contents. */
@@ -130,7 +187,7 @@
   --focus-radius: var(--r-row);
 }
 .trackResult:hover:not(:disabled) { background: var(--fill-hover); box-shadow: inset 0 0 0 1px var(--line); }
-.trackResult:disabled { opacity: 0.5; }
+.trackResult:disabled { opacity: var(--o-disabled-row); }
 .trackThumb { width: 44px; box-shadow: var(--shadow-low); border-radius: var(--r-art); }
 .trackMain { display: flex; flex-direction: column; min-width: 0; }
 .trackTitle {
@@ -156,6 +213,6 @@
 }
 
 @media (forced-colors: active) {
-  .tileGlow { display: none; }
+  .tileGlow, .sides { display: none; }
   .playingTag { border: 1px solid CanvasText; }
 }

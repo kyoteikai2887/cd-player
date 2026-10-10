@@ -44,7 +44,7 @@
   --focus-radius: var(--r-row);
 }
 .row:hover:not(:disabled) { background: var(--fill-hover); box-shadow: inset 0 0 0 1px var(--line); }
-.row:disabled { opacity: 0.5; }
+.row:disabled { opacity: var(--o-disabled-row); }
 .row[data-current="true"] { background: var(--btn-sheen), var(--fill-active); box-shadow: var(--btn-rim), 0 0 0 1px var(--line); }
 /* On charcoal the button sheen lies behind the title as a bright streak; the lit row and its rim mark it. */
 :global(.cdp[data-theme="charcoal"]) .row[data-current="true"] { background: var(--fill-active); }

@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, test } from 'vitest';
 import { contrast, mix, parseHex } from '../../src/ui/lib/color.ts';
-import { FROST, frostBackdrops, frostTones, frostVars, seeFilter, THEME_TONES } from '../../src/ui/lib/frost.ts';
+import { blendColor, FROST, frostBackdrops, frostTones, frostVars, seeFilter, THEME_TONES } from '../../src/ui/lib/frost.ts';
 import type { FrostSurface } from '../../src/ui/lib/frost.ts';
 import type { ThemeName } from '../../src/ui/lib/theme.ts';
 
@@ -86,5 +86,35 @@ describe('frost', () => {
       expect(vars['--frost-see-filter']).toBe(seeFilter([lo, hi]));
     }
     expect(frostVars('light', FROST.stage.light, '#6CACE4')['--frost-see-filter']).toBeUndefined();   // the stage stays opaque
+  });
+
+  test('the stage (V1.1) lays the cover\'s colour on a fixed tone, so its brightness never reaches the text', () => {
+    const lum = (c: number[]) => 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2];
+    const tone = rgb('#BCC7D3');
+    // mix-blend-mode: color keeps the backdrop's luminosity for any source, in or out of gamut.
+    for (const cover of [[0, 0, 0], [255, 255, 255], [211, 32, 42], [245, 217, 10], [0, 0, 255], [20, 160, 60], [128, 128, 128]] as [number, number, number][]) {
+      const out = blendColor(tone, cover);
+      expect(Math.abs(lum(out) - lum(tone))).toBeLessThan(0.5);
+      for (const v of out) { expect(v).toBeGreaterThanOrEqual(-1e-9); expect(v).toBeLessThanOrEqual(255 + 1e-9); }
+    }
+    // A grey cover leaves the tone as it is; a saturated one keeps its hue order.
+    expect(blendColor(tone, [128, 128, 128]).map(Math.round)).toEqual([...new Array(3)].map(() => Math.round(lum(tone))));
+    const red = blendColor(tone, [211, 32, 42]);
+    expect(red[0]).toBeGreaterThan(red[1]);
+    for (const theme of THEMES) {
+      const spec = FROST.stage[theme];
+      expect(spec.tone).toMatch(/^#[0-9A-F]{6}$/);
+      // Every hue at several depths, black, white, and no cover at all (base and pool).
+      expect(frostBackdrops(theme, spec).length).toBeGreaterThan(100);
+      const vars = frostVars(theme, spec, '#DB7A3D');
+      expect(vars['--frost-tone']).toBe(spec.tone);
+      // Colour reaches the text: the field over it is far thinner than before V1.1 (0.68–0.7).
+      expect(spec.field).toBeLessThanOrEqual(0.45);
+    }
+    // A measured grain veil can only make the model stricter than the default estimate.
+    const charcoal = FROST.stage.charcoal;
+    expect(charcoal.grainVeil!).toBeGreaterThanOrEqual(0.45 * (1 - charcoal.field));
+    // Round 2: the mini card is toned too (opaque and over a native material); the rest are not.
+    for (const surface of SURFACES.filter(s => !['stage', 'mini', 'miniNative'].includes(s))) expect(frostVars('light', FROST[surface].light, '#6CACE4')['--frost-tone']).toBeUndefined();
   });
 });

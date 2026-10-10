@@ -4,6 +4,22 @@ import { startNativeHeartbeat } from "../../src/bridge/nativeHealth.ts";
 
 const pause = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
+test("a lost native report cannot permanently stop heartbeat recovery", async () => {
+  let count = 0;
+  const stop = startNativeHeartbeat({
+    intervalMs: 5, timeoutMs: 15,
+    async probe() {},
+    report() {
+      count++;
+      return count === 1 ? new Promise(() => {}) : Promise.resolve();
+    },
+  });
+  try {
+    await pause(100);
+    assert.ok(count >= 2, "The first unresolved IPC reply stranded all future heartbeats");
+  } finally { stop(); }
+});
+
 test("idle heartbeat repeats without changing playback state and never overlaps probes", async () => {
   let active = 0, peak = 0;
   const reports: boolean[] = [];
@@ -78,4 +94,46 @@ test("disposing an in-flight heartbeat cancels it and never reports a late respo
   await pause(30);
   assert.equal(signal.aborted, true);
   assert.deepEqual(reports, []);
+});
+
+test("waking interrupts a stuck probe and requests fresh health without a false report", async () => {
+  let count = 0;
+  let firstSignal!: AbortSignal;
+  const reports: boolean[] = [];
+  const stop = startNativeHeartbeat({
+    intervalMs: 1000, timeoutMs: 1000,
+    probe(signal) {
+      if (++count === 1) { firstSignal = signal; return new Promise(() => {}); }
+      return Promise.resolve();
+    },
+    async report(ready) { reports.push(ready); },
+  });
+  try {
+    stop.wake();
+    stop.wake();
+    await pause(60);
+    assert.equal(firstSignal.aborted, true);
+    assert.equal(count, 2);
+    assert.deepEqual(reports, [true]);
+  } finally { stop(); }
+  stop.wake();
+  await pause(20);
+  assert.equal(count, 2);
+});
+
+test("wake and disposal interrupt a stuck report without waiting for its deadline", async () => {
+  let reports = 0;
+  const stop = startNativeHeartbeat({
+    intervalMs: 1000, timeoutMs: 1000,
+    async probe() {},
+    report() { reports++; return new Promise(() => {}); },
+  });
+  await pause(10);
+  assert.equal(reports, 1);
+  stop.wake();
+  await pause(60);
+  assert.equal(reports, 2);
+  stop();
+  await pause(30);
+  assert.equal(reports, 2);
 });

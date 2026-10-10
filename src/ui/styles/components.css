@@ -1,8 +1,9 @@
 /* Shared primitives. Views use CSS Modules; these few building blocks are global and prefixed.
  *
- * Controls are clear glass laid on the frosted panels: an almost untinted body that lightly
- * blurs and brightens what is behind it, a curved specular band on top, light gathered at the
- * lower edge, and a rim that flashes at two opposite corners (drawn by ::before).
+ * Controls are clear glass laid on the frosted panels (V1.1 final: one glass for all of them, see
+ * the end of tokens.css): an almost untinted body that lightly blurs what is behind it, a flat face
+ * lit from above, a wall of even width all round (drawn by ::before), a facet line where face and
+ * wall meet (::after), and the glass's own edge before a short drop.
  *
  * Specificity: position is set with :where() and motion uses the individual translate/scale
  * properties, so a module class can still position or transform one of these controls (for
@@ -21,14 +22,22 @@
   background: var(--btn-sheen), var(--btn-body);
   -webkit-backdrop-filter: var(--btn-filter);
   backdrop-filter: var(--btn-filter);
-  box-shadow: var(--btn-rim), var(--btn-lift);
+  box-shadow: var(--btn-lift);
+}
+/* Pills and chips: the slab's wall at a fixed width, and its facet. */
+.cdp .cdp-btn--quiet, .cdp .cdp-btn--danger, .cdp .cdp-btn--primary, .cdp .cdp-chip { --wall: var(--pill-wall); }
+.cdp .cdp-btn--quiet::after, .cdp .cdp-btn--danger::after, .cdp .cdp-btn--primary::after, .cdp .cdp-chip::after {
+  content: ""; position: absolute; inset: var(--wall);
+  border-radius: inherit; corner-shape: inherit;
+  box-shadow: var(--slab-facet);
+  pointer-events: none;
 }
 .cdp .cdp-btn--quiet::before, .cdp .cdp-btn--danger::before, .cdp .cdp-icon-btn--glass::before, .cdp .cdp-chip::before,
 .cdp .cdp-icon-btn:hover:not(:disabled)::before, .cdp .cdp-icon-btn[aria-pressed="true"]::before,
 .cdp .cdp-btn--primary::before, .cdp .cdp-play::before {
   content: ""; position: absolute; inset: 0;
   border-radius: inherit; corner-shape: inherit;
-  padding: 1.25px;
+  padding: var(--wall, 1.25px);
   background: var(--btn-ring);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -36,17 +45,21 @@
   mask-composite: exclude;
   pointer-events: none;
 }
+/* Hover lifts the glass a pixel and lights its face; pressing sets it down onto its edge — the same
+   travel as the slabs (no shrinking), so a pill and a round button answer a click alike. */
 .cdp .cdp-btn--quiet:hover:not(:disabled), .cdp .cdp-icon-btn--glass:hover:not(:disabled),
 .cdp button.cdp-chip:hover:not(:disabled) {
-  background: var(--btn-sheen), var(--btn-body-hover);
-  box-shadow: var(--btn-rim), var(--btn-lift-hover);
+  background: var(--btn-sheen-hover), var(--btn-body-hover);
+  box-shadow: var(--btn-lift-hover);
   translate: 0 -1px;
 }
 .cdp .cdp-btn--quiet:active:not(:disabled), .cdp .cdp-icon-btn--glass:active:not(:disabled),
 .cdp button.cdp-chip:active:not(:disabled) {
-  box-shadow: var(--btn-rim-press), var(--btn-lift-press);
-  translate: 0 0.5px; scale: 0.975;
+  box-shadow: var(--btn-lift-press);
+  translate: 0 1px; scale: 1;
 }
+.cdp .cdp-btn--quiet:active:not(:disabled)::after, .cdp .cdp-btn--danger:active:not(:disabled)::after,
+.cdp .cdp-btn--primary:active:not(:disabled)::after, .cdp button.cdp-chip:active:not(:disabled)::after { box-shadow: var(--slab-facet-press); }
 
 /* ── Buttons ─────────────────────────────────────────────── */
 .cdp .cdp-btn {
@@ -60,9 +73,9 @@
     background-color var(--d-fast) linear, box-shadow var(--d-base) var(--ease-out), color var(--d-fast) linear;
   --focus-radius: var(--r-pill);
 }
-.cdp .cdp-btn:disabled { opacity: 0.45; }
-.cdp .cdp-btn svg { position: relative; flex: none; }
-.cdp .cdp-btn:active:not(:disabled) { scale: 0.975; }
+.cdp .cdp-btn:disabled { opacity: var(--o-disabled); }
+.cdp .cdp-btn svg, .cdp .cdp-btn > span { position: relative; flex: none; }
+.cdp .cdp-btn:active:not(:disabled) { translate: 0 1px; }
 
 /* Accent glass (R2.1): the one coloured object in a group of pill buttons (Apply, Save). It used to be enamel —
    an opaque gradient with a dark edge and a heavy coloured shadow — and sat apart from the clear
@@ -74,36 +87,36 @@
 .cdp .cdp-btn--primary {
   color: var(--on-accent);
   background: var(--accent-fill);
+  /* V1.1 final: the play button's crystal as a pill — a flat accent face lit from above, the
+     accent wall glowing at its edge, the facet, the edge and a short tinted drop. (It was a gel
+     bead: two radial highlights over the tint.) The body tint is still --accent-glass-auto, so its
+     word keeps its contrast. */
   background:
-    radial-gradient(120% 64% at 50% -12%, rgba(255, 255, 255, 0.58) 0%, rgba(255, 255, 255, 0.16) 46%, rgba(255, 255, 255, 0) 64%),
-    radial-gradient(76% 50% at 50% 118%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0) 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.06) 42%, rgba(255, 255, 255, 0) 60%),
     linear-gradient(180deg, color-mix(in srgb, var(--accent-hi) var(--accent-glass), transparent) 0%,
       color-mix(in srgb, var(--accent-fill) var(--accent-glass), transparent) 64%);
   -webkit-backdrop-filter: var(--btn-filter);
   backdrop-filter: var(--btn-filter);
-  --accent-lift: 0 1px 1px rgba(15, 58, 99, 0.08), 0 6px 14px -7px var(--accent-shadow);
-  --accent-lift-hover: 0 2px 2px rgba(15, 58, 99, 0.09), 0 11px 20px -9px var(--accent-shadow);
-  --accent-rim: inset 0 1px 0.5px rgba(255, 255, 255, 0.85), inset 0 -1px 1px rgba(255, 255, 255, 0.4),
-    0 0 0 0.75px color-mix(in srgb, var(--accent-edge) 55%, transparent);
-  box-shadow: var(--accent-rim), var(--accent-lift);
+  --accent-lift: var(--slab-edge), 0 1px 0 0 color-mix(in srgb, var(--accent-lo) 85%, transparent),
+    0 1.75px 0 0 rgba(8, 30, 54, 0.24), 0 7px 14px -8px var(--accent-shadow);
+  --accent-lift-hover: var(--slab-edge), 0 1px 0 0 color-mix(in srgb, var(--accent-lo) 85%, transparent),
+    0 1.75px 0 0 rgba(8, 30, 54, 0.24), 0 11px 20px -9px var(--accent-shadow);
+  box-shadow: var(--accent-lift);
 }
 .cdp[data-theme="charcoal"] .cdp-btn--primary {
   /* On dark paper the drop lights its surroundings a little rather than casting a shadow. */
-  --accent-lift: 0 0 0 0.5px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(0, 0, 0, 0.35), 0 4px 18px -6px var(--accent-shadow);
-  --accent-lift-hover: 0 0 0 0.5px rgba(0, 0, 0, 0.55), 0 2px 3px rgba(0, 0, 0, 0.35), 0 6px 24px -6px var(--accent-shadow);
-  --accent-rim: inset 0 1px 0.5px rgba(255, 255, 255, 0.6), inset 0 -1px 1px rgba(255, 255, 255, 0.22);
+  --accent-lift: var(--slab-edge), 0 1px 0 0 color-mix(in srgb, var(--accent-lo) 85%, transparent),
+    0 1.75px 0 0 rgba(0, 0, 0, 0.45), 0 4px 18px -6px var(--accent-shadow);
+  --accent-lift-hover: var(--slab-edge), 0 1px 0 0 color-mix(in srgb, var(--accent-lo) 85%, transparent),
+    0 1.75px 0 0 rgba(0, 0, 0, 0.45), 0 6px 24px -6px var(--accent-shadow);
 }
-.cdp .cdp-btn--primary::before {
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.18) 30%,
-    rgba(255, 255, 255, 0) 55%, rgba(255, 255, 255, 0.4) 100%);
+.cdp .cdp-btn--primary::before { background: var(--slab-lights-long), var(--crystal-wall); }
+.cdp .cdp-btn--primary::after {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 0.5px color-mix(in oklab, var(--accent-hi) 60%, transparent),
+    0 0 0 0.5px color-mix(in srgb, var(--accent-edge) 60%, transparent);
 }
-.cdp .cdp-btn--primary:hover:not(:disabled) {
-  box-shadow: var(--accent-rim), var(--accent-lift-hover);
-}
-.cdp .cdp-btn--primary:active:not(:disabled) {
-  box-shadow: inset 0 1px 3px rgba(8, 30, 54, 0.2), inset 0 -1px 0 rgba(255, 255, 255, 0.3),
-    0 0 0 0.75px color-mix(in srgb, var(--accent-edge) 55%, transparent), 0 1px 1px rgba(8, 30, 54, 0.1);
-}
+.cdp .cdp-btn--primary:hover:not(:disabled) { box-shadow: var(--accent-lift-hover); translate: 0 -1px; }
+.cdp .cdp-btn--primary:active:not(:disabled) { box-shadow: var(--slab-edge), 0 4px 10px -6px var(--accent-shadow); translate: 0 1px; }
 
 /* Danger (R2.2): clear glass with the danger tone in its glyph, word and a faint ring. Reserved for
    actions that take something out of the collection. */
@@ -112,14 +125,14 @@
   background: var(--btn-sheen), var(--btn-body);
   -webkit-backdrop-filter: var(--btn-filter);
   backdrop-filter: var(--btn-filter);
-  box-shadow: var(--btn-rim), 0 0 0 1px color-mix(in srgb, var(--danger) 34%, transparent), var(--btn-lift);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--danger) 34%, transparent), var(--btn-lift);
 }
 .cdp .cdp-btn--danger:hover:not(:disabled) {
-  background: var(--btn-sheen), color-mix(in srgb, var(--danger) 10%, var(--btn-body-hover));
-  box-shadow: var(--btn-rim), 0 0 0 1px color-mix(in srgb, var(--danger) 50%, transparent), var(--btn-lift-hover);
+  background: var(--btn-sheen-hover), color-mix(in srgb, var(--danger) 10%, var(--btn-body-hover));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--danger) 50%, transparent), var(--btn-lift-hover);
   translate: 0 -1px;
 }
-.cdp .cdp-btn--danger:active:not(:disabled) { box-shadow: var(--btn-rim-press), 0 0 0 1px color-mix(in srgb, var(--danger) 50%, transparent); }
+.cdp .cdp-btn--danger:active:not(:disabled) { box-shadow: 0 0 0 1px color-mix(in srgb, var(--danger) 50%, transparent), var(--btn-lift-press); translate: 0 1px; }
 
 .cdp .cdp-btn--text { height: 30px; padding: 0 10px; color: var(--accent-ink); font-weight: var(--w-label); }
 .cdp .cdp-btn--text:hover:not(:disabled) { background: var(--accent-soft); }
@@ -142,7 +155,7 @@
   box-shadow: var(--btn-rim), var(--btn-lift);
 }
 .cdp .cdp-icon-btn:active:not(:disabled) { scale: 0.92; box-shadow: var(--btn-rim-press); }
-.cdp .cdp-icon-btn:disabled { opacity: 0.38; }
+.cdp .cdp-icon-btn:disabled { opacity: var(--o-disabled); }
 .cdp .cdp-icon-btn[aria-pressed="true"] {
   color: var(--accent-ink);
   background: var(--btn-sheen), var(--accent-soft);
@@ -231,7 +244,7 @@
   box-shadow: var(--slab-edge), var(--slab-drop), var(--crystal-glow);
 }
 .cdp .cdp-play:active:not(:disabled)::after { box-shadow: var(--slab-facet-press); }
-.cdp .cdp-play:disabled { opacity: 0.45; }
+.cdp .cdp-play:disabled { opacity: var(--o-disabled); }
 .cdp .cdp-play--sm { width: 42px; height: 42px; }
 .cdp .cdp-play--xs { width: 34px; height: 34px; }
 /* Glass off, or no backdrop filter: the slab is poured opaque over the paper; the tint, wall,
@@ -263,7 +276,8 @@
   font-size: var(--t-sm); color: var(--ink-2);
   transition: translate var(--d-fast) var(--ease-out), scale var(--d-fast) var(--ease-out), box-shadow var(--d-base) var(--ease-out);
 }
-.cdp .cdp-chip svg { position: relative; }
+.cdp .cdp-chip svg, .cdp .cdp-chip > span { position: relative; }
+.cdp .cdp-chip:disabled { opacity: var(--o-disabled); }
 .cdp button.cdp-chip:hover:not(:disabled) { color: var(--ink); }
 
 /* ── Segmented control: a groove with a raised glass thumb ── */
@@ -280,7 +294,9 @@
   transition: color var(--d-fast) linear, background-color var(--d-base) var(--ease-out), box-shadow var(--d-base) var(--ease-out);
   --focus-radius: var(--r-pill);
 }
-.cdp .cdp-seg button:hover:not([aria-pressed="true"]):not([aria-selected="true"]) { color: var(--ink); }
+.cdp .cdp-seg button:hover:not([aria-pressed="true"]):not([aria-selected="true"]) { color: var(--ink); background: var(--hover-glyph); }
+.cdp .cdp-seg button:active:not([aria-pressed="true"]):not([aria-selected="true"]) { background: var(--fill-quiet); }
+.cdp .cdp-seg button:disabled { opacity: var(--o-disabled); }
 /* Icon segments (R2.1): icons only, the chosen option unfolds its word. */
 .cdp .cdp-seg--icons button {
   display: inline-flex; align-items: center; justify-content: center; gap: 0;
@@ -300,7 +316,7 @@
   box-shadow: var(--thumb-lift);
 }
 .cdp .cdp-seg button[aria-pressed="true"]::before, .cdp .cdp-seg button[aria-selected="true"]::before {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px;
   background: var(--btn-ring);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -308,6 +324,39 @@
   mask-composite: exclude;
   pointer-events: none;
 }
+
+/* ── Checkbox (V1.1 final) ────────────────────────────────
+   Was the system's own blue box beside our glass. Off: a small groove like the search field;
+   on: the accent glass of Apply with a check in its glyph colour. Native element, native keyboard. */
+.cdp input[type="checkbox"] {
+  -webkit-appearance: none; appearance: none;
+  position: relative; flex: none; width: 18px; height: 18px; margin: 0;
+  border-radius: 6px; corner-shape: squircle;
+  /* Off: a small well pressed into the surface, with an edge that reads at 3:1 (non-text contrast). */
+  background: var(--groove-bg);
+  box-shadow: inset 0 0 0 1.25px color-mix(in srgb, var(--ink-2) 70%, transparent), var(--groove-rim);
+  cursor: pointer;
+  transition: background-color var(--d-fast) linear, box-shadow var(--d-base) var(--ease-out), translate var(--d-fast) var(--ease-out);
+  --focus-radius: 6px;
+}
+.cdp input[type="checkbox"]:hover:not(:disabled):not(:checked) { background: var(--fill-quiet); }
+.cdp input[type="checkbox"]:active:not(:disabled) { translate: 0 0.5px; }
+.cdp input[type="checkbox"]:checked {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0) 60%),
+    linear-gradient(180deg, color-mix(in srgb, var(--accent-hi) var(--accent-glass), transparent),
+      color-mix(in srgb, var(--accent-fill) var(--accent-glass), transparent));
+  box-shadow: var(--slab-edge), 0 1px 0 0 color-mix(in srgb, var(--accent-lo) 85%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.cdp input[type="checkbox"]:checked::after {
+  content: ""; position: absolute; inset: 0;
+  /* The tick arrives with the fill instead of popping in (once, --d-fast; nothing when reduced). */
+  animation: cdp-fade-in var(--d-fast) linear;
+  background: var(--on-accent);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'><path d='M4.5 9.3l3 3 6-6.6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") center / 100% no-repeat;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'><path d='M4.5 9.3l3 3 6-6.6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") center / 100% no-repeat;
+}
+.cdp input[type="checkbox"]:disabled { opacity: var(--o-disabled); cursor: default; }
 
 /* ── Range slider (native input, styled) ─────────────────── */
 .cdp .cdp-range {
@@ -374,7 +423,7 @@
 }
 .cdp .cdp-menu [role="menuitem"] svg { color: var(--ink-2); }
 .cdp .cdp-menu [role="menuitem"]:hover:not(:disabled), .cdp .cdp-menu [role="menuitem"]:focus-visible { background: var(--accent-soft); }
-.cdp .cdp-menu [role="menuitem"]:disabled { opacity: 0.45; }
+.cdp .cdp-menu [role="menuitem"]:disabled { opacity: var(--o-disabled); }
 .cdp .cdp-menu hr { border: 0; height: 1px; margin: 5px 8px; background: var(--line); }
 
 /* ── Skeleton ────────────────────────────────────────────── */
@@ -402,6 +451,10 @@
   .cdp .cdp-btn--quiet::before, .cdp .cdp-icon-btn::before, .cdp .cdp-chip::before, .cdp .cdp-play::before,
   .cdp .cdp-btn--primary::before, .cdp .cdp-seg button::before { display: none; }
   .cdp .cdp-icon-btn::after, .cdp .cdp-play::after { display: none; }
+  /* The pills' and chips' facet line goes too; the system border above is the edge. */
+  .cdp .cdp-btn::after, .cdp .cdp-chip::after { display: none; }
+  .cdp input[type="checkbox"] { appearance: auto; -webkit-appearance: auto; background: none; box-shadow: none; }
+  .cdp input[type="checkbox"]::after { display: none; }
   /* The crystal's backdrop filter darkens what is behind it; in high contrast it is a plain system button. */
   .cdp .cdp-play, .cdp .cdp-icon-btn--glass, .cdp .cdp-icon-btn:hover:not(:disabled) { background: ButtonFace; -webkit-backdrop-filter: none; backdrop-filter: none; }
   .cdp .cdp-play svg { filter: none; }

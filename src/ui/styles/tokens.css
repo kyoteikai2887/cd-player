@@ -65,25 +65,35 @@
   --rim-light: linear-gradient(150deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 28%,
     rgba(255, 255, 255, 0.06) 55%, rgba(255, 255, 255, 0.4) 100%);
 
-  /* ── Clear glass (controls) ──────────────────────────
-     The centre stays clear: what is behind shows through, barely blurred. The glass is drawn by
-     its edges — a bright top line, light gathered along the lower edge (caustic), a faint darker
-     refraction just inside the rim — plus a glint at the upper left and a 1.25px ring that
-     flashes at two opposite corners, as on a glass bead. */
-  --btn-gloss: radial-gradient(42% 34% at 30% 10%, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0) 100%);
-  --btn-caustic: radial-gradient(70% 30% at 50% 112%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%);
-  --btn-sheen: var(--btn-gloss), var(--btn-caustic);
+  /* ── One glass for everything you press (Claude, V1.1 final polish) ──
+     Until now two glasses lived side by side: the crystal slabs of the transport and the stage
+     (flat face, a wall of even thickness lit from the upper left, a facet line, the slab's own
+     edge and a short drop — the buttons the user likes) and an older bead glass on everything
+     else (a radial glint at the upper left, a caustic pool along the bottom, a vignette inside the
+     rim, a ring that flashed at two corners): pills, chips, the segmented thumb, selected rows, the
+     knobs. Beside the slabs the bead read as 2.5D gel.
+     The bead's names are kept (modules use them) and now name parts of the slab, so every
+     pressable thing is the same flat glass: --btn-sheen is the slab's face, --btn-ring its lit
+     wall, --btn-rim its facet, --btn-lift its edge, lip and drop. They are declared once here and
+     each theme only sets the slab itself (below). Pills draw the wall at a fixed width. */
   --btn-body: rgba(255, 255, 255, 0.04);
   --btn-body-hover: rgba(255, 255, 255, 0.16);
   --btn-filter: blur(1.5px) saturate(1.2) brightness(1.03);
-  --btn-ring: linear-gradient(140deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.35) 25%, rgba(255, 255, 255, 0) 45%,
-    rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.5) 80%, rgba(255, 255, 255, 1) 100%);
-  --btn-rim: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px rgba(255, 255, 255, 0.75),
-    inset 0 0 0 0.5px rgba(15, 58, 99, 0.22), inset 0 0 10px rgba(15, 58, 99, 0.07);
-  --btn-rim-press: inset 0 1px 3px rgba(15, 58, 99, 0.22), inset 0 -1px 0 rgba(255, 255, 255, 0.6), inset 0 0 0 0.5px rgba(15, 58, 99, 0.24);
-  --btn-lift: 0 1px 1px rgba(15, 58, 99, 0.08), 0 6px 14px -7px rgba(15, 58, 99, 0.3);
-  --btn-lift-hover: 0 2px 2px rgba(15, 58, 99, 0.09), 0 12px 22px -10px rgba(15, 58, 99, 0.36);
-  --btn-lift-press: 0 1px 1px rgba(15, 58, 99, 0.12);
+  --btn-gloss: var(--slab-face);
+  --btn-caustic: linear-gradient(transparent, transparent);
+  --btn-sheen: var(--slab-face);
+  --btn-sheen-hover: var(--slab-face-hover);
+  --btn-ring: var(--slab-lights-long), var(--slab-wall);
+  --btn-rim: var(--slab-facet);
+  --btn-rim-press: var(--slab-facet-press);
+  --btn-lift: var(--slab-edge), var(--slab-lip), var(--slab-drop);
+  --btn-lift-hover: var(--slab-edge), var(--slab-lip), var(--slab-drop-hover);
+  --btn-lift-press: var(--slab-edge), var(--slab-drop);
+  --pill-wall: 2.25px;
+  /* Disabled controls fade by the same amount everywhere (was 0.38–0.5). Rows of text (a track
+     that cannot play) fade less, so the title can still be read. */
+  --o-disabled: 0.42;
+  --o-disabled-row: 0.5;
 
   /* ── Crystal slabs (core.23): the transport controls as glass of even thickness ──
      A flat face; a wall the same width all round (--slab-t of the width), lit from the upper left
@@ -95,6 +105,12 @@
   --slab-face-hover: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.4) 46%, rgba(255, 255, 255, 0.46) 100%);
   --slab-lights: conic-gradient(from 0deg, rgba(255, 255, 255, 0.7) 0deg, rgba(255, 255, 255, 0.3) 62deg, rgba(255, 255, 255, 0) 108deg,
     rgba(255, 255, 255, 0.62) 142deg, rgba(255, 255, 255, 0) 182deg, rgba(255, 255, 255, 0.22) 244deg, rgba(255, 255, 255, 1) 312deg, rgba(255, 255, 255, 0.7) 360deg);
+  /* A conic light is laid out around the centre, so on a long pill its lower-right glint (142deg)
+     would land under the label as a spot. Long slabs get the same light laid along their length:
+     the top edge lit, strongest at the left cap, and a quieter glint along the lower edge. */
+  --slab-lights-long: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.2) 38%, rgba(255, 255, 255, 0) 55%,
+      rgba(255, 255, 255, 0) 72%, rgba(255, 255, 255, 0.42) 100%);
   --slab-wall: rgba(206, 224, 242, 0.55);
   --slab-facet: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0.5px rgba(15, 58, 99, 0.1), 0 0 0 0.5px rgba(15, 58, 99, 0.13);
   --slab-facet-press: inset 0 1.5px 2.5px rgba(15, 58, 99, 0.2), 0 0 0 0.75px rgba(15, 58, 99, 0.2);
@@ -116,15 +132,17 @@
   /* Grooves (segmented track, search field) are pressed into the surface. */
   --groove-bg: rgba(19, 36, 59, 0.06);
   --groove-rim: inset 0 1px 2px rgba(15, 58, 99, 0.12), inset 0 0 0 1px rgba(15, 58, 99, 0.05), 0 1px 0 rgba(255, 255, 255, 0.8);
-  --thumb-bg: var(--btn-gloss), var(--btn-caustic), rgba(255, 255, 255, 0.62);
-  --thumb-lift: inset 0 1px 0.5px #FFFFFF, inset 0 -1px 1px rgba(255, 255, 255, 0.6), 0 0 0 0.5px rgba(15, 58, 99, 0.14), 0 1px 2px rgba(15, 58, 99, 0.14), 0 4px 10px -3px rgba(15, 58, 99, 0.2);
+  --thumb-bg: var(--slab-face), rgba(255, 255, 255, 0.6);
+  --thumb-lift: var(--slab-edge), var(--slab-lip), 0 3px 8px -4px rgba(15, 58, 99, 0.32);
   --field-bg: rgba(255, 255, 255, 0.5);
   --field-bg-focus: rgba(255, 255, 255, 0.92);
 
   --rail: rgba(19, 36, 59, 0.12);
   --rail-fill: var(--ink);
-  --knob: radial-gradient(circle at 50% 28%, #FFFFFF 0 38%, #EEF3F9 100%);
-  --knob-lift: 0 0 0 0.5px rgba(15, 58, 99, 0.22), 0 1px 4px rgba(15, 58, 99, 0.3), inset 0 -1px 1px rgba(15, 58, 99, 0.08);
+  /* Knobs are flat discs with the slab's edge. */
+  --knob: linear-gradient(180deg, #FFFFFF 0%, #EEF3F9 100%);
+  --knob-lift: 0 0 0 0.75px rgba(15, 58, 99, 0.26), 0 1px 0 0 rgba(15, 58, 99, 0.14), 0 3px 6px -2px rgba(15, 58, 99, 0.32),
+    inset 0 1px 0 #FFFFFF;
 
   /* ── Shadows (tinted with deep Argentine navy) ───── */
   --shadow-low: 0 1px 2px rgba(15, 58, 99, 0.07), 0 2px 8px -2px rgba(15, 58, 99, 0.08);
@@ -246,7 +264,6 @@
   --btn-body: rgba(255, 255, 255, 0.05);
   --btn-body-hover: rgba(255, 255, 255, 0.18);
   --btn-filter: blur(1.5px) saturate(1.15) brightness(1.05);
-  --btn-lift: 0 1px 1px rgba(15, 58, 99, 0.12), 0 6px 14px -7px rgba(15, 58, 99, 0.36);
   --groove-bg: rgba(15, 50, 90, 0.1);
   --slab-face: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(240, 248, 255, 0.2) 46%, rgba(240, 248, 255, 0.28) 100%);
   --slab-face-hover: linear-gradient(180deg, rgba(255, 255, 255, 0.66) 0%, rgba(240, 248, 255, 0.34) 46%, rgba(240, 248, 255, 0.4) 100%);
@@ -255,7 +272,7 @@
   --slab-lip: 0 1px 0 0 rgba(226, 240, 253, 0.9), 0 1.75px 0 0 rgba(15, 58, 99, 0.22);
   --slab-drop: 0 7px 14px -7px rgba(15, 58, 99, 0.4);
   --slab-drop-hover: 0 11px 20px -9px rgba(15, 58, 99, 0.46);
-  --thumb-bg: var(--btn-gloss), var(--btn-caustic), rgba(255, 255, 255, 0.5);
+  --thumb-bg: var(--slab-face), rgba(255, 255, 255, 0.5);
   --field-bg: rgba(255, 255, 255, 0.36);
   --rail: rgba(15, 33, 54, 0.16);
   --scrim: rgba(150, 194, 236, 0.45);
@@ -301,25 +318,18 @@
   --rim-light: linear-gradient(150deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.10) 28%,
     rgba(255, 255, 255, 0.02) 55%, rgba(255, 255, 255, 0.14) 100%);
 
-  --btn-gloss: radial-gradient(42% 34% at 30% 10%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
-  --btn-caustic: radial-gradient(70% 30% at 50% 112%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
   --btn-body: rgba(255, 255, 255, 0.05);
   --btn-body-hover: rgba(255, 255, 255, 0.1);
   --btn-filter: blur(1.5px) saturate(1.2) brightness(1.25);
-  --btn-ring: linear-gradient(140deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 45%,
-    rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.2) 80%, rgba(255, 255, 255, 0.55) 100%);
-  --btn-rim: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1.5px 2px -0.5px rgba(255, 255, 255, 0.25),
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.1), inset 0 0 12px rgba(255, 255, 255, 0.05);
-  --btn-rim-press: inset 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 -1px 0 rgba(255, 255, 255, 0.12), inset 0 0 0 0.5px rgba(255, 255, 255, 0.1);
-  --btn-lift: 0 0 0 0.5px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 18px -8px rgba(0, 0, 0, 0.75);
-  --btn-lift-hover: 0 0 0 0.5px rgba(0, 0, 0, 0.6), 0 2px 3px rgba(0, 0, 0, 0.4), 0 14px 24px -10px rgba(0, 0, 0, 0.8);
-  --btn-lift-press: 0 0 0 0.5px rgba(0, 0, 0, 0.6), 0 1px 1px rgba(0, 0, 0, 0.35);
 
   --groove-bg: rgba(0, 0, 0, 0.3);
   --slab-face: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.035) 46%, rgba(255, 255, 255, 0.06) 100%);
   --slab-face-hover: linear-gradient(180deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.07) 46%, rgba(255, 255, 255, 0.1) 100%);
   --slab-lights: conic-gradient(from 0deg, rgba(255, 255, 255, 0.34) 0deg, rgba(255, 255, 255, 0.12) 62deg, rgba(255, 255, 255, 0) 108deg,
     rgba(255, 255, 255, 0.3) 142deg, rgba(255, 255, 255, 0) 182deg, rgba(255, 255, 255, 0.18) 240deg, rgba(255, 255, 255, 0.62) 312deg, rgba(255, 255, 255, 0.34) 360deg);
+  --slab-lights-long: linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 38%, rgba(255, 255, 255, 0) 55%,
+      rgba(255, 255, 255, 0) 72%, rgba(255, 255, 255, 0.2) 100%);
   --slab-wall: rgba(186, 198, 214, 0.24);
   --slab-facet: inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0.5px rgba(0, 0, 0, 0.28), 0 0 0 0.5px rgba(0, 0, 0, 0.32);
   --slab-facet-press: inset 0 1.5px 2.5px rgba(0, 0, 0, 0.5), 0 0 0 0.75px rgba(0, 0, 0, 0.55);
@@ -334,14 +344,15 @@
   --crystal-glow: 0 6px 24px -6px color-mix(in srgb, var(--accent) 62%, transparent);
   --crystal-glow-hover: 0 8px 28px -7px color-mix(in srgb, var(--accent) 68%, transparent);
   --groove-rim: inset 0 1px 2px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.06);
-  --thumb-bg: var(--btn-gloss), var(--btn-caustic), rgba(255, 255, 255, 0.12);
-  --thumb-lift: inset 0 1px 0.5px rgba(255, 255, 255, 0.4), inset 0 -1px 1px rgba(255, 255, 255, 0.1), 0 0 0 0.5px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.45);
+  --thumb-bg: var(--slab-face), rgba(255, 255, 255, 0.1);
+  --thumb-lift: var(--slab-edge), var(--slab-lip), 0 3px 8px -3px rgba(0, 0, 0, 0.6);
   --field-bg: rgba(0, 0, 0, 0.22);
   --field-bg-focus: rgba(0, 0, 0, 0.32);
 
   --rail: rgba(255, 255, 255, 0.14);
-  --knob: radial-gradient(circle at 50% 28%, #FFFFFF 0 38%, #DDE3EA 100%);
-  --knob-lift: 0 0 0 0.5px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.6);
+  --knob: linear-gradient(180deg, #F2F5F9 0%, #D8DEE6 100%);
+  --knob-lift: 0 0 0 0.75px rgba(0, 0, 0, 0.55), 0 1px 0 0 rgba(0, 0, 0, 0.45), 0 3px 8px -2px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 
   --shadow-low: 0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 8px -2px rgba(0, 0, 0, 0.4);
   --shadow-float: 0 1px 2px rgba(0, 0, 0, 0.4), 0 14px 30px -10px rgba(0, 0, 0, 0.6), 0 34px 64px -24px rgba(0, 0, 0, 0.55);
@@ -379,10 +390,7 @@
   --danger: #FFB0A8;
   --accent-ink: var(--accent-ink-raised, #ACCFEF);
   --accent-well: color-mix(in srgb, var(--accent) 18%, rgb(0 0 0 / 0.3));
-  --btn-gloss: radial-gradient(42% 34% at 30% 10%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
-  --btn-caustic: radial-gradient(70% 30% at 50% 112%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
-  --btn-sheen: var(--btn-gloss), var(--btn-caustic);
-  --thumb-bg: var(--btn-gloss), var(--btn-caustic), rgba(255, 255, 255, 0.12);
+  /* (V1.1 final: the flat glass (top of this file) has no hot glint to soften here; only the lift stays out.) */
   --btn-filter: blur(1.5px) saturate(1.2);
 }
 

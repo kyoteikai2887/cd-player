@@ -191,6 +191,13 @@ export const SCENARIOS: Scenario[] = [
     build: () => base({ data: 'unavailable' }).snapshot }),
   S({ id: 'album-edited', group: '专辑', title: '手动修改过的资料', boot: { route: { name: 'album', albumId: 'album-spring' } },
     build: () => base().snapshot }),
+  // V1.1: the technical state moved into 专辑信息 (more menu); these frames feed it every state.
+  S({ id: 'album-rip-failed', group: '专辑', title: '专辑信息：AccurateRip 未通过、两张碟的抓轨文件', boot: { route: { name: 'album', albumId: 'album-starsea' } },
+    note: '更多 → 专辑信息…。未核验与未通过分开显示；有日志不等于核验通过。',
+    build: () => withAlbum(base().snapshot, 'album-starsea', a => ({ ...a, metadataStatus: 'unmatched', userEditedFields: ['title', 'cover'], musicBrainzReleaseId: 'b1c3f6a2-0d5e-4f7a-9c8b-2e4d6f8a0b1c',
+      rip: { hasLog: true, hasCue: false, accurateRip: 'notVerified', discs: [{ number: 1, hasLog: true, hasCue: false, discId: 'demo-1a2b3c' }, { number: 2, hasLog: true, hasCue: false }] } })) }),
+  S({ id: 'album-lookup', group: '专辑', title: '查找专辑资料：进行中', boot: { route: { name: 'album', albumId: 'album-rain' } },
+    build: () => ({ ...base().snapshot, tasks: [{ id: 'tm', kind: 'metadata', status: 'running', label: '查找专辑资料', progress: 0.4, cancellable: true, albumId: 'album-rain' }] }) }),
   S({ id: 'album-960', group: '专辑', title: '960×600', width: 960, height: 600, boot: { route: { name: 'album', albumId: 'album-soda' } },
     build: () => playing({ trackId: 'track-soda', positionMs: 20000 }).snapshot }),
 
@@ -301,6 +308,7 @@ export const SCENARIOS: Scenario[] = [
 
   ...comparisons(),
   ...legibility(),
+  ...miniLight(),
   ...removal(),
   ...lyricCandidates(),
   ...memorial(),
@@ -475,6 +483,11 @@ function comparisons(): Scenario[] {
  * type, near-white, mid grey, saturated red, bright yellow) on the stage in each playback state,
  * and the near-black one through the album page, the player capsule and the mini window.
  */
+/** The snapshot with one album changed (preview only; the fixtures stay as they are). */
+function withAlbum(snapshot: UISnapshot, albumId: string, change: (album: UISnapshot['library']['albums'][number]) => UISnapshot['library']['albums'][number]): UISnapshot {
+  return { ...snapshot, library: { ...snapshot.library, albums: snapshot.library.albums.map(a => (a.id === albumId ? change(a) : a)) } };
+}
+
 function coverSnapshot(kind: CoverKind, mode: 'playing' | 'paused' | 'new', options: BaseOptions = {}) {
   const { snapshot } = base(options);
   const { albumId } = addCoverAlbum(snapshot.library, kind);
@@ -517,6 +530,44 @@ function legibility(): Scenario[] {
   return out;
 }
 
+
+/**
+ * V1.1 round 2: the mini card lit by the whole album, in each real frame (a transparent window with
+ * its shadow margin, a native material, an opaque window), both heights (92, and 140 with the lyric
+ * strip), over the extremes of a cover, with no album and with a cover that fails to load.
+ * id: mini-light-<frame>-<92|140>-<cover>-<theme>
+ */
+function miniLight(): Scenario[] {
+  const MINI_FRAMES = ['transparent', 'material', 'opaque'] as const;
+  const MINI_COVERS = ['blue', 'night', 'snow', 'ember', 'citrus', 'idle', 'broken'] as const;
+  const g = '迷你色光（V1.1 第二轮）';
+  const themes: ThemeName[] = ['light', 'blue', 'charcoal'];
+  const frameHost = (frame: typeof MINI_FRAMES[number]): BaseOptions => ({
+    host: { shell: 'tauri', windowMode: 'mini', backdrop: frame === 'material' ? 'acrylic' : 'none', nativeCornerRadius: frame === 'transparent' ? 0 : 8 },
+    capabilities: { transparentWindow: frame !== 'opaque', nativeWindows: true, windowDragging: true } });
+  const out: Scenario[] = [];
+  for (const theme of themes) for (const frame of MINI_FRAMES) for (const tall of [false, true]) for (const cover of MINI_COVERS) {
+    const options: BaseOptions = { ...frameHost(frame), settings: { miniShowLyrics: tall } };
+    const build = (): UISnapshot => {
+      if (cover === 'idle') return withTheme(base(options).snapshot, theme);
+      const lyricDoc = createDemoData().lyricsByTrack['track-blue'];
+      if (cover === 'blue' || cover === 'broken') {
+        const { snapshot } = playing({ trackId: 'track-blue', positionMs: 79000, status: 'playing', ...options });
+        const broken = cover === 'broken' ? { ...snapshot, library: { ...snapshot.library, albums: snapshot.library.albums.map(a => a.id === 'album-blue'
+          ? { ...a, cover: { thumbUrl: '/covers/missing-cover.webp', fullUrl: '/covers/missing-cover.webp' } } : a) } } : snapshot;
+        return withTheme(broken, theme);
+      }
+      const { snapshot } = coverSnapshot(cover, 'playing', options);
+      const trackId = snapshot.player.currentTrackId!;
+      return withTheme({ ...snapshot, player: { ...snapshot.player, positionMs: 79000 }, lyrics: { ...lyricDoc, trackId } }, theme);
+    };
+    const pad = frame === 'transparent' ? 24 : 0;
+    out.push(S({ id: `mini-light-${frame}-${tall ? 140 : 92}-${cover}-${theme}`, group: g,
+      title: `迷你 ${frame === 'transparent' ? '透明窗口' : frame === 'material' ? '原生材质' : '不透明窗口'} · ${tall ? '360×140 歌词' : '360×92'} · ${cover} · ${theme}`,
+      surface: 'mini', width: 360 + pad, height: (tall ? 140 : 92) + pad, desktop: true, build }));
+  }
+  return out;
+}
 /**
  * R2.2: removing an album from the collection. The live demo (#/live) runs the real flow against
  * the DemoBridge; these frames hold each state of the confirmation still.

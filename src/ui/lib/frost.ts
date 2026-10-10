@@ -49,19 +49,50 @@ export interface FrostSpec {
    * reads as movement and colour, never as a black or white patch behind the text.
    */
   seeRange?: [number, number];
+  /**
+   * V1.1 (the stage): the tone the cover's colour is laid on. The light across the surface is the
+   * cover's hue and chroma at this tone's brightness (mix-blend-mode: color), so the text meets
+   * the colour of any cover but never a black or white sleeve; `art` is then the strength of the
+   * cover's own light kept behind the case and disc, away from the text.
+   */
+  tone?: string;
+  /**
+   * The grain's grey veil on this surface where it is not FROST_GRAIN × the clear part of the field.
+   * Over a thin field on charcoal the soft-light grain lifts the surface more than that (measured on
+   * the rendered V1.1 stage in Chromium, 3×3 px mean: about 0.45 of mid grey).
+   */
+  grainVeil?: number;
 }
 
 /** Where text sits on each frost surface. The left of the stage stays clear for the case and disc. */
-export type FrostSurface = 'stage' | 'header' | 'capsule' | 'mini' | 'dialog';
+export type FrostSurface = 'stage' | 'header' | 'capsule' | 'mini' | 'miniNative' | 'dialog';
 export const FROST: Record<FrostSurface, Record<ThemeName, FrostSpec>> = {
-  stage: { light: { art: 0.92, field: 0.68, grain: 1 }, blue: { art: 0.85, field: 0.7, grain: 1 }, charcoal: { art: 0.72, field: 0.7, grain: 1 } },
+  stage: {
+    light: { art: 0.9, field: 0.34, grain: 1, tone: '#BCC7D3' },
+    blue: { art: 0.85, field: 0.36, grain: 1, tone: '#A3BFDA' },
+    charcoal: { art: 0.72, field: 0.44, grain: 1, tone: '#1E2329', grainVeil: 0.45 },
+  },
   header: { light: { art: 0.42, field: 0.3, grain: 0 }, blue: { art: 0.42, field: 0.46, grain: 0 }, charcoal: { art: 0.32, field: 0.5, grain: 1 } },
   capsule: {
     light: { art: 0.7, field: 0.72, grain: 1, see: 0.4, seeRange: [120, 236] },
     blue: { art: 0.66, field: 0.72, grain: 1, see: 0.4, seeRange: [120, 225] },
     charcoal: { art: 0.6, field: 0.72, grain: 1, see: 0.4, seeRange: [24, 100] },
   },
-  mini: { light: { art: 0.7, field: 0.7, grain: 1 }, blue: { art: 0.66, field: 0.7, grain: 1 }, charcoal: { art: 0.6, field: 0.68, grain: 1 } },
+  // V1.1 round 2: the mini card is lit like the stage — the cover's colour at the theme's tone over
+  // the whole card, the cover's own light only around the art — on an opaque card…
+  mini: {
+    light: { art: 0.8, field: 0.38, grain: 1, tone: '#BCC7D3' },
+    blue: { art: 0.78, field: 0.4, grain: 1, tone: '#A3BFDA' },
+    charcoal: { art: 0.7, field: 0.46, grain: 1, tone: '#1E2329', grainVeil: 0.45 },
+  },
+  // …and over a native material (Acrylic), where a fifth of whatever the material shows comes
+  // through, so it is derived against black and white behind; the material brings its own noise,
+  // so the card adds no grain of its own there.
+  miniNative: {
+    light: { art: 0.8, field: 0.4, grain: 0, tone: '#C8D1DB', see: 0.2, seeRange: [0, 255] },
+    blue: { art: 0.78, field: 0.5, grain: 0, tone: '#B0C8E0', see: 0.2, seeRange: [0, 255] },
+    charcoal: { art: 0.7, field: 0.4, grain: 0, tone: '#1E2329', see: 0.2, seeRange: [0, 255] },
+  },
   dialog: { light: { art: 0.8, field: 0.8, grain: 1 }, blue: { art: 0.76, field: 0.8, grain: 1 }, charcoal: { art: 0.66, field: 0.76, grain: 1 } },
 };
 
@@ -90,6 +121,18 @@ export function frostBackdrops(theme: ThemeName, spec: FrostSpec): Rgb[] {
   const paper = rgb(t.paper), base = rgb(t.paper2);
   const pool = mix(base, rgb(t.pool1), t.pool1Alpha);
   const out: Rgb[] = [];
+  if (spec.tone) {
+    // Any cover colour at the tone's brightness, and no cover at all (the theme's base and pool).
+    const veil = (seen: Rgb) => mix(seen, GREY, spec.grain * (spec.grainVeil ?? FROST_GRAIN * (1 - spec.field)));
+    const tone = rgb(spec.tone);
+    const frosts = [...COVER_SWEEP.map(cover => veil(mix(blendColor(tone, cover), paper, spec.field))),
+      ...[base, pool].map(under => veil(mix(under, paper, spec.field)))];
+    if (!spec.see) return frosts;
+    // Laid at (1 - see) over what is behind it (V1.1 round 2: the mini card over a native material).
+    const [lo, hi] = spec.seeRange ?? [0, 255];
+    for (const frost of frosts) for (const level of [lo, hi]) out.push(mix([level, level, level], frost, 1 - spec.see));
+    return out;
+  }
   const see = spec.see ?? 0;
   for (const under of [base, pool]) {
     for (const cover of [BLACK, WHITE]) {
@@ -102,6 +145,35 @@ export function frostBackdrops(theme: ThemeName, spec: FrostSpec): Rgb[] {
     }
   }
   return out;
+}
+
+/**
+ * Cover colours to check a toned light against: every 15° of hue at full and half saturation, at
+ * three depths, and black and white. After the blend only hue and chroma remain, and the fully
+ * saturated primaries and secondaries already reach the extremes the tone allows.
+ */
+const COVER_SWEEP: Rgb[] = (() => {
+  const out: Rgb[] = [BLACK, WHITE];
+  for (let h = 0; h < 360; h += 15) for (const s of [1, 0.5]) for (const v of [1, 0.6, 0.3]) out.push(hsv(h, s, v));
+  return out;
+})();
+function hsv(h: number, s: number, v: number): Rgb {
+  const f = (n: number) => { const k = (n + h / 60) % 6; return 255 * (v - v * s * Math.max(0, Math.min(k, 4 - k, 1))); };
+  return [f(5), f(3), f(1)];
+}
+
+/**
+ * mix-blend-mode: color, as Compositing and Blending Level 1 defines it (sRGB, 0–255): the
+ * source's hue and chroma with the backdrop's luminosity.
+ */
+export function blendColor(backdrop: Rgb, source: Rgb): Rgb {
+  const lum = (c: Rgb) => 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2];
+  const l = lum(backdrop), d = l - lum(source);
+  let c: Rgb = [source[0] + d, source[1] + d, source[2] + d];
+  const n = Math.min(...c), x = Math.max(...c);
+  if (n < 0) c = c.map(v => l + ((v - l) * l) / (l - n)) as Rgb;
+  if (x > 255) c = c.map(v => l + ((v - l) * (255 - l)) / (x - l)) as Rgb;
+  return c;
 }
 
 export interface FrostTones {
@@ -140,6 +212,7 @@ export function frostVars(theme: ThemeName, spec: FrostSpec, accentHex: string):
     '--frost-field': `${Math.round(spec.field * 100)}%`,
     '--frost-grain': spec.grain ? 'var(--grain)' : 'none',
     '--frost-opacity': String(1 - (spec.see ?? 0)),
+    ...(spec.tone ? { '--frost-tone': spec.tone } : {}),
     ...(spec.see ? { '--frost-see-filter': seeFilter(spec.seeRange ?? [0, 255]) } : {}),
     '--ink': tones.ink,
     '--ink-2': tones.ink2,

@@ -52,12 +52,44 @@
 :global(.cdp[data-theme="charcoal"]) .card[data-material="solid"] { --mini-a: 0.97; }
 :global(.cdp[data-solid="true"]) .card { --mini-a: 1; }
 .card[data-lyrics="true"] { height: 140px; }
-/* Frost body (R2.2): the playing album's colours under a grained field; the rim stays. */
-.card[data-frost="true"] {
-  background: none; -webkit-backdrop-filter: none; backdrop-filter: none; isolation: isolate;
-  --frost-clear: 24%; --frost-clear-to: 56px; --frost-field-from: 92px;
-}
+/* Frost body (R2.2 → V1.1 round 2): the playing album's light over the whole card; the rim stays. */
+.card[data-frost="true"] { background: none; -webkit-backdrop-filter: none; backdrop-filter: none; isolation: isolate; }
 .card[data-frost="true"]::before { z-index: 1; }
+
+/* ── Light (V1.1 round 2) ───────────────────────────────
+ * As on the stage, the cover twice over, cut to the card:
+ *   layer 0  the cover's hue and chroma on the theme's tone (mix-blend-mode: color), over the
+ *            whole card — title, credit, controls and the lyric strip all sit on the same light;
+ *   layer 1  the cover's own colours in a soft halo around the art only, gone 42px from its
+ *            centre, before the title begins (x = 89px) and above the lyric strip (y ≥ 86px).
+ * The field (paper and grain) is even everywhere but the same small round spot behind the art,
+ * so no strip of it is thinner or thicker than the rest. */
+:global(.cdp) .light:has(img) { background: var(--frost-tone, var(--paper-2)); }
+:global(.cdp) .light img[data-layer="0"] {
+  max-width: none; left: -20%; width: 140%; top: -150%; height: 400%;
+  mix-blend-mode: color; opacity: 1;
+  filter: blur(28px) saturate(1.8);
+}
+:global(.cdp) .light img[data-layer="1"] {
+  max-width: none; left: 0; top: 0; width: 92px; height: 92px;
+  filter: blur(14px) saturate(1.5); opacity: calc(var(--frost-art) * 0.7);
+  -webkit-mask: radial-gradient(circle at 46px 46px, #000 0 26px, transparent 42px);
+  mask: radial-gradient(circle at 46px 46px, #000 0 26px, transparent 42px);
+}
+:global(.cdp) .light::after {
+  background: var(--frost-grain), linear-gradient(color-mix(in srgb, var(--paper) var(--frost-field), transparent) 0 0);
+}
+/* With a cover, the field thins only behind the art, where its own light shows round it. */
+:global(.cdp) .light:has(img)::after {
+  background:
+    var(--frost-grain),
+    radial-gradient(circle at 46px 46px,
+      color-mix(in srgb, var(--paper) calc(var(--frost-field) * 0.4), transparent) 0 30px,
+      color-mix(in srgb, var(--paper) var(--frost-field), transparent) 42px);
+}
+/* Over a native material the light is laid a little thinner, so the material shows through it. */
+.card[data-material="native"] .light { opacity: var(--frost-opacity, 1); }
+:global(.cdp[data-solid="true"]) .card[data-material="native"] .light { opacity: 1; }
 .window[data-frame="transparent"] .card,
 .window[data-frame="opaque"] .card,
 .window[data-frame="material"] .card { width: 100%; height: 100%; }
@@ -70,7 +102,8 @@
 /* Over a native material the window's own shadow does the work; the card keeps its tint and inner rim.
    (CSS blur is a no-op over a transparent native window; the browser preview uses it as a stand-in.) */
 .window[data-frame="material"] .card { box-shadow: var(--glass-rim); }
-.card[data-entering="true"] { animation: riseIn 320ms var(--ease-out); }
+/* On the shared scale (was 320ms); --d-base also ends well inside the 400ms the entering flag is held. */
+.card[data-entering="true"] { animation: riseIn var(--d-base) var(--ease-out); }
 
 .main {
   position: relative; z-index: 1;
@@ -116,14 +149,7 @@
   display: flex; align-items: center;
 }
 .lyric::before { content: ""; position: absolute; left: 16px; right: 16px; top: 0; height: 1px; background: var(--line); }
-/* With frost, the left of the card is kept clear for the art down to its bottom edge; the lyric
-   line runs under that clear part too, where a light cover came through behind its first words.
-   Under the lyric the field is completed: paper at (field - clear) / (1 - clear), clear = 24%. */
-.card[data-frost="true"] .lyric {
-  background: linear-gradient(90deg,
-    color-mix(in srgb, var(--paper) calc((var(--frost-field) - var(--frost-clear)) / 0.76), transparent) var(--frost-clear-to),
-    transparent var(--frost-field-from));
-}
+/* V1.1 round 2: the lyric strip needs no patch of paper of its own — the field is already even there. */
 .lyricLine { min-width: 0; width: 100%; animation: fadeIn var(--d-base) linear; }
 .lyricOriginal {
   --role-sc: var(--font-display-sc); --role-ja: var(--font-display-ja);

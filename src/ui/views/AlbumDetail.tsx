@@ -1,6 +1,6 @@
-import { memo, useMemo } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { Album, LyricsDocument, Track } from '../../contracts/player.ts';
+import type { Album, LyricsDocument, TaskInfo, Track } from '../../contracts/player.ts';
 import { Cover } from '../components/Cover.tsx';
 import { Frost, useFrostStyle } from '../components/Frost.tsx';
 import { Icon } from '../components/Icon.tsx';
@@ -13,15 +13,13 @@ import { albumDuration, groupByDisc } from '../lib/library.ts';
 import { usePlayer, useSurface } from '../lib/surface.tsx';
 import { langHint, lyricsStatus, versionBadge } from '../lib/text.ts';
 import { formatRunningTime } from './Spotlight.tsx';
+import { AlbumInfoSheet } from './AlbumInfoSheet.tsx';
 import styles from './AlbumDetail.module.css';
 
-const FIELD_LABEL: Record<string, string> = {
-  title: '标题', albumArtists: '艺术家', albumArtistCredit: '署名', workTitle: '作品', releaseYear: '年份',
-  catalogNumber: '品番', label: '厂牌', language: '语言', titleSort: '排序名', discs: '碟片', cover: '封面',
-};
-
-export const AlbumDetail = memo(function AlbumDetail({ album, onOpenNowPlaying, onEditMetadata, onRemove }: {
+export const AlbumDetail = memo(function AlbumDetail({ album, tasks = [], onOpenNowPlaying, onEditMetadata, onRemove }: {
   album: Album; lyricsByCurrent: LyricsDocument | null; onOpenNowPlaying(): void;
+  /** Background tasks: a metadata lookup for this album shows its progress under the actions. */
+  tasks?: TaskInfo[];
   /** Opens the metadata editor on the album, or on one track. */
   onEditMetadata(trackId?: string): void;
   /** Asks to remove the album from the collection (a confirmation follows). */
@@ -36,8 +34,18 @@ export const AlbumDetail = memo(function AlbumDetail({ album, onOpenNowPlaying, 
   const unavailable = discs.some(d => d.tracks.some(t => !t.available));
   const multiDisc = discs.length > 1 || discs.some(d => d.title);
   const isCurrentAlbum = currentTrack?.albumId === album.id;
-  const edited = album.userEditedFields.map(f => FIELD_LABEL[f] ?? f);
   const frost = useFrostStyle('header');
+  // V1.1: the technical state (metadata status, protected fields, rip) lives in the info sheet.
+  const [infoOpen, setInfoOpen] = useState(false);
+  const moreButton = useRef<HTMLButtonElement | null>(null);
+  const infoWasOpen = useRef(false);
+  useEffect(() => {
+    // The sheet opens from a menu item that is gone by then; on close, focus goes back to the menu's button.
+    if (infoWasOpen.current && !infoOpen) moreButton.current?.focus();
+    infoWasOpen.current = infoOpen;
+  }, [infoOpen]);
+  const lookup = tasks.find(t => t.kind === 'metadata' && t.albumId === album.id);
+  const allTracks = useMemo(() => discs.flatMap(d => d.tracks), [discs]);
 
   return (
     <article className={styles.scroller} data-scroller="album" aria-label={album.title}>
@@ -72,7 +80,14 @@ export const AlbumDetail = memo(function AlbumDetail({ album, onOpenNowPlaying, 
                 onClick={() => run({ type: 'playAlbum', albumId: album.id, shuffle: true }, { slot: 'album', key: 'album-shuffle' })}>
                 <Icon name="shuffle" />
               </button>
-              <Menu label="更多专辑操作" buttonClassName="cdp-icon-btn cdp-icon-btn--lg cdp-icon-btn--glass" align="start" items={[
+              <Menu label="更多专辑操作" align="start" trigger={({ open, toggle, id, ref }) => (
+                <button ref={el => { ref(el); moreButton.current = el; }} type="button" className="cdp-icon-btn cdp-icon-btn--lg cdp-icon-btn--glass"
+                  aria-label="更多专辑操作" title="更多专辑操作" aria-haspopup="menu" aria-expanded={open} aria-controls={open ? id : undefined} onClick={toggle}>
+                  <Icon name="more" />
+                </button>
+              )} items={[
+                { label: '专辑信息…', icon: 'info', onSelect: () => setInfoOpen(true), hint: '资料状态、手动修改与抓轨信息' },
+                { kind: 'separator' },
                 { label: '查找专辑资料', icon: 'search', disabled: !online,
                   onSelect: () => void run({ type: 'lookupMetadata', albumId: album.id }, { slot: 'album' }) },
                 { label: '更换封面…', icon: 'image', disabled: !online,
@@ -90,18 +105,14 @@ export const AlbumDetail = memo(function AlbumDetail({ album, onOpenNowPlaying, 
                 </button>
               )}
             </div>
+            {lookup && (
+              <p className={styles.task} role="status">
+                <span className="cdp-spinner" aria-hidden="true" />
+                <span>{lookup.status === 'queued' ? '等待查找专辑资料' : lookup.status === 'cancelling' ? '正在取消查找' : '正在查找专辑资料'}</span>
+                {lookup.progress != null && <span className="num">{Math.round(lookup.progress * 100)}%</span>}
+              </p>
+            )}
             <InlineError slot="album" />
-            <div className={styles.status}>
-              {album.metadataStatus !== 'matched' && (
-                <span className="cdp-badge cdp-badge--warn">{album.metadataStatus === 'unmatched' ? '资料未匹配' : '资料不完整'}</span>
-              )}
-              {edited.length > 0 && (
-                <span className={styles.statusText} title={`手动修改过：${edited.join('、')}。自动查找资料不会覆盖这些项`}>
-                  <Icon name="lock" size={13} /> <span className="num">{edited.length}</span><span className="sr-only">项手动修改，自动查找资料不会覆盖</span>
-                </span>
-              )}
-              {album.rip && <RipSummary rip={album.rip} />}
-            </div>
           </div>
         </header>
 
@@ -129,6 +140,11 @@ export const AlbumDetail = memo(function AlbumDetail({ album, onOpenNowPlaying, 
           )}
         </section>
       </div>
+      {infoOpen && (
+        <AlbumInfoSheet album={album} tracks={allTracks} online={online} onClose={() => setInfoOpen(false)}
+          onLookup={() => { setInfoOpen(false); void run({ type: 'lookupMetadata', albumId: album.id }, { slot: 'album' }); }}
+          onEdit={() => { setInfoOpen(false); onEditMetadata(); }} />
+      )}
     </article>
   );
 });
@@ -139,17 +155,6 @@ function Fact({ icon, term, children }: { icon: IconName; term: string; children
       <dt><Icon name={icon} size={15} /><span className="sr-only">{term}</span></dt>
       <dd>{children}</dd>
     </div>
-  );
-}
-
-function RipSummary({ rip }: { rip: NonNullable<Album['rip']> }) {
-  const ar = { verified: 'AccurateRip 已核验', partial: 'AccurateRip 部分核验', notVerified: 'AccurateRip 未通过', unknown: 'AccurateRip 未核验' }[rip.accurateRip];
-  return (
-    <span className={styles.rip}>
-      <span data-on={rip.hasLog}><Icon name={rip.hasLog ? 'check' : 'close'} size={13} />抓轨日志</span>
-      <span data-on={rip.hasCue}><Icon name={rip.hasCue ? 'check' : 'close'} size={13} />CUE</span>
-      <span data-on={rip.accurateRip === 'verified'}>{ar}</span>
-    </span>
   );
 }
 

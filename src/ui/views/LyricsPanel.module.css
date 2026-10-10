@@ -106,9 +106,10 @@
   box-shadow: var(--btn-rim), var(--btn-lift), var(--shadow-low);
 }
 .quietIcon[data-calm="true"] { color: var(--ink-2); }
-/* The memorial equipment plate (Claude, core.27) in place of the icon, for instrumental tracks:
-   black anodised aluminium with four screws; Codex laser-engraved in silver, Claude inlaid in
-   copper. A physical object, so it is the same in every theme; only its shadow follows the paper. */
+/* The memorial equipment plate (Claude, core.27 → V1.1) in place of the icon, for instrumental
+   tracks: a metal plate with four screws, Codex engraved and Claude inlaid in copper. V1.1: the
+   metal follows the theme the way a component's faceplate would match its rack — brushed silver on
+   纸白, cold blue-silver on 阿根廷蓝, graphite-black anodising (the original) on 灰黑. */
 .plate {
   display: block; flex: none;
   height: clamp(120px, 34cqh, 240px); aspect-ratio: 3 / 2; margin-bottom: 14px;   /* follows the lyrics pane (.body is a size container) */
@@ -116,7 +117,10 @@
   background: url("../assets/memorial/memorial-plate.webp") center / contain no-repeat;
   box-shadow: 0 2px 4px rgba(15, 45, 80, 0.18), 0 14px 28px -14px rgba(15, 45, 80, 0.45);
 }
+:global(.cdp[data-theme="light"]) .plate { background-image: url("../assets/memorial/memorial-plate-silver.webp"); box-shadow: 0 1px 2px rgba(15, 45, 80, 0.16), 0 14px 28px -14px rgba(15, 45, 80, 0.4); }
+:global(.cdp[data-theme="blue"]) .plate { background-image: url("../assets/memorial/memorial-plate-blue.webp"); box-shadow: 0 1px 2px rgba(15, 45, 80, 0.2), 0 14px 28px -14px rgba(15, 45, 80, 0.48); }
 :global(.cdp[data-theme="charcoal"]) .plate { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 16px 32px -14px rgba(0, 0, 0, 0.8); }
+.plateFallback { display: none; }
 .quietTitle { --role-sc: var(--font-display-sc); --role-ja: var(--font-display-ja); font-size: var(--t-xl); font-weight: var(--w-serif); }
 .quietBody { max-width: 26em; color: var(--ink-2); text-wrap: pretty; }
 .quietActions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 10px 0 2px; }
@@ -155,5 +159,6 @@
 @media (forced-colors: active) {
   .quietIcon { border: 1px solid CanvasText; }
   .plate { display: none; }
+  .plateFallback { display: grid; place-items: center; width: 68px; height: 68px; margin-bottom: 6px; border-radius: 50%; border: 1px solid CanvasText; }
   .line[data-state="active"] .lineButton { outline: 2px solid Highlight; outline-offset: -2px; }
 }

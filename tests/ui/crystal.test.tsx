@@ -134,11 +134,18 @@ describe('accent text on lit rows (core.23 page check with the memorial colour)'
       }
     }
   });
-  test('mini window: the lyric line gets the full frost field under the part kept clear for the art', () => {
+  test('mini window (V1.1 round 2): one even field under title, credit and lyric; thin only behind the art', () => {
     const mini = css('src/ui/views/MiniSurface.module.css');
-    expect(mini).toContain('.card[data-frost="true"] .lyric {');
-    expect(mini).toMatch(/--frost-clear: 24%;/);
-    expect(mini).toContain('calc((var(--frost-field) - var(--frost-clear)) / 0.76)');      // 0.76 = 1 − 24%
+    // No patch of paper under the lyric strip: the field is already the same there as everywhere.
+    expect(mini).not.toMatch(/\.lyric \{[^}]*background/);
+    expect(mini).not.toContain('--frost-clear');
+    // The thin spot and the cover's own halo end 42px from the art's centre (46px, 46px): before the
+    // title column (15 + 62 + 12 = 89px) and above the lyric strip (86px).
+    expect(mini).toContain('radial-gradient(circle at 46px 46px, #000 0 26px, transparent 42px)');
+    expect(mini).toMatch(/color-mix\(in srgb, var\(--paper\) var\(--frost-field\), transparent\) 42px\)/);
+    expect(mini).toContain('grid-template-columns: 62px minmax(0, 1fr) auto; align-items: center; gap: 12px;');
+    expect(mini).toContain('padding: 0 12px 0 15px;');
+    expect(46 + 42).toBeLessThan(15 + 62 + 12);
   });
 });
 

@@ -11,7 +11,7 @@ import {
 import path from "node:path";
 import { LocalError } from "../model.ts";
 
-export const ONLINE_USER_AGENT = "CDPlayer/1.0.0 (+https://github.com/kyoteikai2887/cd-player)";
+export const ONLINE_USER_AGENT = "CDPlayer/1.1.0 (+https://github.com/kyoteikai2887/cd-player)";
 export type Service = "musicbrainz" | "lrclib" | "cover" | "qq" | "netease" | "kugou";
 const intervals: Record<Service, number> = {
   musicbrainz: 1100,
