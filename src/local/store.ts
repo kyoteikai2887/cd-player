@@ -110,9 +110,17 @@ export async function openLocalStore(
   }
   const view = (): LocalView =>
     copy({
-      library: state.library,
+      library: {
+        ...state.library,
+        albums: state.library.albums.map(album => ({
+          ...album,
+          musicVideos: Object.entries(state.musicVideos ?? {})
+            .filter(([, video]) => video.albumId === album.id)
+            .map(([id, video]) => ({ id, revision: video.revision, title: video.title, fileName: path.basename(video.path) })),
+        })),
+      },
       lyricsByTrack: state.lyricsByTrack,
-      settings: state.settings,
+      settings: { ...state.settings, potPlayerConfigured: !!state.potPlayerPath },
     });
   return {
     read: () => copy(state),

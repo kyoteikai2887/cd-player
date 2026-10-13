@@ -30,8 +30,9 @@ import type { PreparedReview } from './online/metadata.ts';
 import { fillOnlineLyrics } from './online/lyrics.ts';
 import { prepareLyricsReview, selectedLyrics, applyLyricsReview } from './online/candidates.ts';
 import type { PreparedLyricsReview } from './online/candidates.ts';
+import { requireVideo, validateMkv, validatePotPlayer, detectPotPlayer, launchPotPlayer, linkVideo } from './musicVideos.ts';
 
-type PickKind = "folder" | "lyrics" | "cover";
+type PickKind = "folder" | "lyrics" | "cover" | "musicVideo" | "potPlayer";
 export function pickWindowsFile(
   kind: PickKind,
   signal: AbortSignal,
@@ -103,6 +104,9 @@ export async function startLocalServer(options: {
   picker?: (kind: PickKind, signal: AbortSignal) => Promise<string | null>;
   middleware?: (req: IncomingMessage, res: ServerResponse) => void;
   online?: OnlineServices;
+  /** Injection for isolated tests; production launches only the selected PotPlayer. */
+  videoLauncher?: typeof launchPotPlayer;
+  videoPlayerDetector?: typeof detectPotPlayer;
 }) {
   const { store } = options,
     token = randomBytes(32).toString("hex"),
@@ -111,6 +115,9 @@ export async function startLocalServer(options: {
       { record: LocalTask; controller: AbortController; promise: Promise<void> }
     >();
   const picker = options.picker ?? pickWindowsFile;
+  const launchVideo = options.videoLauncher ?? launchPotPlayer;
+  const detectPlayer = options.videoPlayerDetector ?? detectPotPlayer;
+  let launchingVideo = false;
   const cache = path.join(options.dataDirectory, "covers");
   const online = options.online ?? createOnlineServices({ directory: path.join(options.dataDirectory, 'online-cache') });
   const reviews = new Map<string, PreparedReview>();
@@ -366,6 +373,26 @@ export async function startLocalServer(options: {
       const action = (await requestBody(req)) as UIAction;
       if (url.pathname === "/api/action") {
         try {
+          if (action.type === 'playMusicVideo') {
+            if (launchingVideo) throw new LocalError('unavailable', '正在打开 MV，请稍候。');
+            launchingVideo = true;
+            try {
+              const initial = store.read();
+              const video = requireVideo(initial, action.albumId, action.videoId);
+              const filename = await validateMkv(video.path);
+              const executable = await validatePotPlayer(initial.potPlayerPath ?? await detectPlayer());
+              if (!initial.potPlayerPath) await store.transact(data => {
+                if (!data.potPlayerPath) { data.potPlayerPath = executable; data.library.revision++; }
+              }, () => !requestController.signal.aborted);
+              const current = store.read();
+              requireVideo(current, action.albumId, action.videoId, video.revision);
+              if (current.potPlayerPath !== executable) throw new LocalError('conflict', '播放器设置已变化，请重试。');
+              requestController.signal.throwIfAborted();
+              await launchVideo(executable, filename, requestController.signal);
+              json(res, 200, { ok: true, view: store.view() });
+            } finally { launchingVideo = false; }
+            return;
+          }
           if (action.type === 'closeLyricsReview') {
             activeLyricsReview = null; lyricsReviews.clear();
             for (const job of jobs.values()) if (job.record.state === 'running' && job.record.task.label === '搜索歌词候选') job.controller.abort();
@@ -426,6 +453,41 @@ export async function startLocalServer(options: {
       if (url.pathname !== "/api/task")
         throw new LocalError("notFound", "接口不存在。");
       switch (action.type) {
+        case 'addMusicVideo':
+        case 'relinkMusicVideo': {
+          if (!store.read().library.albums.some(album => album.id === action.albumId))
+            throw new LocalError('notFound', '专辑不存在。');
+          if (action.type === 'relinkMusicVideo') {
+            if (!Number.isSafeInteger(action.baseRevision)) throw new LocalError('invalidAction', '缺少 MV 修订编号。');
+            requireVideo(store.read(), action.albumId, action.videoId, action.baseRevision);
+          }
+          json(res, 200, begin('import', action.type === 'addMusicVideo' ? '关联本地 MV' : '重新关联 MV 文件', async signal => {
+            const selected = await picker('musicVideo', signal);
+            if (!selected) return;
+            const filename = await validateMkv(selected);
+            const view = await store.transact(data => linkVideo(data, action.albumId, filename,
+              action.type === 'relinkMusicVideo' ? { id: action.videoId, revision: action.baseRevision } : undefined),
+              () => !signal.aborted);
+            return { view };
+          }, { albumId: action.albumId }));
+          return;
+        }
+        case 'pickPotPlayer':
+        case 'detectPotPlayer': {
+          const baseline = store.read().potPlayerPath;
+          json(res, 200, begin('import', '设置 PotPlayer', async signal => {
+            const selected = action.type === 'pickPotPlayer' ? await picker('potPlayer', signal) : await detectPlayer();
+            if (!selected) return;
+            const executable = await validatePotPlayer(selected);
+            const view = await store.transact(data => {
+              if (data.potPlayerPath !== baseline) throw new LocalError('conflict', '播放器设置已变化，请重试。');
+              data.potPlayerPath = executable;
+              data.library.revision++;
+            }, () => !signal.aborted);
+            return { view };
+          }));
+          return;
+        }
         case 'searchLyricsCandidates': {
           const baseline = store.read(), track = baseline.library.tracks.find(t => t.id === action.trackId), document = baseline.lyricsByTrack[action.trackId];
           const album = track && baseline.library.albums.find(a => a.id === track.albumId);

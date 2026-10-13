@@ -1,0 +1,49 @@
+/*
+ * The approved star-trail light, polished for V1.2: one long tapered meteor with a gradient. The
+ * outline and gradient rotate together, clipped to the etched windows of its ring that are seen.
+ * The sky remains still. No filter, blur, frame loop or render while it moves.
+ *
+ * Round 4: one cycle is one whole turn of the meteor round the pole, so it ends where it began and
+ * the loop has no seam. Its pace through the cycle is the inline animation-timing-function the
+ * component sets (lib/trailLight.ts lightSchedule): even while any of it is in a window, quick
+ * across the glass where none of it is; without linear() it is simply even all the way round. It
+ * is at full strength all the way, so the first and last stretches of a ring get the bright head
+ * like the others. A small glow (a gradient oval, no filter) rides on the head. Each light's cycle
+ * (--cycle) is a multiple of the shared slow duration and starts part-way in (--phase).
+ *   run   the music is heard: the light flows;
+ *   hold  paused, buffering, muted or silent: it stops where it is and dims (after a moment, so a
+ *         brief buffer does not flicker it);
+ *   still reduced motion: no animation at all, each light rests mid-trail;
+ *   off   window or page hidden, or the stage off screen: paused, so it costs nothing.
+ */
+.light {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  overflow: hidden; pointer-events: none;
+}
+.beams { opacity: 1; transition: opacity calc(var(--d-slow) * 4) var(--ease-out); }
+.light[data-flow="hold"] .beams { opacity: 0.3; transition-delay: var(--d-slow); }
+.light[data-flow="still"] .beams { opacity: 0.72; }
+/* A light that appears (the stage drawn, or resized so that a new trail is free) comes in softly,
+   wherever it is in its cycle; one that stays keeps going. */
+.trail { animation: trailIn calc(var(--d-slow) * 2) var(--ease-out) both; }
+@keyframes trailIn { from { opacity: 0; } }
+
+.route { fill: none; stroke: none; stroke-width: 2.8; }
+.meteor, .glow { stroke: none; }
+
+.beam {
+  transform-box: view-box; transform-origin: 0 0;
+  --period: calc(var(--d-slow) * var(--cycle, 48));
+  animation: trailFlow var(--period) linear calc(var(--period) * var(--phase, 0)) infinite both;
+  animation-play-state: paused;
+}
+.light[data-flow="run"] .beam { animation-play-state: running; }
+.light[data-flow="still"] .beam { animation: none; opacity: 1; transform: rotate(var(--rest)); }
+
+/* A whole turn: the head comes back to where it started. */
+@keyframes trailFlow {
+  from { transform: rotate(var(--from)); }
+  to { transform: rotate(var(--to)); }
+}
+
+@media (forced-colors: active) { .light { display: none; } }

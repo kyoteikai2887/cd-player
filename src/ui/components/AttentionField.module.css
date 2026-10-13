@@ -1,0 +1,30 @@
+/*
+ * The music field (Claude, V1.2). Two layers in one SVG:
+ *   etch   grooves cut into the stage glass: a lit lower wall and a shaded line, thin and even,
+ *          visible in every state so a quiet stage still has its pattern;
+ *   light  the accent, set per sample by the signal (opacity and height only; no filters, no glow
+ *          that would bloom on the paper themes).
+ * Strokes keep their width whatever the field's scale (vector-effect).
+ */
+.field { display: block; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+
+.groove, .grooveLit, .baseline, .seatRing, .arc { vector-effect: non-scaling-stroke; }
+.groove { fill: none; stroke: var(--viz-groove); stroke-width: 0.7; }
+/* The lower wall of each groove catches the light, half a pixel under the shaded line. */
+.grooveLit { fill: none; stroke: var(--viz-groove-lit); stroke-width: 0.7; transform: translateY(0.7px); }
+/* The matrix: every cell of every column, cut shallow: a smooth floor over the frost's grain and,
+   half a pixel lower, the lit lower edge (round 2: deep enough that a quiet field keeps its shape). */
+.slots { fill: none; stroke: var(--viz-slot); }
+.slotsLit { fill: none; stroke: var(--viz-slot-lit); transform: translateY(0.6px); }
+.baseline { stroke: var(--viz-groove); stroke-width: 0.8; }
+.seatRing { fill: var(--viz-seat-fill); stroke: var(--viz-groove); stroke-width: 0.8; }
+
+.arc { fill: none; stroke: var(--viz-arc, var(--accent-ink)); stroke-width: 1.1; stroke-linecap: round; }
+.bar { stroke: var(--accent-fill); }
+.peak { fill: var(--viz-arc, var(--accent-ink)); }
+.seat { fill: var(--accent-ink); }
+
+/* Reduced motion: the field is read four times a second at a smaller scale (lib/stageViz.ts), and no peak marks. */
+.field[data-reduced="true"] .peak { display: none; }
+
+@media (forced-colors: active) { .field { display: none; } }

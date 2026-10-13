@@ -2,6 +2,7 @@ import { createWebAudioEngine } from "./audio.ts";
 import type { AudioEngine, AudioSample } from "./audio.ts";
 import { createStreamingAudioEngine } from "./streamingAudio.ts";
 import { createAudioEvents } from "./audioEvents.ts";
+import { quietVisualization } from './audioVisualization.ts';
 
 /** Private audio transport data; not a UI contract or persisted library field. */
 export interface AudioInfo {
@@ -46,7 +47,7 @@ export function createAdaptiveAudioEngine(
   } = {},
 ): AudioEngine {
   const buffered = options.buffered ?? createWebAudioEngine();
-  const streaming = options.streaming ?? createStreamingAudioEngine();
+  const streaming = options.streaming ?? createStreamingAudioEngine({analysisContext: buffered.analysisContext});
   const info =
     options.info ??
     (async (id, signal) => {
@@ -117,7 +118,8 @@ export function createAdaptiveAudioEngine(
   }
   return {
     subscribe: events.subscribe,
-    activate: () => buffered.activate(),
+    async activate() { await buffered.activate(); await streaming.activate(); },
+    readVisualization: () => active?.readVisualization?.() ?? quietVisualization(active ? 'unavailable' : 'idle', active?.sample().trackId ?? null),
     async play(id, position, playing, signal) {
       stop();
       const request = generation,

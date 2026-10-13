@@ -48,6 +48,8 @@
   margin-top: 16px; font-size: var(--t-sm); color: var(--ink-2);
 }
 :global(.cdp) .task :global(.cdp-spinner) { width: 14px; height: 14px; color: var(--accent-ink); }
+/* MV round: the file picker for the album's first music video, while it is open. */
+.linking.linking { margin: 16px 0 0; }
 
 /* ── Track list ─────────────────────────────────────── */
 .tracks { margin-top: 48px; }

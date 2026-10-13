@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import type { PointerEvent as ReactPointerEvent } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import type { PointerEvent as ReactPointerEvent, Ref } from 'react';
 import type { UISnapshot } from '../../contracts/player.ts';
 import { Cover } from '../components/Cover.tsx';
 import { Frost, useFrostStyle } from '../components/Frost.tsx';
 import { Icon } from '../components/Icon.tsx';
-import { PlayButton, SkipButton } from '../components/Transport.tsx';
+import { PlayButton, SkipButton, VolumeControl } from '../components/Transport.tsx';
 import { InlineError, useActions } from '../lib/actions.tsx';
 import { useBoot } from '../lib/env.ts';
 import { usePlayer, useSurface } from '../lib/surface.tsx';
@@ -48,13 +48,26 @@ export function MiniSurface({ snapshot }: { snapshot: UISnapshot }) {
     wasVisible.current = visible;
   }, [visible]);
 
+  // V1.2: the volume panel, folded away until asked for (see MiniVolumePanel).
+  const [volumeOpen, setVolumeOpen] = useState(!!boot.miniVolumeOpen);
+  const volumeEntry = useRef<HTMLButtonElement>(null);
+  const closeVolume = (refocus: boolean) => {
+    setVolumeOpen(false);
+    if (refocus) volumeEntry.current?.focus();
+  };
+  // A hidden card folds the panel away, so it comes back compact.
+  useEffect(() => { if (!visible) setVolumeOpen(false); }, [visible]);
+
   // Native drag starts only after the pointer moves >4px with the primary button held,
   // so clicks and double-clicks on the card still work. Buttons and the progress line are excluded.
   const drag = useRef<{ x: number; y: number; sent: boolean } | null>(null);
   const onPointerDown = (event: ReactPointerEvent) => {
     // Every press starts over: a press released outside the window must not leave a drag armed.
     drag.current = null;
-    if (event.button !== 0 || (event.target as HTMLElement).closest('button, input, [data-no-drag]')) return;
+    const target = event.target as HTMLElement;
+    // A press anywhere else on the card folds the volume panel away (its own entry toggles it).
+    if (volumeOpen && !target.closest('[data-volume-panel], [data-volume-entry]')) setVolumeOpen(false);
+    if (event.button !== 0 || target.closest('button, input, [data-no-drag]')) return;
     drag.current = { x: event.clientX, y: event.clientY, sent: false };
   };
   const onPointerMove = (event: ReactPointerEvent) => {
@@ -68,33 +81,37 @@ export function MiniSurface({ snapshot }: { snapshot: UISnapshot }) {
   const endDrag = () => { drag.current = null; };
 
   const lang = langHint(currentTrack?.title, currentTrack?.language, currentAlbum?.language);
+  const volumePanelId = useId();
   return (
     <div className={styles.window} data-frame={frame} data-radius={host.nativeCornerRadius}>
       <div className={styles.card} data-material={material} data-frost="true" style={frost}
         data-lyrics={showLyrics ? 'true' : 'false'} data-entering={entering ? 'true' : 'false'}
-        data-show-controls={boot.miniShowControls ? 'true' : 'false'}
+        data-show-controls={boot.miniShowControls ? 'true' : 'false'} data-volume={volumeOpen ? 'open' : 'closed'}
         onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={endDrag} onPointerCancel={endDrag}
-        onDoubleClick={event => { if (!(event.target as HTMLElement).closest('button')) void run({ type: 'setWindowMode', mode: 'full' }, { slot: 'mini' }); }}>
+        onKeyDown={event => { if (volumeOpen && event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); closeVolume(true); } }}
+        onDoubleClick={event => { if (!(event.target as HTMLElement).closest('button, input, [data-no-drag]')) void run({ type: 'setWindowMode', mode: 'full' }, { slot: 'mini' }); }}>
         <Frost cover={currentAlbum?.cover ?? null} className={styles.light} layers={2} />
         <div className={styles.main}>
           {currentAlbum ? (
             <Cover albumId={currentAlbum.id} title={currentAlbum.title} cover={currentAlbum.cover} className={styles.art} showTitleOnPlaceholder={false} />
           ) : <span className={styles.artEmpty}><Icon name="disc" size={24} /></span>}
-          <div className={styles.text}>
+          <div className={styles.text} inert={volumeOpen}>
             <p className={styles.title} lang={lang} title={currentTrack?.title}>{currentTrack?.title ?? '还没有在播放'}</p>
             <p className={styles.sub} lang={langHint(currentTrack?.artistCredit, null, currentAlbum?.language)} title={currentTrack?.artistCredit}>
               {currentTrack ? currentTrack.artistCredit : '展开窗口选一张专辑'}
             </p>
           </div>
-          <div className={styles.controls}>
+          <div className={styles.controls} inert={volumeOpen}>
             <SkipButton dir="prev" size="sm" slot="mini" />
             <PlayButton size="xs" slot="mini" />
             <SkipButton dir="next" size="sm" slot="mini" />
           </div>
+          {volumeOpen && <MiniVolumePanel id={volumePanelId} onClose={closeVolume} />}
         </div>
         {showLyrics && snapshot.lyrics && <MiniLyric snapshot={snapshot} />}
         <MiniProgress />
         <div className={`${styles.chrome} glass-flat`} role="toolbar" aria-label="迷你窗口">
+          <MiniVolumeEntry ref={volumeEntry} open={volumeOpen} controls={volumePanelId} onToggle={() => setVolumeOpen(open => !open)} />
           <button type="button" className="cdp-icon-btn cdp-icon-btn--sm" aria-label={settings.miniAlwaysOnTop ? '取消置顶' : '置顶'}
             aria-pressed={settings.miniAlwaysOnTop} title={settings.miniAlwaysOnTop ? '已置顶' : '置顶'} disabled={!online}
             onClick={() => run({ type: 'updateSettings', patch: { miniAlwaysOnTop: !settings.miniAlwaysOnTop } }, { slot: 'mini' })}>
@@ -111,6 +128,46 @@ export function MiniSurface({ snapshot }: { snapshot: UISnapshot }) {
         </div>
         <InlineError slot="mini" className={styles.error} ttl={5000} />
       </div>
+    </div>
+  );
+}
+
+/**
+ * V1.2: the volume entry in the card's window buttons. Its glyph shows the level (and mute) at a
+ * glance; pressing it unfolds the panel in place of the title and transport, pressing it again
+ * folds it away.
+ */
+function MiniVolumeEntry({ ref, open, controls, onToggle }: {
+  ref: Ref<HTMLButtonElement>; open: boolean; controls: string; onToggle(): void;
+}) {
+  const player = usePlayer();
+  const muted = player.muted || player.volume === 0;
+  const label = open ? '收起音量' : muted ? '音量（已静音）' : `音量 ${Math.round(player.volume * 100)}%`;
+  return (
+    <button ref={ref} type="button" className="cdp-icon-btn cdp-icon-btn--sm" data-volume-entry
+      aria-label={label} title={label} aria-expanded={open} aria-controls={open ? controls : undefined}
+      onClick={onToggle}>
+      <Icon name={muted ? 'volumeMute' : player.volume < 0.45 ? 'volumeLow' : 'volume'} size={15} />
+    </button>
+  );
+}
+
+/**
+ * V1.2: the unfolded volume panel, inside the card, over the title and transport (the art, the
+ * window buttons, the lyric strip and the progress line stay). The shared VolumeControl: mute,
+ * the slider (throttled while dragging, the final level on release) and the level in figures.
+ * Focus moves to the slider; Escape or the close button folds the panel and returns focus to
+ * the entry. Pressing or double-clicking in it never drags the window or opens the main one.
+ */
+function MiniVolumePanel({ id, onClose }: { id: string; onClose(refocus: boolean): void }) {
+  const slider = useRef<HTMLInputElement>(null);
+  useEffect(() => { slider.current?.focus({ preventScroll: true }); }, []);
+  return (
+    <div id={id} className={styles.volumePanel} role="group" aria-label="音量" data-volume-panel data-no-drag>
+      <VolumeControl slot="mini" inputRef={slider} showValue className={styles.volumeControl} />
+      <button type="button" className="cdp-icon-btn cdp-icon-btn--sm" aria-label="收起音量" title="收起音量" onClick={() => onClose(true)}>
+        <Icon name="check" size={15} />
+      </button>
     </div>
   );
 }

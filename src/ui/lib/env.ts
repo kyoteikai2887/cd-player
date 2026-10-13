@@ -37,10 +37,12 @@ export interface UIBoot {
   route?: { name: 'library' } | { name: 'album'; albumId: string } | { name: 'nowPlaying' };
   libraryTab?: 'albums' | 'works' | 'artists';
   query?: string;
-  overlay?: 'settings' | null;
+  overlay?: 'settings' | 'playerSettings' | null;
   nowPlayingTab?: 'lyrics' | 'album' | 'queue';
   /** Force the mini hover controls visible for static review. */
   miniShowControls?: boolean;
+  /** V1.2: open the mini card's volume panel in a static frame. */
+  miniVolumeOpen?: boolean;
   /** Initial shelf scroll offset, so a static frame can show glass over covers. */
   scrollTop?: number;
   /** Static frames of the lyrics editor with unsaved work, a conflict or an open prompt. */

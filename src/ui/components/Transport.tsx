@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
+import type { KeyboardEvent as ReactKeyboardEvent, Ref } from 'react';
 import type { RepeatMode } from '../../contracts/player.ts';
 import { useActions } from '../lib/actions.tsx';
 import { queueEnded } from '../lib/queue.ts';
@@ -140,8 +140,14 @@ export function SeekBar({ preview, onPreview, variant = 'full', showTimes = true
   );
 }
 
-/** Mute toggle + level. Sends at most ~8 updates/s while dragging; the core owns the gain curve. */
-export function VolumeControl({ compact = false }: { compact?: boolean }) {
+/**
+ * Mute toggle + level. Sends at most ~8 updates/s while dragging; the core owns the gain curve.
+ * V1.2: the mini card's volume panel uses the same control (slot 'mini' for its errors, a ref to
+ * focus the slider when the panel opens, and the level printed beside it).
+ */
+export function VolumeControl({ compact = false, slot = 'transport', inputRef, showValue = false, className }: {
+  compact?: boolean; slot?: 'transport' | 'mini'; inputRef?: Ref<HTMLInputElement>; showValue?: boolean; className?: string;
+}) {
   const player = usePlayer();
   const { online } = useSurface();
   const { run } = useActions();
@@ -153,21 +159,22 @@ export function VolumeControl({ compact = false }: { compact?: boolean }) {
     const t = Date.now();
     if (!force && t - last.current < 120) return;
     last.current = t;
-    void run({ type: 'setVolume', volume }, { slot: 'transport', key: 'setVolume' });
+    void run({ type: 'setVolume', volume }, { slot, key: 'setVolume' });
   };
   return (
-    <div className={styles.volume} data-compact={compact ? 'true' : 'false'}>
+    <div className={`${styles.volume} ${className ?? ''}`} data-compact={compact ? 'true' : 'false'}>
       <button type="button" className="cdp-icon-btn cdp-icon-btn--sm" aria-label={player.muted ? '取消静音' : '静音'}
         title={player.muted ? '取消静音' : '静音'} aria-pressed={player.muted} disabled={!online}
-        onClick={() => run({ type: 'setMuted', muted: !player.muted }, { slot: 'transport' })}>
+        onClick={() => run({ type: 'setMuted', muted: !player.muted }, { slot })}>
         <Icon name={muted ? 'volumeMute' : value < 0.45 ? 'volumeLow' : 'volume'} size={18} />
       </button>
-      <input className="cdp-range" type="range" min={0} max={1} step={0.01} value={value} disabled={!online}
-        aria-label="音量" aria-valuetext={`${Math.round(value * 100)}%`}
+      <input ref={inputRef} className="cdp-range" type="range" min={0} max={1} step={0.01} value={value} disabled={!online}
+        aria-label="音量" aria-valuetext={player.muted ? `已静音（${Math.round(value * 100)}%）` : `${Math.round(value * 100)}%`}
         style={{ ['--fill' as string]: String(player.muted ? 0 : value) }}
         onChange={event => { const v = Number(event.target.value); setLocal(v); send(v); }}
         onPointerUp={event => { send(Number((event.target as HTMLInputElement).value), true); setLocal(null); }}
         onKeyUp={event => { send(Number((event.target as HTMLInputElement).value), true); setLocal(null); }} />
+      {showValue && <span className={`${styles.volumeValue} num`} aria-hidden="true">{player.muted ? '静音' : Math.round(value * 100)}</span>}
     </div>
   );
 }

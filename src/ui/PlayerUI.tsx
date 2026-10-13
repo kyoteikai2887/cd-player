@@ -16,13 +16,14 @@ import type { SurfaceState } from './lib/surface.tsx';
 import { isDarkTheme, raisedAccentInk, resolveTheme, THEME_TEXT_BACKGROUNDS } from './lib/theme.ts';
 import { MainSurface } from './views/MainSurface.tsx';
 import { MiniSurface } from './views/MiniSurface.tsx';
+import { AudioVisualizationContext } from './lib/audioVisualization.ts';
 
 /**
  * Single integration entry (contract 0.2.0). Controlled by the snapshot; all intent goes
  * through onAction. Navigation, search, overlays and previews are local UI state only.
  * The theme is read from settings.ui.main for both surfaces (see lib/theme.ts).
  */
-export function PlayerUI({ snapshot, surface, onAction }: PlayerUIProps) {
+export function PlayerUI({ snapshot, surface, onAction, visualization }: PlayerUIProps) {
   const { settings, host, library, player } = snapshot;
   const osReduced = useMediaQuery('(prefers-reduced-motion: reduce)');
   const reduced = host.effectiveReducedMotion || settings.motion === 'reduced' || (settings.motion === 'system' && osReduced);
@@ -71,6 +72,7 @@ export function PlayerUI({ snapshot, surface, onAction }: PlayerUIProps) {
 
   const solid = settings.glassIntensity <= 0 || !host.transparencyAllowed;
   return (
+    <AudioVisualizationContext.Provider value={visualization}>
     <SurfaceContext.Provider value={state}>
       <PlayerContext.Provider value={player}>
         <ActionsProvider onAction={onAction}>
@@ -84,5 +86,6 @@ export function PlayerUI({ snapshot, surface, onAction }: PlayerUIProps) {
         </ActionsProvider>
       </PlayerContext.Provider>
     </SurfaceContext.Provider>
+    </AudioVisualizationContext.Provider>
   );
 }

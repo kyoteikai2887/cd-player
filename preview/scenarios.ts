@@ -3,7 +3,8 @@
  * built from the fictional fixtures; nothing here runs a clock, a queue or persistence.
  */
 import { CONTRACT_VERSION } from '../src/contracts/player.ts';
-import type { HostInfo, LyricsDocument, LyricsEditorState, MetadataReview, Surface, UISnapshot, UserSettings } from '../src/contracts/player.ts';
+import type { HostInfo, LyricsDocument, LyricsEditorState, MetadataReview, PlayerBridge, Surface, UISnapshot, UserSettings } from '../src/contracts/player.ts';
+import type { MockOptions } from '../src/mock/createMockBridge.ts';
 import { emptyPlayer, loadQueue } from '../src/core/queue.ts';
 import { createDemoData } from '../src/mock/fixtures.ts';
 import type { DemoScenario } from '../src/mock/fixtures.ts';
@@ -29,6 +30,15 @@ export interface Scenario {
   desktop?: boolean;
   boot?: UIBoot;
   build(): UISnapshot;
+  /**
+   * MV round: run on Codex's mock session instead of a still snapshot, so every action goes through
+   * the mock's own rules (revisions, conflicts, videoError). `setup` runs once before the frame shows;
+   * `conflictOnce` makes the first rename or removal meet a change made "elsewhere" first.
+   */
+  live?: { options: MockOptions; theme?: ThemeName; setup?: (bridge: PlayerBridge) => Promise<unknown>; conflictOnce?: boolean };
+  /** V1.2: the stage's demo signal (PreviewApp), and a fixed demo clock for stable frames. */
+  viz?: 'pulse' | 'bass' | 'treble' | 'silence' | 'full' | 'quiet' | 'unavailable' | 'none';
+  vizNow?: number;
 }
 
 const now = () => (typeof performance !== 'undefined' ? performance.now() : 0);
@@ -177,6 +187,56 @@ export const SCENARIOS: Scenario[] = [
   S({ id: 'library-960', group: '收藏', title: '最小窗口 960×600', width: 960, height: 600,
     build: () => playing({ trackId: 'track-blue', positionMs: 64000 }).snapshot }),
   S({ id: 'library-font', group: '收藏', title: '界面字号 130%', build: () => playing({ trackId: 'track-blue', positionMs: 64000, settings: { fontScale: 1.3 } }).snapshot }),
+  // V1.2 主舞台：音乐图案（预览信号明确为 demo）、星轨、氛围灯
+  S({ id: 'stage-live', group: '主舞台 V1.2', title: '播放中：演示信号（脉冲）', viz: 'pulse', vizNow: 314,
+    note: '预览数据来自 createDemoVisualization，标记为 demo；正式版只读真实声音。',
+    build: () => playing({ trackId: 'track-blue', positionMs: 64000, status: 'playing' }).snapshot }),
+  S({ id: 'stage-bass', group: '主舞台 V1.2', title: '播放中：低频为主', viz: 'bass', vizNow: 314,
+    build: () => playing({ trackId: 'track-sea-title', positionMs: 64000, status: 'playing' }).snapshot }),
+  S({ id: 'stage-treble', group: '主舞台 V1.2', title: '播放中：高频为主', viz: 'treble', vizNow: 314,
+    build: () => playing({ trackId: 'track-spring', positionMs: 20000, status: 'playing' }).snapshot }),
+  S({ id: 'stage-paused', group: '主舞台 V1.2', title: '已暂停：只剩蚀刻', viz: 'pulse', vizNow: 314,
+    build: () => playing({ trackId: 'track-blue', positionMs: 64000, status: 'paused' }).snapshot }),
+  S({ id: 'stage-muted', group: '主舞台 V1.2', title: '静音：只剩蚀刻', viz: 'pulse', vizNow: 314,
+    build: () => { const { snapshot } = playing({ trackId: 'track-blue', positionMs: 64000, status: 'playing' });
+      return { ...snapshot, player: { ...snapshot.player, muted: true } }; } }),
+  S({ id: 'stage-buffering', group: '主舞台 V1.2', title: '缓冲中：只剩蚀刻', viz: 'pulse', vizNow: 314,
+    build: () => playing({ trackId: 'track-blue', positionMs: 64000, status: 'buffering' }).snapshot }),
+  S({ id: 'stage-unavailable', group: '主舞台 V1.2', title: '信号不可用：安静的静态外观', viz: 'unavailable',
+    build: () => playing({ trackId: 'track-blue', positionMs: 64000, status: 'playing' }).snapshot }),
+  S({ id: 'stage-no-source', group: '主舞台 V1.2', title: '没有信号接口', viz: 'none',
+    build: () => playing({ trackId: 'track-blue', positionMs: 64000, status: 'playing' }).snapshot }),
+  S({ id: 'stage-idle', group: '主舞台 V1.2', title: '没有在播放：最新入架', viz: 'pulse',
+    build: () => base().snapshot }),
+  S({ id: 'stage-long', group: '主舞台 V1.2', title: '长标题、长曲名', viz: 'pulse', vizNow: 314,
+    build: () => { const { snapshot } = playing({ trackId: 'track-blue', positionMs: 64000, status: 'playing' });
+      const albums = snapshot.library.albums.map(a => a.id === 'album-blue' ? { ...a, title: '蒼い窓辺 — Original Soundtrack 〜 夏の終わりに聴こえた、遠い潮騒と放課後の窓辺の物語 〜 Deluxe Edition', albumArtistCredit: '空色アンサンブル feat. 月野ユイ, 水城ことり, 春風ひより & Lumière Note Orchestra' } : a);
+      const tracks = snapshot.library.tracks.map(t => t.id === 'track-blue' ? { ...t, title: '窓辺の青 〜 いつか君と見た夏の空の色を、もう一度だけ思い出すための長い長いタイトル 〜' } : t);
+      return { ...snapshot, library: { ...snapshot.library, albums, tracks } }; } }),
+  S({ id: 'stage-nocover', group: '主舞台 V1.2', title: '没有封面', viz: 'pulse', vizNow: 314,
+    build: () => playing({ trackId: 'track-partial', positionMs: 20000, status: 'playing' }).snapshot }),
+  S({ id: 'stage-night', group: '主舞台 V1.2', title: '近黑低饱和封面', viz: 'pulse', vizNow: 314,
+    build: () => coverSnapshot('night', 'playing').snapshot }),
+  S({ id: 'stage-off', group: '主舞台 V1.2', title: '关闭音乐图案（设置）', viz: 'pulse', vizNow: 314,
+    build: () => { const { snapshot } = playing({ trackId: 'track-blue', positionMs: 64000, status: 'playing' });
+      return { ...snapshot, settings: { ...snapshot.settings, ui: { ...snapshot.settings.ui, main: { ...snapshot.settings.ui.main, audioVisualization: false } } } }; } }),
+  S({ id: 'stage-960', group: '主舞台 V1.2', title: '960×600：收纳后的小图案', width: 960, height: 600, viz: 'pulse', vizNow: 314,
+    build: () => playing({ trackId: 'track-blue', positionMs: 64000, status: 'playing' }).snapshot }),
+  S({ id: 'stage-1100', group: '主舞台 V1.2', title: '1100×720：刚好不收纳', width: 1100, height: 720, viz: 'pulse', vizNow: 314,
+    build: () => playing({ trackId: 'track-blue', positionMs: 64000, status: 'playing' }).snapshot }),
+  S({ id: 'stage-wide', group: '主舞台 V1.2', title: '1920×1080 宽屏', width: 1920, height: 1080, viz: 'pulse', vizNow: 314,
+    build: () => playing({ trackId: 'track-blue', positionMs: 64000, status: 'playing' }).snapshot }),
+  // V1.2 第二轮：与用户截图相近的虚构长日文专辑名（两行）、全角长曲名、只有曲数和时长两项资料；同一帧横向比较各窗口尺寸。
+  S({ id: 'stage-ja-long', group: '主舞台 V1.2', title: '第二轮：长日文专辑名（两行）、全角长曲名', viz: 'pulse', vizNow: 314,
+    note: '虚构数据，仅用于比较布局；演示信号标记为 demo。',
+    build: () => jaLong('playing') }),
+  S({ id: 'stage-ja-long-paused', group: '主舞台 V1.2', title: '第二轮：长日文专辑名，已暂停', viz: 'pulse', vizNow: 314,
+    build: () => jaLong('paused') }),
+  S({ id: 'stage-short', group: '主舞台 V1.2', title: '第二轮：短英文专辑名（一行）', viz: 'pulse', vizNow: 314,
+    build: () => { const { snapshot } = playing({ trackId: 'track-blue', positionMs: 64000, status: 'playing' });
+      const albums = snapshot.library.albums.map(a => a.id === 'album-blue' ? { ...a, title: 'Blue Hour', albumArtistCredit: 'Kanata Ensemble' } : a);
+      const tracks = snapshot.library.tracks.map(t => t.id === 'track-blue' ? { ...t, title: 'Window Light' } : t);
+      return { ...snapshot, library: { ...snapshot.library, albums, tracks } }; } }),
 
   // ── 专辑 ─────────────────────────────────────────────
   S({ id: 'album', group: '专辑', title: '专辑详情（正在播放）', boot: { route: { name: 'album', albumId: 'album-blue' } },
@@ -302,6 +362,25 @@ export const SCENARIOS: Scenario[] = [
       host: { shell: 'tauri', windowMode: 'mini', nativeCornerRadius: 0 }, capabilities: { transparentWindow: false, nativeWindows: true } }).snapshot }),
   S({ id: 'mini-idle', group: '迷你', title: '迷你：没有在播放', surface: 'mini', width: 384, height: 116, desktop: true,
     build: () => base({ host: { shell: 'tauri', windowMode: 'mini' }, capabilities: { transparentWindow: true, nativeWindows: true } }).snapshot }),
+  // V1.2: the volume panel, folded and unfolded, with and without the lyric strip, and muted.
+  S({ id: 'mini-volume', group: '迷你', title: '迷你：展开音量（V1.2）', surface: 'mini', width: 384, height: 116, desktop: true,
+    boot: { miniVolumeOpen: true },
+    build: () => playing({ trackId: 'track-blue', positionMs: 64000, status: 'playing',
+      host: { shell: 'tauri', windowMode: 'mini' }, capabilities: { transparentWindow: true, nativeWindows: true, windowDragging: true } }).snapshot }),
+  S({ id: 'mini-volume-lyrics', group: '迷你', title: '迷你：展开音量，显示歌词（V1.2）', surface: 'mini', width: 384, height: 164, desktop: true,
+    boot: { miniVolumeOpen: true },
+    build: () => playing({ trackId: 'track-blue', positionMs: 79000, status: 'playing', settings: { miniShowLyrics: true },
+      host: { shell: 'tauri', windowMode: 'mini' }, capabilities: { transparentWindow: true, nativeWindows: true } }).snapshot }),
+  S({ id: 'mini-volume-muted', group: '迷你', title: '迷你：已静音，悬停显示入口（V1.2）', surface: 'mini', width: 384, height: 116, desktop: true,
+    boot: { miniShowControls: true },
+    build: () => { const { snapshot } = playing({ trackId: 'track-spring', positionMs: 20000, status: 'playing',
+      host: { shell: 'tauri', windowMode: 'mini' }, capabilities: { transparentWindow: true, nativeWindows: true } });
+      return { ...snapshot, player: { ...snapshot.player, muted: true } }; } }),
+  S({ id: 'mini-volume-opaque', group: '迷你', title: '迷你：不透明窗口里展开音量（V1.2）', surface: 'mini', width: 360, height: 92, desktop: true,
+    boot: { miniVolumeOpen: true },
+    build: () => { const { snapshot } = playing({ trackId: 'track-soda', positionMs: 50000, host: { shell: 'tauri', windowMode: 'mini', nativeCornerRadius: 8 },
+      capabilities: { transparentWindow: false, nativeWindows: true } });
+      return { ...snapshot, player: { ...snapshot.player, muted: true } }; } }),
   S({ id: 'mini-blue', group: '迷你', title: '迷你：浅蓝背景', surface: 'mini', width: 384, height: 164, desktop: true,
     build: () => playing({ trackId: 'track-soda', positionMs: 50000, settings: { background: 'blue', miniShowLyrics: true },
       host: { shell: 'tauri', windowMode: 'mini' }, capabilities: { transparentWindow: true, nativeWindows: true } }).snapshot }),
@@ -309,10 +388,22 @@ export const SCENARIOS: Scenario[] = [
   ...comparisons(),
   ...legibility(),
   ...miniLight(),
+  ...capsuleLight(),
+  ...musicVideos(),
   ...removal(),
   ...lyricCandidates(),
   ...memorial(),
 ];
+
+/** V1.2 round 2: a fictional album shaped like the one in the user's screenshots (two-line Japanese title, full-width track name). */
+function jaLong(status: 'playing' | 'paused'): UISnapshot {
+  const { snapshot } = playing({ trackId: 'track-blue', positionMs: 64000, status });
+  const albums = snapshot.library.albums.map(a => a.id === 'album-blue' ? { ...a,
+    title: '「星環レーサー・ミラージュgpx」オリジナル・サウンドトラックvol.1　signal', albumArtistCredit: 'KaNATA',
+    releaseYear: null, catalogNumber: null } : a);
+  const tracks = snapshot.library.tracks.map(t => t.id === 'track-blue' ? { ...t, title: 'Ｍｙ　ｌｉｔｔｌｅ　ｓｉｇｎａｌ（挿入歌・ストリングスバージョン）' } : t);
+  return { ...snapshot, library: { ...snapshot.library, albums, tracks } };
+}
 
 function editorScenarios(): Scenario[] {
   const g = '歌词编辑';
@@ -565,6 +656,80 @@ function miniLight(): Scenario[] {
     out.push(S({ id: `mini-light-${frame}-${tall ? 140 : 92}-${cover}-${theme}`, group: g,
       title: `迷你 ${frame === 'transparent' ? '透明窗口' : frame === 'material' ? '原生材质' : '不透明窗口'} · ${tall ? '360×140 歌词' : '360×92'} · ${cover} · ${theme}`,
       surface: 'mini', width: 360 + pad, height: (tall ? 140 : 92) + pad, desktop: true, build }));
+  }
+  return out;
+}
+/**
+ * MV round: the player capsule lit by the playing album from end to end, over the shelf scrolled
+ * beneath it, in each theme: the demo album, the extremes of a cover (near-black, near-white, mid
+ * grey, saturated red, bright yellow), a low-saturation photograph, an album without a cover and a
+ * cover that fails to load.
+ * id: capsule-light-<cover>-<theme>
+ */
+function capsuleLight(): Scenario[] {
+  const COVERS = ['blue', 'night', 'snow', 'ash', 'ember', 'citrus', 'dusk', 'nocover', 'broken'] as const;
+  const LABEL: Record<typeof COVERS[number], string> = { blue: '演示专辑', nocover: '无封面', broken: '封面加载失败',
+    night: COVER_LABEL.night, snow: COVER_LABEL.snow, ash: COVER_LABEL.ash, ember: COVER_LABEL.ember, citrus: COVER_LABEL.citrus, dusk: COVER_LABEL.dusk };
+  const g = '播放条色光（MV 轮）';
+  const out: Scenario[] = [];
+  for (const theme of ['light', 'blue', 'charcoal'] as ThemeName[]) for (const cover of COVERS) {
+    const build = (): UISnapshot => {
+      if (cover === 'blue' || cover === 'broken') {
+        const { snapshot } = playing({ trackId: 'track-blue', positionMs: 64000, status: 'playing' });
+        return withTheme(cover === 'broken' ? withAlbum(snapshot, 'album-blue', a => ({ ...a,
+          cover: { thumbUrl: '/covers/missing-cover.webp', fullUrl: '/covers/missing-cover.webp' } })) : snapshot, theme);
+      }
+      if (cover === 'nocover') return withTheme(playing({ trackId: 'track-partial', positionMs: 64000, status: 'playing' }).snapshot, theme);
+      return withTheme(coverSnapshot(cover, 'playing').snapshot, theme);
+    };
+    out.push(S({ id: `capsule-light-${cover}-${theme}`, group: g, title: `播放条 · ${LABEL[cover]} · ${theme}`, boot: { scrollTop: 420 },
+      note: '封面颜色以主题色调铺满整条播放条，缩略图周围保留一点封面本色；书架在后方滚动时透出一点。', build }));
+  }
+  return out;
+}
+/**
+ * MV round: music videos linked to an album, on the mock session (Codex: musicVideos / videoError).
+ * id: mv-<state>-<theme>. Album page of the demo album unless noted.
+ */
+function musicVideos(): Scenario[] {
+  const g = 'MV（专辑附带影像）';
+  const album = { route: { name: 'album' as const, albumId: 'album-blue' } };
+  const LONG = '窓辺の青 Music Video 〜 放課後の屋上で撮影したロングバージョンとメイキング映像、そしてキャスト全員によるオーディオコメンタリー付き特別編集版（初回限定盤特典 DVD 収録）';
+  const rename = (videoId: string, title: string) => async (bridge: PlayerBridge) => {
+    const video = bridge.getSnapshot().library.albums.find(a => a.id === 'album-blue')?.musicVideos?.find(v => v.id === videoId);
+    if (video) await bridge.dispatch({ type: 'renameMusicVideo', albumId: 'album-blue', videoId, baseRevision: video.revision, title });
+  };
+  const out: Scenario[] = [];
+  for (const theme of ['light', 'blue', 'charcoal'] as ThemeName[]) {
+    const live = (options: MockOptions, extra: Omit<NonNullable<Scenario['live']>, 'options' | 'theme'> = {}) =>
+      ({ options: { autoTick: false, ...options }, theme, ...extra });
+    const still = () => withTheme(base().snapshot, theme);
+    out.push(
+      S({ id: `mv-none-${theme}`, group: g, title: `无 MV 的专辑（入口在“更多”）· ${theme}`, boot: album, build: still,
+        note: '没有 MV 的专辑不留空位：入口在“更多专辑操作 → 关联 MV…”。', live: live({}) }),
+      S({ id: `mv-two-${theme}`, group: g, title: `两条 MV · ${theme}`, boot: album, build: still,
+        note: '曲目下方“附带影像”，点击行即交给 PotPlayer；更多菜单里有改名、重新关联、移除关联。', live: live({ musicVideos: true }) }),
+      S({ id: `mv-long-${theme}`, group: g, title: `长名称（中日混排，200 字以内）· ${theme}`, boot: album, build: still,
+        live: live({ musicVideos: true }, { setup: rename('demo-mv-1', LONG) }) }),
+      S({ id: `mv-playing-${theme}`, group: g, title: `正在播放音乐时 · ${theme}`, boot: album, build: still,
+        note: '成功交给 PotPlayer 后由核心暂停音乐；关闭 PotPlayer 不会自动继续。',
+        live: live({ musicVideos: true }, { setup: bridge => bridge.dispatch({ type: 'playAlbum', albumId: 'album-blue' }) }) }),
+      S({ id: `mv-missing-${theme}`, group: g, title: `文件找不到（fileMissing）· ${theme}`, boot: album, build: still,
+        note: '点击 MV 行：错误留在这一行，并给出“重新关联…”。',
+        live: live({ musicVideos: true, videoError: { code: 'fileMissing', message: '找不到 MKV 文件，请重新关联文件位置。' } }) }),
+      S({ id: `mv-noplayer-${theme}`, group: g, title: `找不到播放器（notFound）· ${theme}`, boot: album, build: still,
+        note: '点击 MV 行：错误留在这一行，并给出“PotPlayer 设置…”。',
+        live: live({ musicVideos: true, videoError: { code: 'notFound', message: '没有找到 PotPlayer，请在设置中指定播放器位置。' } }) }),
+      S({ id: `mv-conflict-${theme}`, group: g, title: `改名时资料已变化（conflict）· ${theme}`, boot: album, build: still,
+        note: '第一次保存改名或移除前，演示先在“别处”改一次，于是收到 conflict：草稿保留，可以再保存一次。',
+        live: live({ musicVideos: true }, { conflictOnce: true }) }),
+      S({ id: `mv-settings-unset-${theme}`, group: g, title: `设置 · PotPlayer 未指定 · ${theme}`, boot: { overlay: 'playerSettings' }, build: still,
+        live: live({}) }),
+      S({ id: `mv-settings-set-${theme}`, group: g, title: `设置 · PotPlayer 已指定 · ${theme}`, boot: { overlay: 'playerSettings' }, build: still,
+        live: live({ musicVideos: true }) }),
+      S({ id: `mv-settings-fail-${theme}`, group: g, title: `设置 · 查找失败 · ${theme}`, boot: { overlay: 'playerSettings' }, build: still,
+        note: '点击“自动查找”：失败就地显示。', live: live({ videoError: { code: 'notFound', message: '常见安装位置没有找到 PotPlayer，可以手动选择程序。' } }) }),
+    );
   }
   return out;
 }

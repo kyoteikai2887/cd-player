@@ -7,6 +7,7 @@ import type {
   PlayerBridge,
   Surface,
   UIAction,
+  AudioVisualizationSource,
 } from "./contracts/player.ts";
 import { createNativeBridge } from "./bridge/nativeBridge.ts";
 import { createLocalSession } from "./bridge/createLocalSession.ts";
@@ -31,6 +32,7 @@ function NativeSurface({
   return (
     <div className="app-surface" data-surface={surface}>
       <PlayerUI
+        visualization={bridge.visualization}
         snapshot={snapshot}
         surface={surface}
         onAction={bridge.dispatch}
@@ -40,6 +42,7 @@ function NativeSurface({
 }
 async function start() {
   const surface = await invoke<Surface>("surface_name");
+  let visualization: AudioVisualizationSource | undefined;
   if (surface === "main") {
     const offset = await measureClockOffset(() =>
       invoke<number>("clock_sample"),
@@ -53,6 +56,7 @@ async function start() {
       }),
       actionTimeoutMs: 4000,
     });
+    visualization = session.visualization;
     const connections = {
       main: session.connect("main"),
       mini: session.connect("mini"),
@@ -131,7 +135,7 @@ async function start() {
       document.removeEventListener("visibilitychange", wakeHeartbeat);
     }, { once: true });
   }
-  const bridge = await createNativeBridge(surface);
+  const bridge = {...await createNativeBridge(surface), visualization};
   createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
       <NativeSurface bridge={bridge} surface={surface} />

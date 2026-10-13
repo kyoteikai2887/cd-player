@@ -73,10 +73,15 @@ export const FROST: Record<FrostSurface, Record<ThemeName, FrostSpec>> = {
     charcoal: { art: 0.72, field: 0.44, grain: 1, tone: '#1E2329', grainVeil: 0.45 },
   },
   header: { light: { art: 0.42, field: 0.3, grain: 0 }, blue: { art: 0.42, field: 0.46, grain: 0 }, charcoal: { art: 0.32, field: 0.5, grain: 1 } },
+  // The player capsule (MV round): lit like the stage and the mini card — the cover's colour at the
+  // theme's tone across the whole bar, its own light only round the thumbnail — instead of a paper
+  // field of 72% that left the colour to the first 40px. It still lets a little of the scrolling
+  // shelf through (a little less than before, so the album's colour leads), and the text is derived
+  // against the light laid over both ends of that range.
   capsule: {
-    light: { art: 0.7, field: 0.72, grain: 1, see: 0.4, seeRange: [120, 236] },
-    blue: { art: 0.66, field: 0.72, grain: 1, see: 0.4, seeRange: [120, 225] },
-    charcoal: { art: 0.6, field: 0.72, grain: 1, see: 0.4, seeRange: [24, 100] },
+    light: { art: 0.8, field: 0.4, grain: 1, tone: '#BCC7D3', see: 0.3, seeRange: [120, 236] },
+    blue: { art: 0.78, field: 0.42, grain: 1, tone: '#A3BFDA', see: 0.3, seeRange: [120, 225] },
+    charcoal: { art: 0.7, field: 0.46, grain: 1, tone: '#1E2329', grainVeil: 0.45, see: 0.3, seeRange: [24, 100] },
   },
   // V1.1 round 2: the mini card is lit like the stage — the cover's colour at the theme's tone over
   // the whole card, the cover's own light only around the art — on an opaque card…
@@ -128,7 +133,8 @@ export function frostBackdrops(theme: ThemeName, spec: FrostSpec): Rgb[] {
     const frosts = [...COVER_SWEEP.map(cover => veil(mix(blendColor(tone, cover), paper, spec.field))),
       ...[base, pool].map(under => veil(mix(under, paper, spec.field)))];
     if (!spec.see) return frosts;
-    // Laid at (1 - see) over what is behind it (V1.1 round 2: the mini card over a native material).
+    // Laid at (1 - see) over what is behind it (the mini card over a native material; the player
+    // capsule over the scrolling shelf, pressed into its seeRange).
     const [lo, hi] = spec.seeRange ?? [0, 255];
     for (const frost of frosts) for (const level of [lo, hi]) out.push(mix([level, level, level], frost, 1 - spec.see));
     return out;

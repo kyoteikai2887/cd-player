@@ -62,6 +62,7 @@
 .volume { display: flex; align-items: center; gap: 4px; width: 148px; }
 .volume[data-compact="true"] { width: 118px; }
 .volume input { flex: 1; min-width: 0; }
+.volumeValue { flex: none; min-width: 3ch; text-align: right; font-size: var(--t-xs); font-weight: var(--w-label); color: var(--ink-2); }
 
 /* Local keyframes (CSS Modules scope animation names per file). */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

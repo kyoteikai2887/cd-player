@@ -6,7 +6,7 @@ import './host.css';
 function MountedSurface({ bridge, surface }: { bridge: PlayerBridge; surface: Surface }) {
   const snapshot = useSyncExternalStore(bridge.subscribe, bridge.getSnapshot);
   return <div className="app-surface" hidden={!snapshot.host.surfaceVisible} data-surface={surface}>
-    <PlayerUI snapshot={snapshot} surface={surface} onAction={bridge.dispatch} />
+    <PlayerUI snapshot={snapshot} surface={surface} onAction={bridge.dispatch} visualization={bridge.visualization} />
   </div>;
 }
 /** Both views stay mounted when hidden; this browser harness is not native windows. */

@@ -77,6 +77,13 @@ const paths = {
   /** A kept copy (backup). */
   archive: <g {...stroke}><rect x="2.8" y="3.6" width="14.4" height="3.8" rx="1.2" /><path d="M4.2 7.4v7.4a1.8 1.8 0 0 0 1.8 1.8h8a1.8 1.8 0 0 0 1.8-1.8V7.4M8 10.6h4" /></g>,
   stop: <rect x="5" y="5" width="10" height="10" rx="1.8" fill="currentColor" />,
+  // MV round: music videos linked to an album and opened in PotPlayer.
+  /** A strip of film: the album's videos. */
+  film: <g {...stroke}><rect x="2.8" y="4" width="14.4" height="12" rx="2.2" /><path d="M6.4 4v12M13.6 4v12" /><path d="M2.8 7.6h3.6M2.8 12.4h3.6M13.6 7.6h3.6M13.6 12.4h3.6" opacity=".6" /></g>,
+  /** Point a link at a file again. */
+  link: <g {...stroke}><path d="M8.6 11.4a3 3 0 0 0 4.2 0l2.6-2.6a3 3 0 0 0-4.2-4.2l-.9.9" /><path d="M11.4 8.6a3 3 0 0 0-4.2 0l-2.6 2.6a3 3 0 0 0 4.2 4.2l.9-.9" /></g>,
+  /** Undo a link (the file itself stays). */
+  unlink: <g {...stroke}><path d="m10.6 5.6.6-.6a3 3 0 0 1 4.2 4.2l-1.6 1.6" /><path d="m9.4 14.4-.6.6a3 3 0 0 1-4.2-4.2l1.6-1.6" /><path d="M3.4 3.4 5.6 5.6M14.4 14.4l2.2 2.2" opacity=".7" /></g>,
 } satisfies Record<string, ReactElement>;
 
 export type IconName = keyof typeof paths;

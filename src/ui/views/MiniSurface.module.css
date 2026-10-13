@@ -121,6 +121,27 @@
 .controls { display: flex; align-items: center; gap: 4px; margin-top: 10px; }
 .controls :global(.cdp-icon-btn) { width: 32px; height: 32px; }
 
+/* ── Volume (Claude, V1.2) ──────────────────────────────
+ * Folded: nothing but a glyph among the window buttons. Unfolded: a row in place of the title and
+ * transport, beside the art and under the window buttons, inside the card (the native window
+ * clips anything outside it). Same height in the 92 and 140 cards; the lyric strip stays. */
+.text, .controls { transition: opacity var(--d-fast) linear; }
+.card[data-volume="open"] .text, .card[data-volume="open"] .controls { opacity: 0; visibility: hidden; }
+.volumePanel {
+  position: absolute; z-index: 2; left: 89px; right: 10px; top: 38px; height: 36px;
+  display: flex; align-items: center; gap: 6px;
+  padding: 0 4px 0 4px;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--paper) 50%, transparent);
+  box-shadow: inset 0 0 0 1px var(--line);
+  animation: panelIn var(--d-base) var(--ease-out);
+  cursor: auto;
+}
+.volumeControl { flex: 1; width: auto; min-width: 0; gap: 6px; }
+.volumePanel :global(.cdp-icon-btn) { width: 30px; height: 30px; flex: none; }
+/* The window buttons stay in view while the panel is open, so the entry reads as "fold away". */
+.card[data-volume="open"] .chrome { opacity: 1; transform: none; }
+
 .progress {
   position: absolute; z-index: 1; left: 18px; right: 18px; bottom: 7px; height: 2.5px;
   border-radius: 2px; overflow: hidden;
@@ -163,6 +184,8 @@
 /* Local keyframes (CSS Modules scope animation names per file). */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes riseIn { from { opacity: 0; transform: translateY(8px) scale(0.985); } to { opacity: 1; transform: none; } }
+@keyframes panelIn { from { opacity: 0; transform: translateX(6px); } to { opacity: 1; transform: none; } }
+
 
 @media (forced-colors: active) {
   .card { border: 1px solid CanvasText; background: Canvas; backdrop-filter: none; }
@@ -170,4 +193,5 @@
   .progress { background: GrayText; forced-color-adjust: none; }
   .progress i { background: Highlight; }
   .chrome { opacity: 1; transform: none; }
+  .volumePanel { border: 1px solid CanvasText; background: Canvas; }
 }

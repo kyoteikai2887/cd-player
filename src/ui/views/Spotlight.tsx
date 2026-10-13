@@ -11,6 +11,10 @@ import { albumDuration, groupByDisc } from '../lib/library.ts';
 import { usePlayer, useSurface } from '../lib/surface.tsx';
 import { langHint } from '../lib/text.ts';
 import { showMemorialPlates } from '../lib/memorial.ts';
+import { showAudioVisualization } from '../lib/stageViz.ts';
+import { AttentionField } from '../components/AttentionField.tsx';
+import { StarTrails } from '../components/StarTrails.tsx';
+import { TrailLight } from '../components/TrailLight.tsx';
 import styles from './Spotlight.module.css';
 
 /** 1:29:12 or 52:04 — the running time printed on a CD's back insert. */
@@ -48,6 +52,7 @@ export const Spotlight = memo(function Spotlight({ onOpenAlbum, onOpenNowPlaying
   if (!pick) return null;
   const { album, inPlayer } = pick;
   const etch = showMemorialPlates(settings);
+  const viz = showAudioVisualization(settings);
   const lang = langHint(album.title, null, album.language);
   const discs = groupByDisc(album, index);
   const facts: { icon: IconName; value: string; label: string; num?: boolean }[] = [
@@ -59,24 +64,28 @@ export const Spotlight = memo(function Spotlight({ onOpenAlbum, onOpenNowPlaying
   ];
   return (
     <section className={styles.stage} style={frost} data-in-player={inPlayer ? 'true' : 'false'} data-etch={etch ? 'true' : 'false'}
-      aria-label={inPlayer ? '播放器里的专辑' : '最新加入的专辑'}>
+      data-viz={viz ? 'true' : 'false'} aria-label={inPlayer ? '播放器里的专辑' : '最新加入的专辑'}>
       <Frost cover={album.cover} className={styles.light} layers={2} />
-      {etch && <span className={styles.etch} aria-hidden="true" data-memorial="etch"><i className={styles.etchFloor} /></span>}
-      <div className={styles.art}>
+      <StarTrails className={styles.sky} />
+      {/* V1.2 round 2: the cold light runs along a few of the trails, in the glass the parts marked data-keep-clear leave free. */}
+      <TrailLight className={styles.flow} layoutKey={`${album.id}|${inPlayer && currentTrack ? currentTrack.id : ''}|${viz}|${etch}`} />
+      {etch && <span className={styles.etch} aria-hidden="true" data-memorial="etch" data-keep-clear="etch"><i className={styles.etchFloor} /></span>}
+      <div className={styles.art} data-keep-clear>
         <StageDisc album={album} inPlayer={inPlayer} />
         <button type="button" className={styles.case} onClick={() => onOpenAlbum(album.id)} aria-label={`打开专辑：${album.title}`} title="打开专辑">
           <Cover albumId={album.id} title={album.title} lang={lang} cover={album.cover} variant="full" className={styles.cover} />
         </button>
       </div>
-      <div className={styles.info}>
-        <p className={styles.eyebrow}>
+      <div className={styles.info} data-keep-clear="start">
+        <p className={styles.eyebrow} data-keep-clear>
           {inPlayer ? <PlayerState /> : <span className={styles.state}><Icon name="sparkle" size={15} /><span>新入架</span></span>}
           {album.workTitle && <span className={styles.work} lang={langHint(album.workTitle, null, album.language)}>{album.workTitle}</span>}
         </p>
-        <h2 className={styles.title} lang={lang}>{album.title}</h2>
-        <p className={styles.credit} lang={langHint(album.albumArtistCredit, null, album.language)}>{album.albumArtistCredit}</p>
+        {/* Two lines at most at its own size; a longer title ends in an ellipsis and stays whole in the tooltip and the album page. */}
+        <h2 className={styles.title} lang={lang} title={album.title} data-keep-clear="text">{album.title}</h2>
+        <p className={styles.credit} lang={langHint(album.albumArtistCredit, null, album.language)} data-keep-clear="text">{album.albumArtistCredit}</p>
         {inPlayer && currentTrack && (
-          <button type="button" className={styles.track} onClick={onOpenNowPlaying} title="打开正在播放">
+          <button type="button" className={styles.track} onClick={onOpenNowPlaying} title={`${currentTrack.title}\n打开正在播放`} data-keep-clear="before">
             <Icon name="note" size={15} />
             <span className={styles.trackTitle} lang={langHint(currentTrack.title, currentTrack.language, album.language)}>{currentTrack.title}</span>
             <span className={`${styles.trackNo} num`} title={`第 ${currentTrack.trackNumber} 首`}>
@@ -84,7 +93,7 @@ export const Spotlight = memo(function Spotlight({ onOpenAlbum, onOpenNowPlaying
             </span>
           </button>
         )}
-        <ul className={styles.facts} aria-label="专辑信息">
+        <ul className={styles.facts} aria-label="专辑信息" data-keep-clear="before">
           {facts.map(fact => (
             <li key={fact.icon} title={fact.label}>
               <Icon name={fact.icon} size={15} />
@@ -93,7 +102,7 @@ export const Spotlight = memo(function Spotlight({ onOpenAlbum, onOpenNowPlaying
             </li>
           ))}
         </ul>
-        <div className={styles.actions}>
+        <div className={styles.actions} data-keep-clear="before">
           {inPlayer ? <PlayButton size="md" /> : (
             <button type="button" className="cdp-play" aria-label={`播放 ${album.title}`} title="播放" disabled={!online}
               onClick={() => run({ type: 'playAlbum', albumId: album.id, shuffle: false }, { slot: 'library', key: 'stage-play' })}>
@@ -115,6 +124,8 @@ export const Spotlight = memo(function Spotlight({ onOpenAlbum, onOpenNowPlaying
             </button>
           )}
         </div>
+        {/* V1.2: the music field takes the rows beside the credit, track, facts and buttons, at their height, under the title. */}
+        {viz && <span className={styles.viz} data-stage-viz data-keep-clear="before"><AttentionField className={styles.field} /></span>}
       </div>
     </section>
   );

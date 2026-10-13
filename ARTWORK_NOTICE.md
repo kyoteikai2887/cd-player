@@ -12,13 +12,13 @@
 
 2026-10-10：纸白拉丝银、阿根廷蓝冷银蓝铭牌及光滑刻槽蒙版沿用原人物剪影和纪念刻字制作，适用上述同一展示与随项目分发范围。原稿仍留在私人作者目录，不进入应用资源。
 
-第二轮 1.1.0-rc.2 增强两张凹刻槽壁图的内部主要刻线，使用无损 WebP；人物原稿、刻槽蒙版和三色金属铭牌未变。以下为当前运行文件。
+V1.2.1 沿用已验收的 V1.1 最终背靠背人物排列与六张运行素材，以下记录当前文件。私人原稿保留在本地，不进入公开源代码。
 
 | 运行文件 | 字节 | SHA256 |
 |---|---:|---|
-| memorial-etch-cut.webp | 10530 | e0889c525c3b96db4713b761e2035e016f0ed263a52487b42c6967d114277f8a |
-| memorial-etch-light.webp | 48450 | a762e16f547e2c1f4281da831c8891a08d165af0aa9ac2a1df6da31d0186e866 |
-| memorial-etch.webp | 53860 | 5bca05a21862be11047b4039a8d9672e188b580624688f37396bea6be888e152 |
-| memorial-plate-blue.webp | 85858 | a1fd7bb91dc4e974d3a4365617542d8ce88c56bc1f172554c4b19af4407f46b7 |
-| memorial-plate-silver.webp | 85274 | 4b9b6890a85a986329d35549bfb7797454340a9b704343e2f25f5d1ee4417444 |
-| memorial-plate.webp | 61988 | b8852afd6139b728ec8dfe47a346f5c3914e6cb4f619dbca148159155fbbf2f0 |
+| memorial-etch-cut.webp | 10456 | 7f30a90d3e5710f4d2a829b3c00d608188456257c3e50f2c03f1ee167996de9a |
+| memorial-etch-light.webp | 43046 | 785f301e70593ccc0d1cf9cea35ebf1ea39b67520ef9605e66fd398be4458c6d |
+| memorial-etch.webp | 47696 | 9b27c19ebe9ef41ddf1e0e0789d8f8c8dd431254dca6d580b0e34bd6d4f98552 |
+| memorial-plate-blue.webp | 82296 | 9a47abc496610c9859142a67af3ca23217114aa0b80fa39f4558990e83eca906 |
+| memorial-plate-silver.webp | 82294 | 632dc81caca7f338817083d5232e944301c7673647167dc8bc93fcc2c25034ae |
+| memorial-plate.webp | 60340 | 366f04133cf7da741e0e4ca32e7f602c7d9f70c10e0764e8a029d4ffd2d078b3 |

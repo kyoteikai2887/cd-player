@@ -114,7 +114,9 @@ describe('frost', () => {
     // A measured grain veil can only make the model stricter than the default estimate.
     const charcoal = FROST.stage.charcoal;
     expect(charcoal.grainVeil!).toBeGreaterThanOrEqual(0.45 * (1 - charcoal.field));
-    // Round 2: the mini card is toned too (opaque and over a native material); the rest are not.
-    for (const surface of SURFACES.filter(s => !['stage', 'mini', 'miniNative'].includes(s))) expect(frostVars('light', FROST[surface].light, '#6CACE4')['--frost-tone']).toBeUndefined();
+    // Round 2: the mini card is toned too (opaque and over a native material); MV round: so is the
+    // player capsule (capsule-light.test.tsx). The album header and the dialog are not.
+    for (const surface of SURFACES.filter(s => !['stage', 'mini', 'miniNative', 'capsule'].includes(s))) expect(frostVars('light', FROST[surface].light, '#6CACE4')['--frost-tone']).toBeUndefined();
+    for (const theme of THEMES) expect(frostVars(theme, FROST.capsule[theme], '#6CACE4')['--frost-tone']).toBe(FROST.capsule[theme].tone);
   });
 });

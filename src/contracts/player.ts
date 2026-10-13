@@ -1,11 +1,11 @@
 /**
- * UI CONTRACT v0.4.0, 2026-10-04 (Asia/Tokyo).
- * Extends v0.3.0 with explicit lyric candidate previews and guarded adoption.
- * See docs/CONTRACT_LYRICS_CANDIDATES_ZH.md for the versioned UI handoff.
- * This is an integration baseline, not a shipped V1.0 player.
+ * UI CONTRACT v0.6.0, 2026-10-12 (Asia/Tokyo).
+ * Extends v0.5.0 with an optional local, pull-only audio visualization port.
+ * See docs/CONTRACT_MUSIC_VIDEO_ZH.md for the versioned UI handoff.
+ * Development contract; the frozen V1.1.0 release remains unchanged.
  * Times are milliseconds; snapshots are immutable. See docs/CONTRACT_BEHAVIOR_ZH.md.
  */
-export const CONTRACT_VERSION = '0.4.0' as const;
+export const CONTRACT_VERSION = '0.6.0' as const;
 
 export type Surface = 'main' | 'mini';
 export type WindowMode = 'full' | 'mini';
@@ -79,7 +79,16 @@ export interface RipSummary {
   accurateRip: 'verified' | 'partial' | 'notVerified' | 'unknown';
   discs?: { number: number; hasLog: boolean; hasCue: boolean; discId?: string }[];
 }
+/** Local links only; MKV files are never copied or treated as audio tracks. */
+export interface MusicVideo {
+  id: string;
+  revision: number;
+  title: string;
+  fileName: string;
+}
 export interface Album extends AlbumEditableFields {
+  /** Absent in older libraries. Full paths remain private to the local core. */
+  musicVideos?: MusicVideo[];
   id: string;
   revision: number;
   /** Authoritative disc/track order; display grouping does not mutate it. */
@@ -213,6 +222,8 @@ export interface LyricsValidationIssue {
 }
 
 export interface UserSettings {
+  /** Read-only status supplied by the core; not an updateSettings preference. */
+  potPlayerConfigured?: boolean;
   lyricsMode: LyricsMode;
   accentColor: string; // #RRGGBB only.
   /** Both are light themes with dark text, as selected by the user. */
@@ -227,7 +238,7 @@ export interface UserSettings {
   /** Serializable UI preferences; the core merges keys per surface. */
   ui: Record<Surface, JsonObject>;
 }
-export type SettingsPatch = Partial<Omit<UserSettings, 'ui'>> & {
+export type SettingsPatch = Partial<Omit<UserSettings, 'ui' | 'potPlayerConfigured'>> & {
   ui?: Partial<Record<Surface, JsonObject>>;
 };
 
@@ -332,6 +343,13 @@ export interface UISnapshot {
 }
 
 export type UIAction =
+  | { type: 'addMusicVideo'; albumId: string }
+  | { type: 'relinkMusicVideo'; albumId: string; videoId: string; baseRevision: number }
+  | { type: 'renameMusicVideo'; albumId: string; videoId: string; baseRevision: number; title: string }
+  | { type: 'removeMusicVideo'; albumId: string; videoId: string; baseRevision: number }
+  | { type: 'playMusicVideo'; albumId: string; videoId: string }
+  | { type: 'pickPotPlayer' }
+  | { type: 'detectPotPlayer' }
   | { type: 'playAlbum'; albumId: string; startTrackId?: string; shuffle?: boolean }
   | { type: 'playTracks'; trackIds: string[]; startIndex: number }
   | { type: 'playQueueEntry'; entryId: string }
@@ -376,12 +394,32 @@ export type UIAction =
   | { type: 'cancelTask'; taskId: string }
   | { type: 'dismissNotice'; noticeId: string };
 
+/** Ephemeral display data. Never persisted, sent over IPC, or used to drive playback. */
+export interface AudioVisualizationFrame {
+  status: 'live' | 'idle' | 'unavailable';
+  source: 'audio' | 'demo';
+  trackId: string | null;
+  /** Linear waveform amplitudes, clamped to 0..1. */
+  rms: number;
+  peak: number;
+  /** Display level: RMS dBFS mapped from -60..0 dB to 0..1. */
+  level: number;
+  /** 24 logarithmic bands, low to high, -80..0 dB mapped to 0..1. */
+  bands: readonly number[];
+}
+export interface AudioVisualizationSource {
+  /** Read only while the meter is visible; limit calls to about 24 Hz. No timers here. */
+  read(): AudioVisualizationFrame;
+}
 export interface PlayerUIProps {
+  visualization?: AudioVisualizationSource;
   snapshot: UISnapshot;
   surface: Surface;
   onAction: (action: UIAction) => Promise<ActionResult>;
 }
 export interface PlayerBridge {
+  /** Only main owns real audio. Mini deliberately has no visualization source. */
+  visualization?: AudioVisualizationSource;
   /** Cached immutable snapshot; unchanged objects retain their references. */
   getSnapshot(): UISnapshot;
   subscribe(listener: () => void): () => void;

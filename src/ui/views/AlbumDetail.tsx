@@ -14,9 +14,10 @@ import { usePlayer, useSurface } from '../lib/surface.tsx';
 import { langHint, lyricsStatus, versionBadge } from '../lib/text.ts';
 import { formatRunningTime } from './Spotlight.tsx';
 import { AlbumInfoSheet } from './AlbumInfoSheet.tsx';
+import { AlbumVideos, LinkingStatus, useVideoLinking } from './AlbumVideos.tsx';
 import styles from './AlbumDetail.module.css';
 
-export const AlbumDetail = memo(function AlbumDetail({ album, tasks = [], onOpenNowPlaying, onEditMetadata, onRemove }: {
+export const AlbumDetail = memo(function AlbumDetail({ album, tasks = [], onOpenNowPlaying, onEditMetadata, onRemove, onOpenPlayerSettings }: {
   album: Album; lyricsByCurrent: LyricsDocument | null; onOpenNowPlaying(): void;
   /** Background tasks: a metadata lookup for this album shows its progress under the actions. */
   tasks?: TaskInfo[];
@@ -24,6 +25,8 @@ export const AlbumDetail = memo(function AlbumDetail({ album, tasks = [], onOpen
   onEditMetadata(trackId?: string): void;
   /** Asks to remove the album from the collection (a confirmation follows). */
   onRemove(): void;
+  /** Opens the settings sheet at the PotPlayer row (MV round: a launch that failed). */
+  onOpenPlayerSettings?(): void;
 }) {
   const { index, online, currentTrack } = useSurface();
   const { run, isPending } = useActions();
@@ -45,6 +48,14 @@ export const AlbumDetail = memo(function AlbumDetail({ album, tasks = [], onOpen
     infoWasOpen.current = infoOpen;
   }, [infoOpen]);
   const lookup = tasks.find(t => t.kind === 'metadata' && t.albumId === album.id);
+  // MV round: linked music videos (attachments of the album, opened in PotPlayer).
+  const linking = useVideoLinking(album, tasks);
+  const videoCount = album.musicVideos?.length ?? 0;
+  const refocusMore = useRef(false);
+  useEffect(() => {
+    // The last link went, and its section with it: focus returns to the album's actions.
+    if (refocusMore.current && !videoCount) { refocusMore.current = false; moreButton.current?.focus(); }
+  }, [videoCount]);
   const allTracks = useMemo(() => discs.flatMap(d => d.tracks), [discs]);
 
   return (
@@ -70,6 +81,7 @@ export const AlbumDetail = memo(function AlbumDetail({ album, tasks = [], onOpen
               {discs.length > 1 && <Fact icon="disc" term="碟片"><span className="num">{discs.length}</span></Fact>}
               <Fact icon="note" term="曲目"><span className="num">{trackCount}</span></Fact>
               <Fact icon="clock" term="总时长"><span className="num">{formatRunningTime(total)}</span></Fact>
+              {videoCount > 0 && <Fact icon="film" term="附带 MV"><span className="num">{videoCount}</span></Fact>}
             </dl>
             <div className={styles.actions}>
               <button type="button" className="cdp-play" aria-label="播放" title="播放" disabled={!online}
@@ -92,6 +104,9 @@ export const AlbumDetail = memo(function AlbumDetail({ album, tasks = [], onOpen
                   onSelect: () => void run({ type: 'lookupMetadata', albumId: album.id }, { slot: 'album' }) },
                 { label: '更换封面…', icon: 'image', disabled: !online,
                   onSelect: () => void run({ type: 'pickCoverImage', albumId: album.id, baseRevision: album.revision }, { slot: 'album' }) },
+                { label: '关联 MV…', icon: 'film', disabled: !online || !!linking.running,
+                  hint: '选择导出的 MKV 文件，只记录位置，不复制文件；用 PotPlayer 观看',
+                  onSelect: () => { moreButton.current?.focus(); void linking.link('add', undefined, 'album'); } },
                 { kind: 'separator' },
                 { label: '编辑专辑资料…', icon: 'edit', onSelect: () => onEditMetadata() },
                 { kind: 'separator' },
@@ -112,6 +127,8 @@ export const AlbumDetail = memo(function AlbumDetail({ album, tasks = [], onOpen
                 {lookup.progress != null && <span className="num">{Math.round(lookup.progress * 100)}%</span>}
               </p>
             )}
+            {!videoCount && <LinkingStatus linking={linking} album={album} className={styles.linking} />}
+            {!videoCount && linking.outcome && <p className="sr-only" role="status">{linking.outcome.message}</p>}
             <InlineError slot="album" />
           </div>
         </header>
@@ -139,6 +156,8 @@ export const AlbumDetail = memo(function AlbumDetail({ album, tasks = [], onOpen
             </p>
           )}
         </section>
+        <AlbumVideos album={album} linking={linking} onOpenPlayerSettings={() => onOpenPlayerSettings?.()}
+          onLastRemoving={going => { refocusMore.current = going; }} />
       </div>
       {infoOpen && (
         <AlbumInfoSheet album={album} tracks={allTracks} online={online} onClose={() => setInfoOpen(false)}

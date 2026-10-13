@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
-import type { ActionResult, PlayerBridge, UIAction } from '../src/contracts/player.ts';
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import type { ActionResult, AudioVisualizationSource, PlayerBridge, PlayerSnapshot, UIAction } from '../src/contracts/player.ts';
 import { createMockSession } from '../src/mock/createMockBridge.ts';
+import { createDemoVisualization } from '../src/mock/audioVisualization.ts';
 import type { MockOptions } from '../src/mock/createMockBridge.ts';
 import { candidateRecords, manyRecords, multiSourceRecords } from './lyricsCandidates.ts';
 import type { DemoScenario } from '../src/mock/fixtures.ts';
@@ -17,9 +18,34 @@ import type { Scenario } from './scenarios.ts';
  *                   ?scenario=missing&lyrics=five|sources|many|none|fail|slow picks the lyric candidate search (R2.3)
  *  #/states/<id>    static state matrix rendered from plain snapshots and a logging action stub
  * ?shot=<id>[&theme=light|blue|charcoal][&w=1920&h=1080] renders one static frame at 1:1 without chrome (screenshots).
+ *   V1.2: &viz=pulse|bass|treble|silence|unavailable|none picks the stage's demo signal (default: the
+ *   scenario's own, else none), &t=<ms> freezes the demo clock for a stable frame. Round 2 adds two
+ *   preview-only patterns for the edges of the layout: &viz=full (every band at full scale, the
+ *   tallest the pattern can be) and &viz=quiet (the pulse 20 dB down, a soft passage).
+ *   V1.2 round 2 (evidence): &fs=0.85…1.3 sets the interface font scale, &etch=0 hides the memorial
+ *   etching, &pattern=0 switches the stage's music pattern off, &muted=1 mutes the player,
+ *   &status=paused|buffering sets the player's state.
+ *   Star-trail fix (evidence): &volume=0…1 sets the player's volume (0: silent).
+ * Scenarios with `live` (MV round) run on their own mock session, so their buttons act for real.
  */
 const THEMES: ThemeName[] = ['light', 'blue', 'charcoal'];
 const isTheme = (value: string | null): value is ThemeName => !!value && (THEMES as string[]).includes(value);
+/** V1.2 round 2: &fs, &etch=0, &pattern=0, &muted=1, &status (and &volume) on a still frame (same scenario, other settings). */
+function withSettings(scenario: Scenario, params: URLSearchParams): Scenario {
+  const fs = Number(params.get('fs'));
+  const fontScale = params.has('fs') && Number.isFinite(fs) && fs >= 0.85 && fs <= 1.3 ? fs : null;
+  const etchOff = params.get('etch') === '0', patternOff = params.get('pattern') === '0', muted = params.get('muted') === '1';
+  const status = params.get('status') === 'paused' || params.get('status') === 'buffering' ? params.get('status') as 'paused' | 'buffering' : null;
+  const level = Number(params.get('volume')), volume = params.has('volume') && Number.isFinite(level) ? Math.min(1, Math.max(0, level)) : null;
+  if (fontScale === null && !etchOff && !patternOff && !muted && !status && volume === null) return scenario;
+  return { ...scenario, build: () => {
+    const snapshot = scenario.build();
+    const main = { ...snapshot.settings.ui?.main, ...(etchOff ? { memorialPlates: false } : {}), ...(patternOff ? { audioVisualization: false } : {}) };
+    const settings = { ...snapshot.settings, ...(fontScale !== null ? { fontScale } : {}), ui: { ...snapshot.settings.ui, main } };
+    const player = { ...snapshot.player, ...(muted ? { muted: true } : {}), ...(status ? { status } : {}), ...(volume !== null ? { volume } : {}) };
+    return { ...snapshot, settings, player };
+  } };
+}
 function useHash() {
   const [hash, setHash] = useState(() => location.hash);
   useEffect(() => {
@@ -42,7 +68,11 @@ export function PreviewApp() {
     // &w=1920&h=1080: the same scenario at another window size in CSS px (V1.1, wide screens).
     const size = (key: 'w' | 'h') => { const n = Number(params.get(key)); return Number.isFinite(n) && n >= 320 && n <= 4000 ? Math.round(n) : null; };
     const sized = scenario && (size('w') || size('h')) ? { ...scenario, width: size('w') ?? scenario.width, height: size('h') ?? scenario.height } : scenario;
-    return sized ? <ShotFrame scenario={sized} theme={isTheme(theme) ? theme : null} accent={accent} /> : <p>未知场景 {shot}</p>;
+    const viz = params.get('viz');
+    const t = Number(params.get('t'));
+    const withViz = sized && viz && isVizPattern(viz) ? { ...sized, viz, vizNow: Number.isFinite(t) && params.has('t') ? t : sized.vizNow } : sized;
+    const tuned = withViz ? withSettings(withViz, params) : withViz;
+    return tuned ? <ShotFrame scenario={tuned} theme={isTheme(theme) ? theme : null} accent={accent} /> : <p>未知场景 {shot}</p>;
   }
   const page = hash.startsWith('#/states') ? 'states' : 'live';
   return (
@@ -112,9 +142,11 @@ function LiveThemeSwitch() {
 
 function LiveSurface({ bridge, surface }: { bridge: PlayerBridge; surface: 'main' | 'mini' }) {
   const snapshot = useSyncExternalStore(bridge.subscribe, bridge.getSnapshot);
+  // V1.2: only the main window has a signal, as in the app; here it is the demo's, labelled demo.
+  const [visualization] = useState(() => surface === 'main' ? createDemoVisualization(() => bridge.getSnapshot().player) : undefined);
   return (
     <div className="pv-live-window" hidden={!snapshot.host.surfaceVisible} data-surface={surface}>
-      <PlayerUI snapshot={snapshot} surface={surface} onAction={bridge.dispatch} />
+      <PlayerUI snapshot={snapshot} surface={surface} onAction={bridge.dispatch} visualization={visualization} />
     </div>
   );
 }
@@ -158,18 +190,108 @@ function useStub(result: StubResult, log: (line: string) => void) {
 function Frame({ scenario, theme, accent = null, onAction }: {
   scenario: Scenario; theme: ThemeName | null; accent?: string | null; onAction: (a: UIAction) => Promise<ActionResult>;
 }) {
+  if (scenario.live) return <LiveFrame scenario={scenario} theme={theme} />;
+  return <StillFrame scenario={scenario} theme={theme} accent={accent} onAction={onAction} />;
+}
+
+/**
+ * MV round: a scenario on its own mock session (Codex's createMockSession), so its buttons really
+ * act — revisions, conflicts and videoError included. The demo notice is dismissed and the theme
+ * set through the same actions the UI sends; the frame shows once `setup` has run.
+ */
+function LiveFrame({ scenario, theme: chosen }: { scenario: Scenario; theme: ThemeName | null }) {
+  const live = scenario.live!;
+  const theme = chosen ?? live.theme ?? null;
+  const [bridge] = useState(() => createMockSession(live.options).connect(scenario.surface));
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    void (async () => {
+      await bridge.dispatch({ type: 'dismissNotice', noticeId: 'demo' });
+      if (theme) await bridge.dispatch({ type: 'updateSettings', patch: themePatch(theme) });
+      await live.setup?.(bridge);
+      if (alive) setReady(true);
+    })();
+    return () => { alive = false; };
+  }, [bridge, live, theme]);
+  const conflicted = useRef(false);
+  const onAction = useMemo(() => async (action: UIAction): Promise<ActionResult> => {
+    if (live.conflictOnce && !conflicted.current && (action.type === 'renameMusicVideo' || action.type === 'removeMusicVideo')) {
+      conflicted.current = true;
+      const video = bridge.getSnapshot().library.albums.find(a => a.id === action.albumId)?.musicVideos?.find(v => v.id === action.videoId);
+      if (video) await bridge.dispatch({ type: 'renameMusicVideo', albumId: action.albumId, videoId: video.id, baseRevision: video.revision, title: video.title + '（另一窗口改过）' });
+    }
+    return bridge.dispatch(action);
+  }, [bridge, live]);
+  const snapshot = useSyncExternalStore(bridge.subscribe, bridge.getSnapshot);
+  return (
+    <div className="pv-frame" data-desktop={scenario.desktop ? 'true' : 'false'} data-theme={resolveTheme(snapshot.settings)}
+      data-ready={ready ? 'true' : 'false'}
+      style={{ width: scenario.width, height: scenario.height, ['--cdp-viewport-h' as string]: scenario.height + 'px' }}>
+      {ready && (
+        <UIBootContext.Provider value={scenario.boot ?? {}}>
+          <PlayerUI key={scenario.id} snapshot={snapshot} surface={scenario.surface} onAction={onAction} />
+        </UIBootContext.Provider>
+      )}
+    </div>
+  );
+}
+
+function StillFrame({ scenario, theme, accent = null, onAction }: {
+  scenario: Scenario; theme: ThemeName | null; accent?: string | null; onAction: (a: UIAction) => Promise<ActionResult>;
+}) {
   const snapshot = useMemo(() => {
     const built = theme ? withTheme(scenario.build(), theme) : scenario.build();
     return accent ? { ...built, settings: { ...built.settings, accentColor: accent } } : built;
   }, [scenario, theme, accent]);
+  const visualization = useMemo(() => scenarioVisualization(scenario, () => snapshot.player), [scenario, snapshot]);
   return (
     <div className="pv-frame" data-desktop={scenario.desktop ? 'true' : 'false'} data-theme={resolveTheme(snapshot.settings)}
       style={{ width: scenario.width, height: scenario.height, ['--cdp-viewport-h' as string]: scenario.height + 'px' }}>
       <UIBootContext.Provider value={scenario.boot ?? {}}>
-        <PlayerUI key={scenario.id} snapshot={snapshot} surface={scenario.surface} onAction={onAction} />
+        <PlayerUI key={scenario.id} snapshot={snapshot} surface={scenario.surface} onAction={onAction} visualization={visualization} />
       </UIBootContext.Provider>
     </div>
   );
+}
+
+const VIZ_PATTERNS = ['pulse', 'bass', 'treble', 'silence', 'full', 'quiet', 'unavailable', 'none'] as const;
+type VizPattern = typeof VIZ_PATTERNS[number];
+const isVizPattern = (value: string): value is VizPattern => (VIZ_PATTERNS as readonly string[]).includes(value);
+
+/**
+ * V1.2: the stage's signal for a still frame. Demo patterns come from Codex's createDemoVisualization
+ * (marked source: 'demo'); 'unavailable' is a source that has nothing to give; 'none' (or no pattern)
+ * is the app without a source at all. Only the main surface ever gets one.
+ */
+function scenarioVisualization(scenario: Scenario, player: () => PlayerSnapshot): AudioVisualizationSource | undefined {
+  const pattern = scenario.viz;
+  if (scenario.surface !== 'main' || !pattern || pattern === 'none') return undefined;
+  if (pattern === 'unavailable') {
+    return { read: () => ({ status: 'unavailable', source: 'demo', trackId: player().currentTrackId, rms: 0, peak: 0, level: 0, bands: Array<number>(24).fill(0) }) };
+  }
+  const now = scenario.vizNow;
+  if (pattern === 'full' || pattern === 'quiet') return edgeVisualization(player, pattern, now);
+  return createDemoVisualization(player, { pattern, now: now === undefined ? undefined : () => now });
+}
+
+/**
+ * V1.2 round 2, preview only: the two edges of the layout as demo signals (marked source: 'demo', silent
+ * unless the player plays out loud, like Codex's patterns). 'full' holds every band at full scale, so the
+ * pattern stands as tall as it ever can; 'quiet' is the pulse 20 dB down (the bands map -80..0 dB to 0..1 and
+ * the level -60..0 dBFS, contract 0.6.0).
+ */
+function edgeVisualization(player: () => PlayerSnapshot, pattern: 'full' | 'quiet', now: number | undefined): AudioVisualizationSource {
+  const pulse = createDemoVisualization(player, { pattern: 'pulse', now: now === undefined ? undefined : () => now });
+  return {
+    read: () => {
+      const frame = pulse.read();
+      if (frame.status !== 'live') return frame;
+      return pattern === 'full'
+        ? { ...frame, rms: 0.5, peak: 1, level: 1, bands: frame.bands.map(() => 1) }
+        : { ...frame, rms: frame.rms / 10, peak: frame.peak / 10, level: Math.max(0, frame.level - 20 / 60), bands: frame.bands.map(v => Math.max(0, v - 20 / 80)) };
+    },
+  };
 }
 
 function ShotFrame({ scenario, theme, accent }: { scenario: Scenario; theme: ThemeName | null; accent: string | null }) {

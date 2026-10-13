@@ -1,12 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { CONTRACT_VERSION } from '../../contracts/player.ts';
-import type { SettingsPatch } from '../../contracts/player.ts';
+import type { SettingsPatch, TaskInfo } from '../../contracts/player.ts';
 import { Icon } from '../components/Icon.tsx';
 import { InlineError, useActions } from '../lib/actions.tsx';
 import { onAccent } from '../lib/color.ts';
 import { useSurface } from '../lib/surface.tsx';
 import { memorialPlatesPatch, showMemorialPlates } from '../lib/memorial.ts';
+import { audioVisualizationPatch, showAudioVisualization } from '../lib/stageViz.ts';
 import { THEME_LABEL, themePatch } from '../lib/theme.ts';
 import type { ThemeName } from '../lib/theme.ts';
 import { Sheet } from './Sheet.tsx';
@@ -19,7 +20,12 @@ const ACCENTS = [
 ];
 const THEMES: ThemeName[] = ['light', 'blue', 'charcoal'];
 
-export function SettingsSheet({ onClose }: { onClose(): void }) {
+export function SettingsSheet({ onClose, focus, tasks = [] }: {
+  onClose(): void;
+  /** 'player': opened from a music video that would not launch; focus starts at the PotPlayer row. */
+  focus?: 'player';
+  tasks?: TaskInfo[];
+}) {
   const { settings, host, online, theme: current } = useSurface();
   const { run, isPending } = useActions();
   const save = (patch: SettingsPatch) => run({ type: 'updateSettings', patch }, { slot: 'settings', key: 'settings' });
@@ -70,6 +76,9 @@ export function SettingsSheet({ onClose }: { onClose(): void }) {
           onChange={v => save({ showDiscAnimation: v })} />
         <SwitchRow label="纪念铭牌" checked={showMemorialPlates(settings)} hint="在收藏首屏和纯音乐的歌词区显示 Codex 与 Claude 的纪念铭牌。"
           onChange={v => save(memorialPlatesPatch(v))} />
+        <SwitchRow label="主舞台音乐图案" checked={showAudioVisualization(settings)}
+          hint="收藏首屏随播放的声音起伏的点阵与连线。关闭后只停掉这一处，星轨与氛围灯保留。"
+          onChange={v => save(audioVisualizationPatch(v))} />
       </Group>
 
       <Group title="文字">
@@ -95,6 +104,8 @@ export function SettingsSheet({ onClose }: { onClose(): void }) {
           onChange={v => save({ miniShowLyrics: v })} />
       </Group>
 
+      <PlayerGroup tasks={tasks} focus={focus === 'player'} />
+
       <Group title="资料库">
         <Row label="音乐文件夹">
           <div className={styles.libraryActions}>
@@ -113,6 +124,89 @@ export function SettingsSheet({ onClose }: { onClose(): void }) {
       {/* The interface version comes from the shared contract, so it cannot go stale. */}
       <p className={styles.about}>CD 播放器 · 接口 <span className="num">{CONTRACT_VERSION}</span></p>
     </Sheet>
+  );
+}
+
+/**
+ * MV round: the external player for linked music videos. The core only says whether a PotPlayer
+ * location is on record (not that it was just checked), so the row says exactly that. Finding and
+ * choosing are background tasks (started → done / cancelled / failed); a cancelled choice changes
+ * nothing and says nothing, a failure arrives as the core's notice.
+ */
+function PlayerGroup({ tasks, focus }: { tasks: TaskInfo[]; focus: boolean }) {
+  const { settings, online } = useSurface();
+  const { run, isPending } = useActions();
+  const configured = !!settings.potPlayerConfigured;
+  const [pending, setPending] = useState<{ taskId: string | null; kind: 'detect' | 'pick'; was: boolean } | null>(null);
+  const [said, setSaid] = useState<string | null>(null);
+  const first = useRef<HTMLButtonElement>(null);
+  const hintId = useId();
+  useEffect(() => {
+    if (!focus) return;
+    // After the sheet's own focus (its effect runs after this one), so closing still returns to the opener.
+    const frame = requestAnimationFrame(() => {
+      first.current?.focus();
+      first.current?.scrollIntoView?.({ block: 'center' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [focus]);
+  const start = async (kind: 'detect' | 'pick') => {
+    setSaid(null);
+    const was = configured;
+    const result = await run(kind === 'detect' ? { type: 'detectPotPlayer' } : { type: 'pickPotPlayer' }, { slot: 'player', key: 'player-' + kind });
+    if (result.ok && result.status !== 'cancelled') setPending({ taskId: result.status === 'started' ? result.taskId : null, kind, was });
+  };
+  const running = pending?.taskId ? tasks.find(t => t.id === pending.taskId) ?? null : null;
+  useEffect(() => {
+    if (!pending || running) return;
+    // Answered at once (applied), or a task that ended with a player now on record that was not before.
+    if (!pending.taskId || (!pending.was && configured)) setSaid(pending.kind === 'detect' ? '已找到 PotPlayer。' : '已设置 PotPlayer。');
+    setPending(null);
+  }, [pending, running, configured]);
+  useEffect(() => {
+    if (!said) return;
+    const timer = setTimeout(() => setSaid(null), 6000);
+    return () => clearTimeout(timer);
+  }, [said]);
+  const spinning = (kind: 'detect' | 'pick') => isPending('player-' + kind) || (!!running && pending?.kind === kind);
+  const busy = !!running || isPending('player-detect') || isPending('player-pick');
+  return (
+    <Group title="MV 播放">
+      <div className={`${styles.row} ${styles.playerRow}`}>
+        <div className={styles.rowLabel}>
+          <span className={styles.playerName}>PotPlayer
+            <span className={`cdp-badge ${configured ? 'cdp-badge--accent' : ''}`}>{configured ? '已指定' : '未指定'}</span>
+          </span>
+          <small id={hintId}>{configured
+            ? '已记录播放器位置，播放专辑里的 MV 时交给它打开。'
+            : '还没有记录位置。第一次播放 MV 时会在常见安装位置自动查找，也可以现在指定。'}</small>
+        </div>
+        <div className={styles.libraryActions}>
+          <button ref={first} type="button" className="cdp-btn cdp-btn--quiet" disabled={!online || busy} aria-describedby={hintId}
+            onClick={() => void start('detect')}>
+            {spinning('detect') ? <span className="cdp-spinner" /> : <Icon name="search" size={17} />} 自动查找
+          </button>
+          <button type="button" className="cdp-btn cdp-btn--quiet" disabled={!online || busy} aria-describedby={hintId}
+            onClick={() => void start('pick')}>
+            {spinning('pick') ? <span className="cdp-spinner" /> : <Icon name="folder" size={17} />} 选择程序…
+          </button>
+        </div>
+      </div>
+      {(running || said) && (
+        <p className={styles.playerStatus} role="status">
+          {running ? <>
+            <span>{running.status === 'cancelling' ? '正在取消…'
+              : pending?.kind === 'detect' ? '正在常见安装位置查找 PotPlayer…' : '请在弹出的窗口中选择 PotPlayer 程序（PotPlayerMini64.exe 等）。'}</span>
+            {running.cancellable && running.status !== 'cancelling' && (
+              <button type="button" className="cdp-btn cdp-btn--text"
+                onClick={() => void run({ type: 'cancelTask', taskId: running.id }, { slot: 'player', key: 'cancel-' + running.id })}>取消</button>
+            )}
+          </> : <><Icon name="check" size={15} /><span>{said}</span></>}
+        </p>
+      )}
+      {/* A failure (not found, not PotPlayer, busy) is said here, next to the buttons. */}
+      <InlineError slot="player" className={styles.playerError} />
+    </Group>
   );
 }
 

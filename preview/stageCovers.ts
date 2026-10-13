@@ -5,7 +5,7 @@
  */
 import type { Album, LibrarySnapshot, Track } from '../src/contracts/player.ts';
 
-export type CoverKind = 'night' | 'snow' | 'ash' | 'ember' | 'citrus';
+export type CoverKind = 'night' | 'snow' | 'ash' | 'ember' | 'citrus' | 'dusk';
 
 interface Spec { title: string; work: string; artist: string; tracks: [string, number][]; svg: string }
 
@@ -43,6 +43,19 @@ const SPECS: Record<CoverKind, Spec> = {
       <circle cx='300' cy='260' r='80' fill='#FFB020'/>
       <text x='60' y='540' fill='#FFF1E6' font-family='Arial,sans-serif' font-size='24' letter-spacing='6'>EMBER DANCEHALL</text>`),
   },
+  // MV round: a low-saturation photograph (dusk over a harbour, muted and grainy), the case where
+  // the light has least colour to give.
+  dusk: {
+    title: '港の薄暮 — Harbour Dusk', work: '港の薄暮', artist: '潮見フォトグラフ',
+    tracks: [['防波堤', 203000], ['灯台の手前で', 189000]],
+    svg: svg(`<defs><linearGradient id='s' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#8E98A3'/><stop offset='.55' stop-color='#B9A9A2'/><stop offset='1' stop-color='#7D7470'/></linearGradient>
+      <filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .22 0'/></filter></defs>
+      <rect width='600' height='600' fill='url(#s)'/>
+      <path d='M0 400 C120 370 210 385 300 372 C400 360 470 380 600 366 V600 H0Z' fill='#4F5559'/>
+      <path d='M0 470 H600 V600 H0Z' fill='#5E6669'/>
+      <rect x='430' y='300' width='10' height='80' fill='#3D4245'/><circle cx='435' cy='296' r='5' fill='#D9CBB4'/>
+      <rect width='600' height='600' filter='url(#g)'/>`),
+  },
   citrus: {
     title: 'シトラス通信', work: 'シトラス通信', artist: '蜜柑レディオ',
     tracks: [['朝のビタミン', 168000], ['レモン色の信号', 185000]],
@@ -53,7 +66,7 @@ const SPECS: Record<CoverKind, Spec> = {
 };
 
 export const COVER_KINDS = Object.keys(SPECS) as CoverKind[];
-export const COVER_LABEL: Record<CoverKind, string> = { night: '近黑', snow: '近白', ash: '中灰', ember: '饱和红', citrus: '亮黄' };
+export const COVER_LABEL: Record<CoverKind, string> = { night: '近黑', snow: '近白', ash: '中灰', ember: '饱和红', citrus: '亮黄', dusk: '低饱和照片' };
 
 export const coverUri = (kind: CoverKind) => 'data:image/svg+xml;utf8,' + encodeURIComponent(SPECS[kind].svg.replace(/\n\s*/g, ''));
 

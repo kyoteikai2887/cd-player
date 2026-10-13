@@ -1,0 +1,144 @@
+/*
+ * Music videos (MV round, Claude): a short list under the tracks, drawn in the track list's own
+ * language (rows on the page, hairlines between them, the lit row on hover) so it reads as part of
+ * the album rather than a second library. Its glyph is a small slate with a strip of film, which
+ * turns into the play mark on hover; the right edge says where it opens (PotPlayer, outside).
+ */
+.section { margin-top: 40px; }
+.head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin: 0 0 6px 12px;
+}
+.title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: var(--t-sm); font-weight: var(--w-label); color: var(--ink-2);
+}
+.count {
+  min-width: 20px; height: 20px; padding: 0 6px; border-radius: var(--r-pill);
+  display: inline-grid; place-items: center;
+  font-size: var(--t-xs); color: var(--ink-2); background: var(--fill-quiet);
+}
+
+/* While the system file picker is open (also used under the album's actions when it has no MV yet). */
+.linking {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  margin: 4px 0 8px 12px; font-size: var(--t-sm); color: var(--ink-2);
+}
+:global(.cdp) .linking :global(.cdp-spinner) { width: 14px; height: 14px; color: var(--accent-ink); }
+
+.list { display: flex; flex-direction: column; }
+.row { position: relative; border-radius: var(--r-row); corner-shape: squircle; }
+.row + .row::before {
+  content: ""; position: absolute; top: 0; left: 56px; right: 16px; height: 1px; background: var(--line);
+}
+.row:hover::before, .row:hover + .row::before,
+.row[data-mode="rename"]::before, .row[data-mode="rename"] + .row::before,
+.row[data-mode="remove"]::before, .row[data-mode="remove"] + .row::before { opacity: 0; }
+.row:hover, .row[data-mode="rename"], .row[data-mode="remove"] { background: var(--fill-hover); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-low); }
+/* A link that has just been made: lit once, then it settles into the list. */
+.row[data-fresh="true"] { animation: arrive calc(var(--d-slow) * 3) var(--ease-out); }
+@keyframes arrive {
+  from { background: var(--accent-soft); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent); }
+}
+
+.line { display: flex; align-items: center; min-height: 52px; }
+.main {
+  flex: 1; min-width: 0;
+  display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; align-items: center; gap: 14px;
+  min-height: 52px; padding: 6px 10px 6px 12px;
+  text-align: left; border-radius: var(--r-row); corner-shape: squircle;
+  --focus-radius: var(--r-row);
+}
+.glyph {
+  position: relative; display: grid; place-items: center;
+  width: 32px; height: 32px; border-radius: 9px; corner-shape: squircle;
+  color: var(--ink-2); background: var(--fill-quiet);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: color var(--d-fast) linear, background-color var(--d-fast) linear;
+}
+:global(.cdp) .glyph :global(.cdp-spinner) { width: 15px; height: 15px; color: var(--accent-ink); }
+.glyphPlay { display: none; }
+.main:hover:not(:disabled) .glyph, .main:focus-visible .glyph { color: var(--accent-ink); background: var(--accent-well); }
+.main:hover:not(:disabled) .glyphFilm, .main:focus-visible .glyphFilm { display: none; }
+.main:hover:not(:disabled) .glyphPlay, .main:focus-visible .glyphPlay { display: block; }
+.main:disabled { cursor: default; }
+
+.text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.name {
+  --role-sc: var(--font-serif-sc); --role-ja: var(--font-serif-ja);
+  font-size: calc(15px * var(--fs)); font-weight: var(--w-serif);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.name:lang(ja) { font-feature-settings: "palt"; letter-spacing: 0.02em; }
+.file { font-size: var(--t-xs); color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Where it opens: outside, in PotPlayer. After a launch the core accepted, it says so for a moment. */
+.where {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: var(--t-xs); font-weight: var(--w-label); color: var(--ink-3); white-space: nowrap;
+  transition: color var(--d-fast) linear;
+}
+.main:hover:not(:disabled) .where, .main:focus-visible .where { color: var(--ink-2); }
+.more { opacity: 0; margin-right: 6px; transition: opacity var(--d-fast) linear; }
+.row:hover .more, .row:focus-within .more, .more[aria-expanded="true"] { opacity: 1; }
+
+/* Rename: the title becomes a field in place. */
+.rename {
+  flex: 1; min-width: 0;
+  display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; align-items: center; gap: 14px;
+  padding: 8px 10px 8px 12px;
+}
+.field {
+  width: 100%; height: 34px; padding: 0 12px; margin: 0;
+  border: 0; border-radius: var(--r-row); corner-shape: squircle;
+  background: var(--field-bg-focus); box-shadow: var(--groove-rim), 0 0 0 2px var(--accent-ring);
+  color: var(--ink);
+  --role-sc: var(--font-serif-sc); --role-ja: var(--font-serif-ja);
+  font-size: calc(15px * var(--fs)); font-weight: var(--w-serif);
+  --focus-radius: var(--r-row);
+}
+.field:focus { outline: none; }
+.field[aria-invalid="true"] { box-shadow: var(--groove-rim), 0 0 0 2px color-mix(in srgb, var(--danger) 70%, transparent); }
+.renameActions, .confirmActions, .failureActions { display: inline-flex; align-items: center; gap: 8px; flex: none; }
+:global(.cdp) .row .small { height: 30px; padding: 0 14px; gap: 6px; font-size: var(--t-sm); }
+
+/* Remove (the link only): said in place, under the row. */
+.confirm {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px;
+  margin: 0 10px 0 66px; padding: 2px 0 12px;
+  font-size: var(--t-sm); color: var(--ink-2);
+}
+.confirm p { flex: 1 1 260px; min-width: 0; }
+.confirm strong { color: var(--ink); font-weight: var(--w-label); }
+
+/* A failure of this row, with what can be done about it (relink, the player's settings). */
+.failure {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px;
+  margin: 0 10px 10px 66px; padding: 6px 6px 6px 12px;
+  border-radius: var(--r-row); corner-shape: squircle;
+  font-size: var(--t-sm); color: var(--danger);
+  background: var(--danger-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--danger) 30%, transparent);
+}
+.failure > svg { flex: none; }
+.failure p { flex: 1 1 220px; min-width: 0; color: var(--ink); }
+.row[data-mode="rename"] .failure { margin-left: 66px; }
+
+.note { margin: 10px 0 0 12px; font-size: var(--t-xs); color: var(--ink-3); }
+
+@container (width < 900px) {
+  .main { grid-template-columns: 34px minmax(0, 1fr) auto; gap: 12px; }
+  .rename { grid-template-columns: 34px minmax(0, 1fr); }
+  .renameActions { grid-column: 2; justify-self: end; }
+  .confirm, .failure { margin-left: 58px; }
+}
+@container (width < 640px) {
+  .where { font-size: 0; gap: 0; }
+  .where svg { width: 16px; height: 16px; }
+}
+
+@media (forced-colors: active) {
+  .glyph { background: none; border: 1px solid CanvasText; box-shadow: none; }
+  .row[data-fresh="true"] { animation: none; }
+  .failure { border: 1px solid CanvasText; background: Canvas; }
+  .count { border: 1px solid CanvasText; background: none; }
+}

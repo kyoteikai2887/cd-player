@@ -1,11 +1,10 @@
 node_modules/
 dist/
-.native-runtime/
 .cache/
+*.local
+.vitest/
+coverage/
 .local-data/
+.native-runtime/
 src-tauri/target/
-__pycache__/
-*.pyc
-.env
-.env.*
-!.env.example
+src-tauri/gen/

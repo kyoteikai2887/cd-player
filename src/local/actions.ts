@@ -14,6 +14,7 @@ import { validateMetadataPatch } from '../core/metadata.ts';
 import { planAlbumRemoval } from '../core/library.ts';
 import type { LocalData } from './model.ts';
 import { LocalError, copy } from './model.ts';
+import { requireVideo, videoTitle } from './musicVideos.ts';
 
 export function applyLocalWrite(data: LocalData, action: UIAction) {
   const requireDocument = (id: string, revision: number) => {
@@ -37,6 +38,15 @@ export function applyLocalWrite(data: LocalData, action: UIAction) {
     data.library.revision++;
   };
   switch (action.type) {
+    case 'renameMusicVideo':
+    case 'removeMusicVideo': {
+      if (!Number.isSafeInteger(action.baseRevision)) throw new LocalError('invalidAction', '缺少 MV 修订编号。');
+      const video = requireVideo(data, action.albumId, action.videoId, action.baseRevision);
+      if (action.type === 'removeMusicVideo') delete data.musicVideos![action.videoId];
+      else { video.title = videoTitle(action.title); video.revision++; }
+      data.library.revision++;
+      return;
+    }
     case 'removeAlbum': {
       const plan = planAlbumRemoval(data.library, action.albumId, action.baseLibraryRevision);
       if (!plan.ok) throw new LocalError(plan.code, plan.message);
@@ -48,6 +58,8 @@ export function applyLocalWrite(data: LocalData, action: UIAction) {
         delete data.archivedLyrics[id];
       }
       delete data.covers[action.albumId];
+      for (const [id, video] of Object.entries(data.musicVideos ?? {}))
+        if (video.albumId === action.albumId) delete data.musicVideos![id];
       data.library = plan.library;
       return;
     }

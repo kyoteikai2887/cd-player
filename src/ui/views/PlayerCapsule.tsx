@@ -6,14 +6,16 @@ import { PlayButton, SeekBar, SkipButton, VolumeControl } from '../components/Tr
 import { InlineError } from '../lib/actions.tsx';
 import { formatClock } from '../lib/clock.ts';
 import { usePlayer, useSurface } from '../lib/surface.tsx';
+import { lightFlows } from '../lib/trailLight.ts';
 import { useRenderPos } from '../lib/useClock.ts';
 import { langHint, versionBadge } from '../lib/text.ts';
 import styles from './PlayerCapsule.module.css';
 
 /**
- * Floating transport for the shelf and album pages. Opens the now-playing view. R2.2: frosted
- * like the stage, in the colours of the album that is playing (lib/frost.ts); a little of the
- * shelf shows through it, blurred, so scrolling reads as sliding beneath frosted glass.
+ * Floating transport for the shelf and album pages. Opens the now-playing view. Frosted like the
+ * stage and the mini card, in the colours of the album that is playing, over the whole bar
+ * (lib/frost.ts, two layers of light); a little of the shelf shows through it, blurred, so
+ * scrolling reads as sliding beneath frosted glass.
  */
 export function PlayerCapsule({ onOpenNowPlaying }: { onOpenNowPlaying(): void }) {
   const { currentTrack, currentAlbum } = useSurface();
@@ -25,7 +27,7 @@ export function PlayerCapsule({ onOpenNowPlaying }: { onOpenNowPlaying(): void }
     <div className={styles.dock}>
       <InlineError slot="transport" className={styles.error} />
       <div className={`${styles.capsule} glass glass--frost glass--frost-see`} style={frost} role="region" aria-label="播放控制">
-        <Frost cover={currentAlbum?.cover ?? null} />
+        <Frost cover={currentAlbum?.cover ?? null} className={styles.light} layers={2} />
         <button type="button" className={styles.now} onClick={onOpenNowPlaying} disabled={!currentTrack}
           aria-label={currentTrack ? `打开正在播放：${currentTrack.title}` : '暂无播放'}>
           {currentAlbum ? (
@@ -50,9 +52,21 @@ export function PlayerCapsule({ onOpenNowPlaying }: { onOpenNowPlaying(): void }
           <VolumeControl compact />
         </div>
         <div className={styles.line}><SeekBar preview={preview} onPreview={setPreview} variant="line" /></div>
+        <CapsuleAmbient />
       </div>
     </div>
   );
+}
+
+/**
+ * V1.2: the bar's share of the ambient light, a short strip in its upper edge above the transport.
+ * Steady; brighter while the music is heard. Round 2: it follows the same rule as the light in the
+ * stage's star trails (lib/trailLight.ts), so paused, buffering, muted or silent both dim together.
+ */
+function CapsuleAmbient() {
+  const player = usePlayer();
+  const on = lightFlows(player);
+  return <span className={styles.ambient} aria-hidden="true" data-ambient="capsule" data-on={on ? 'true' : 'false'} />;
 }
 
 function CapsuleTime({ preview }: { preview: number | null }) {

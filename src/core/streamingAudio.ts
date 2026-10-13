@@ -1,5 +1,6 @@
 import type { AudioEngine, AudioSample } from "./audio.ts";
 import { createAudioEvents } from "./audioEvents.ts";
+import { createVisualizationTap, quietVisualization } from './audioVisualization.ts';
 
 /** Media-element decoder: never downloads an entire file into a JS ArrayBuffer. */
 export function createStreamingAudioEngine(
@@ -7,6 +8,7 @@ export function createStreamingAudioEngine(
     media?: () => HTMLAudioElement;
     url?: (id: string) => string;
     timeoutMs?: number;
+    analysisContext?: () => AudioContext;
   } = {},
 ): AudioEngine {
   const events = createAudioEvents();
@@ -20,16 +22,28 @@ export function createStreamingAudioEngine(
     media: HTMLAudioElement;
     playing: boolean;
     unwatch: () => void;
+    meter?: ReturnType<typeof createVisualizationTap>;
+    capture?: MediaStream;
+    source?: MediaStreamAudioSourceNode;
+    context?: AudioContext;
   };
   let current: Current | null = null,
     operation: AbortController | null = null;
   const timeout = options.timeoutMs ?? 5000;
+  let ownedContext: AudioContext | null = null;
+  const analysisContext = () => options.analysisContext?.() ?? (ownedContext ??= new AudioContext());
+  function releaseMeter(target: Current) {
+    target.meter?.dispose(); target.source?.disconnect();
+    target.capture?.getTracks().forEach(track => track.stop());
+    target.meter = undefined; target.capture = undefined; target.source = undefined; target.context = undefined;
+  }
   const cancel = () => {
     generation++;
     operation?.abort();
     operation = null;
   };
   function release(target: Current) {
+    releaseMeter(target);
     target.unwatch();
     target.playing = false;
     target.media.pause();
@@ -133,6 +147,7 @@ export function createStreamingAudioEngine(
     subscribe: events.subscribe,
     async activate() {
       if (disposed) throw new Error("音频引擎已关闭。");
+      try { await analysisContext().resume(); } catch { /* A missing meter cannot block media playback. */ }
     },
     async play(id, position, playing, signal) {
       if (disposed) throw new Error("音频引擎已关闭。");
@@ -205,6 +220,7 @@ export function createStreamingAudioEngine(
     },
     async resume(signal) {
       if (!current) return;
+      try { await analysisContext().resume(); } catch { /* Direct media output remains available. */ }
       const target = current,
         pending = begin(signal);
       try {
@@ -258,6 +274,25 @@ export function createStreamingAudioEngine(
         ...(media.error ? { error: mediaError(media).message } : {}),
       };
     },
+    readVisualization() {
+      const target = current;
+      if (!target || !target.playing || target.media.paused || target.media.ended || target.media.error || target.media.seeking || target.media.readyState < 3 || muted || volume <= 0)
+        return quietVisualization('idle', target?.id ?? null);
+      try {
+        const ctx = analysisContext();
+        if (target.context && target.context !== ctx) releaseMeter(target);
+        if (!target.meter) {
+          const media = target.media as HTMLAudioElement & {captureStream?(): MediaStream};
+          if (!media.captureStream || ctx.state !== 'running') return quietVisualization('unavailable', target.id);
+          const captured = media.captureStream(); target.capture = captured;
+          if (!captured.getAudioTracks().length) { releaseMeter(target); return quietVisualization('unavailable', target.id); }
+          target.context = ctx; target.source = ctx.createMediaStreamSource(captured);
+          target.meter = createVisualizationTap(ctx, target.source);
+        }
+        // captureStream is pre-volume by specification. Match the media's linear gain once.
+        return target.meter.read(target.id, volume);
+      } catch { releaseMeter(target); return quietVisualization('unavailable', target.id); }
+    },
     // Media elements do not promise sample-accurate transitions between files.
     prepareNext() {},
     setGain(value, valueMuted) {
@@ -274,6 +309,7 @@ export function createStreamingAudioEngine(
       disposed = true;
       events.dispose();
       stop();
+      if (ownedContext && ownedContext.state !== 'closed') void ownedContext.close().catch(() => {});
     },
   };
 }

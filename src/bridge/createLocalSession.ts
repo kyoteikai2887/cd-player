@@ -9,6 +9,7 @@ import type {
   UISnapshot,
   LyricsDocument,
 } from "../contracts/player.ts";
+import { quietVisualization } from '../core/audioVisualization.ts';
 import type { LocalView } from "../local/model.ts";
 import type { AudioEngine } from "../core/audio.ts";
 import type { LocalClient } from "./localClient.ts";
@@ -789,6 +790,10 @@ export function createLocalSession(options: {
           notices: state.notices.filter((n) => n.id !== action.noticeId),
         });
         return ok;
+      case 'addMusicVideo':
+      case 'relinkMusicVideo':
+      case 'pickPotPlayer':
+      case 'detectPotPlayer':
       case "importFolder":
       case 'lookupMetadata':
       case 'lookupLyrics':
@@ -827,6 +832,24 @@ export function createLocalSession(options: {
         }
         return ok;
       }
+      case 'playMusicVideo': {
+        const reply = await client.write(action, context.signal);
+        if (reply.view && !disposed) adopt(reply.view);
+        if (!reply.ok) return fail((reply.code as OperationError['code']) ?? 'io', reply.message ?? 'MV 无法打开。');
+        // Only a successful external launch pauses audio. Preserve the queue/position,
+        // cancel pending audio loads, and never resume automatically on player exit.
+        if (!disposed && (state.player.status === 'playing' || state.player.status === 'buffering')) {
+          command++;
+          engine.pause();
+          loadingAudio = false;
+          const sample = engine.sample();
+          publish({ player: { ...state.player, status: 'paused',
+            positionMs: sample.trackId === state.player.currentTrackId ? sample.positionMs : state.player.positionMs } }, true);
+        }
+        return ok;
+      }
+      case 'renameMusicVideo':
+      case 'removeMusicVideo':
       case "saveLyrics":
       case "setLyricsOffset":
       case "setNoLyrics":
@@ -907,6 +930,18 @@ export function createLocalSession(options: {
   }
   const ticker = options.autoTick === false ? null : setInterval(tick, 200);
   const unsubscribeAudio = engine.subscribe?.(tick);
+  const visualization = {
+    read() {
+      const player = state.player;
+      if (disposed || player.status !== 'playing' || player.muted || player.volume <= 0)
+        return quietVisualization('idle', player.currentTrackId);
+      try {
+        const frame = engine.readVisualization?.();
+        if (frame && frame.trackId === player.currentTrackId) return frame;
+        return quietVisualization('unavailable', player.currentTrackId);
+      } catch { return quietVisualization('unavailable', player.currentTrackId); }
+    },
+  };
   return {
     connect(surface: Surface): PlayerBridge & {
       dispatchWithBudget(
@@ -953,6 +988,7 @@ export function createLocalSession(options: {
         return bounded.dispatch(action, budgetMs);
       };
       return {
+        ...(surface === 'main' ? { visualization } : {}),
         getSnapshot: () => connection.cached,
         subscribe(listener) {
           connection.listeners.add(listener);
@@ -967,6 +1003,7 @@ export function createLocalSession(options: {
       };
     },
     tick,
+    visualization,
     requestExit: guard.requestExit,
     hasUnsavedChanges: guard.hasUnsavedChanges,
     destroy() {

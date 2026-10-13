@@ -22,7 +22,8 @@
   --text-x: calc(var(--pad-l) + var(--case) + var(--art-gap) + var(--col-gap));
   column-gap: var(--col-gap);
   margin: 4px 0 28px;
-  padding: 24px 44px 24px var(--pad-l);
+  --pad-r: 44px;
+  padding: 24px var(--pad-r) 24px var(--pad-l);
   border-radius: var(--r-panel); corner-shape: squircle;
   overflow: hidden;
   box-shadow: var(--glass-rim), 0 22px 50px -32px rgba(15, 45, 80, 0.45);
@@ -37,10 +38,45 @@
      averaged, veils the field in grey), each a little thinner, so the floors match the surface in
      tone but are smooth and a touch clearer. */
   --etch-floor: 58%; --etch-veil: rgba(128, 128, 128, 0.15);
+  /* V1.2 (Claude). The pole of the star trails: high over the memorial etching, in the free glass. */
+  --sky-cx: calc(100% - var(--etch-r) - var(--etch-h) * 0.63); --sky-cy: 24%;
+  /* Round 2: the text column below the title is two columns, the credit, track, facts and buttons
+     (--info-w, wide enough for the buttons and four facts at the current type size) and the music
+     field beside them (up to --viz-w, its drawing's width), then the room the etching needs.
+     --viz-l and --viz-end are where the field starts and ends, for the sky's mask. */
+  --info-w: max(240px, calc(272px * var(--fs, 1)));
+  --viz-gap: 20px; --viz-w: 336px; --viz-span: 336px;
+  --etch-room: 0px;
+  --viz-l: calc(var(--text-x) + var(--info-w) + var(--viz-gap));
+  --viz-end: calc(var(--viz-l) + var(--viz-span));
+  /* The star trails come to full strength after the field (.sky); with the pattern off, from where it would start. */
+  --sky-dim: calc(var(--viz-end) - 30px); --sky-full: calc(var(--viz-end) + 70px);
+  /* Etched lines on the pale papers: a cool shade and a white lit wall. */
+  --trail-floor: color-mix(in srgb, var(--paper) 62%, transparent);
+  --trail-shade: rgba(28, 48, 78, 0.18); --trail-lit: rgba(255, 255, 255, 0.42); --trail-bright: 46%;
+  /* On paper the arcs take the accent's fill (its ink is near black there); on charcoal, its light ink. */
+  --viz-arc: color-mix(in srgb, var(--accent-fill) 80%, var(--accent-ink));
+  --viz-groove: rgba(28, 48, 78, 0.17); --viz-groove-lit: rgba(255, 255, 255, 0.62);
+  --viz-slot: rgba(28, 48, 78, 0.085); --viz-slot-lit: rgba(255, 255, 255, 0.7); --viz-seat-fill: color-mix(in srgb, var(--paper) 70%, transparent);
+  /* The cold light (components/TrailLight.tsx), round 4: the music field's colours. The tail is its
+     bars' colour, the accent itself; the head is its peaks' colour with a moderate white: on paper
+     the peaks' deeper accent a quarter white, on charcoal (below) the peaks' own light ink. The glow
+     round the head is the accent's light tint. All follow the accent, in every theme and over every cover. */
+  --flow-body: var(--accent-fill);
+  --flow-head: color-mix(in srgb, var(--viz-arc) 75%, #fff);
+  --flow-glow: var(--accent-hi);
 }
+.stage[data-viz="false"] { --sky-dim: calc(var(--viz-l) - 40px); --sky-full: calc(var(--viz-l) + 60px); }
+/* The field stops short of the etching: its width and its gap, less the stage's own padding. */
+.stage[data-etch="true"] { --etch-room: calc(var(--etch-r) + var(--etch-h) * 422 / 336 + 18px - var(--pad-r)); }
 :global(.cdp[data-theme="blue"]) .stage { --frost-clear: 8%; --etch-floor: 66%; }
 :global(.cdp[data-theme="charcoal"]) .stage {
   --frost-clear: 16%; --etch-floor: 28%; --etch-veil: rgba(140, 146, 156, 0.34);
+  --trail-floor: color-mix(in srgb, var(--paper) 38%, transparent);
+  --trail-shade: rgba(0, 0, 0, 0.44); --trail-lit: rgba(255, 255, 255, 0.14); --trail-bright: 38%;
+  --viz-groove: rgba(0, 0, 0, 0.42); --viz-groove-lit: rgba(255, 255, 255, 0.12); --viz-arc: var(--accent-ink);
+  --flow-head: var(--viz-arc);
+  --viz-slot: rgba(0, 0, 0, 0.3); --viz-slot-lit: rgba(255, 255, 255, 0.13); --viz-seat-fill: color-mix(in srgb, var(--paper) 50%, transparent);
   box-shadow: var(--glass-rim), 0 22px 50px -30px rgba(0, 0, 0, 0.7);
 }
 
@@ -129,9 +165,77 @@
     color-mix(in srgb, var(--paper) var(--etch-floor), transparent);
 }
 
+/* ── Star trails (Claude, V1.2) ─────────────────────────
+   A long exposure etched into the glass, turning round a pole over the memorial etching. Full
+   strength in the free glass on the right, thinned to a trace behind the text, the buttons and the
+   music field (round 2: so the field reads on its own when it is quiet), and cut away round the
+   memorial etching so the two figures keep their outline. The cold light wears the same mask
+   (round 4), so it is seen exactly as much as the trail it runs in. */
+.sky, .flow {
+  -webkit-mask-image: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.85) calc(var(--text-x) - 70px), rgba(0, 0, 0, 0.32) calc(var(--text-x) + 10px),
+    rgba(0, 0, 0, 0.32) var(--sky-dim), #000 var(--sky-full));
+  mask-image: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.85) calc(var(--text-x) - 70px), rgba(0, 0, 0, 0.32) calc(var(--text-x) + 10px),
+    rgba(0, 0, 0, 0.32) var(--sky-dim), #000 var(--sky-full));
+}
+.stage[data-etch="true"] .sky, .stage[data-etch="true"] .flow {
+  --cut-w: calc(var(--etch-h) * 422 / 336 + 56px); --cut-h: calc(var(--etch-h) + 44px);
+  -webkit-mask-image:
+    linear-gradient(90deg,
+      rgba(0, 0, 0, 0.85) calc(var(--text-x) - 70px), rgba(0, 0, 0, 0.32) calc(var(--text-x) + 10px),
+      rgba(0, 0, 0, 0.32) var(--sky-dim), #000 var(--sky-full)),
+    radial-gradient(closest-side, #000 62%, transparent);
+  -webkit-mask-size: 100% 100%, var(--cut-w) var(--cut-h);
+  -webkit-mask-position: 0 0, right calc(var(--etch-r) - 28px) bottom calc(var(--etch-b) - 22px);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-composite: source-out;
+  mask-image:
+    linear-gradient(90deg,
+      rgba(0, 0, 0, 0.85) calc(var(--text-x) - 70px), rgba(0, 0, 0, 0.32) calc(var(--text-x) + 10px),
+      rgba(0, 0, 0, 0.32) var(--sky-dim), #000 var(--sky-full)),
+    radial-gradient(closest-side, #000 62%, transparent);
+  mask-size: 100% 100%, var(--cut-w) var(--cut-h);
+  mask-position: 0 0, right calc(var(--etch-r) - 28px) bottom calc(var(--etch-b) - 22px);
+  mask-repeat: no-repeat;
+  mask-composite: subtract;
+}
+
+/* ── Music field (Claude, V1.2; round 2) ───────────────
+   A column of the text block (see .info): from the credit's row down to the buttons' row, so the
+   drawing is as tall as the facts beside it, its matrix at the credit's height and its arcs at the
+   buttons' lower edge, whatever the title's length. It starts a fixed step after the facts, so it
+   stays with them on a wide stage, and keeps its own proportions (lib/stageViz.ts). The box is a
+   container: too narrow for the field to read, the field is left out and only the trails remain.
+   (Round 1's strip of light under the field is gone: the cold light now runs in the star trails,
+   components/TrailLight.tsx.) */
+.viz {
+  grid-area: viz; align-self: stretch; justify-self: stretch;
+  position: relative; min-width: 0; min-height: 0; margin-left: var(--viz-gap);
+  container: stage-viz / inline-size;
+  pointer-events: none;
+}
+.field { position: absolute; inset: 0; }
+@container stage-viz (width < 120px) { .field { display: none; } }
+
 /* ── Content ───────────────────────────────────────── */
-.info { position: relative; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
+/* Round 2: a grid. The eyebrow and the title take the whole width; under them the credit, track, facts
+   and buttons share a column of their own width (long ones end in an ellipsis or wrap inside it),
+   the music field takes the next, and the last keeps the etching's room. */
+.info {
+  position: relative; min-width: 0;
+  display: grid; align-items: start; justify-items: start;
+  grid-template-columns: var(--info-w) minmax(0, calc(var(--viz-gap) + var(--viz-w))) minmax(var(--etch-room), 1fr);
+  grid-template-areas:
+    "eyebrow eyebrow eyebrow"
+    "title   title   title"
+    "credit  viz     ."
+    "track   viz     ."
+    "facts   viz     ."
+    "actions viz     .";
+}
 .eyebrow {
+  grid-area: eyebrow; max-width: 100%;
   display: flex; align-items: center; flex-wrap: wrap; gap: 6px 16px;
   font-size: var(--t-xs); color: var(--accent-ink);
 }
@@ -144,6 +248,7 @@
 .work:lang(ja) { font-feature-settings: "palt"; }
 .title {
   --role-sc: var(--font-display-sc); --role-ja: var(--font-display-ja);
+  grid-area: title; max-width: min(100%, 26em);
   margin-top: 10px;
   font-size: clamp(24px, 3.2cqi, 38px); font-weight: var(--w-serif); line-height: 1.16; letter-spacing: 0.005em;
   color: var(--ink);
@@ -152,11 +257,13 @@
 }
 .title:lang(ja) { font-feature-settings: "palt"; letter-spacing: 0.02em; }
 .credit {
+  grid-area: credit;
   margin-top: 7px; max-width: 100%;
   font-size: var(--t-lg); color: var(--ink-2);
   overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
 }
 .track {
+  grid-area: track;
   display: inline-flex; align-items: center; gap: 8px; max-width: 100%;
   margin-top: 14px; height: 32px; padding: 0 14px 0 11px;
   border-radius: var(--r-pill);
@@ -174,17 +281,18 @@
 }
 .trackNo { flex: none; font-size: var(--t-xs); color: var(--ink-3); }
 .facts {
+  grid-area: facts; max-width: 100%;
   display: flex; flex-wrap: wrap; gap: 8px 20px;
   margin-top: 16px; list-style: none;
   font-size: var(--t-sm); color: var(--ink-2);
 }
 .facts li { display: inline-flex; align-items: center; gap: 6px; }
 .facts svg { color: var(--ink-3); }
-.actions { display: flex; align-items: center; gap: 12px; margin-top: 22px; }
+.actions { grid-area: actions; display: flex; align-items: center; gap: 12px; margin-top: 22px; }
 
 /* Smaller windows: a compact stage, so the shelf stays in view. */
 @container (width < 1100px) or (height < 720px) {
-  .stage { --pad-l: 20px; --case: 124px; --art-gap: calc(var(--case) * 0.36); padding: 16px 24px 16px var(--pad-l); margin-bottom: 22px; }
+  .stage { --pad-l: 20px; --pad-r: 24px; --case: 124px; --art-gap: calc(var(--case) * 0.36); padding: 16px var(--pad-r) 16px var(--pad-l); margin-bottom: 22px; }
   .disc { transform: translateX(36%); }
   .art:hover .disc { transform: translateX(40%); }
   .stage[data-in-player="false"] .disc { transform: translateX(26%); }
@@ -198,10 +306,16 @@
   .actions :global(.cdp-icon-btn--lg) { width: 38px; height: 38px; }
   .etch { display: none; }               /* no room beside the compact text */
   .stage[data-etch="true"] .light::after { -webkit-mask: none; mask: none; }
+  /* V1.2 round 2: the same column, at the height of the compact credit, facts and buttons (the drawing
+     scales with it, about 0.58); no etching to keep clear of. */
+  .stage, .stage[data-etch="true"] { --info-w: max(220px, calc(262px * var(--fs, 1))); --viz-gap: 18px; --viz-span: 194px; --etch-room: 0px; }
+  .viz { margin-top: 4px; }              /* the one-line title is close above: its tallest column keeps clear of it */
+  .stage[data-etch="true"] .sky, .stage[data-etch="true"] .flow { -webkit-mask-size: 100% 100%, 0 0; mask-size: 100% 100%, 0 0; }
 }
 
 @media (forced-colors: active) {
   .stage { border: 1px solid CanvasText; }
   .track { border: 1px solid ButtonText; }
   .etch { display: none; }
+  .sky, .viz, .flow { display: none; }
 }

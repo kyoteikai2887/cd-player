@@ -6,6 +6,9 @@ import type {
 } from '../contracts/player.ts';
 
 export interface LocalData {
+  /** Optional extension: old stores open without a destructive migration. */
+  musicVideos?: Record<string, { albumId: string; revision: number; title: string; path: string }>;
+  potPlayerPath?: string;
   schemaVersion: 1;
   library: LibrarySnapshot;
   lyricsByTrack: Record<string, LyricsDocument>;

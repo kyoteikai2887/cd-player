@@ -486,7 +486,7 @@ async fn push_snapshot(
         merge_snapshot(&mut value, &delta);
         value
     };
-    if value["contractVersion"] != "0.4.0"
+    if value["contractVersion"] != "0.6.0"
         || !value["settings"].is_object()
         || !value["player"].is_object()
     {

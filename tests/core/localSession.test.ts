@@ -99,6 +99,28 @@ function setup() {
   };
 }
 
+test('MV launch failure leaves audio playing; success pauses both surfaces and preserves the queue', async () => {
+  const { session, client, engine } = setup(), main = session.connect('main'), mini = session.connect('mini');
+  try {
+    const album = client.initial.library.albums[0];
+    await main.dispatch({ type: 'playAlbum', albumId: album.id });
+    const before = main.getSnapshot().player;
+    assert.equal(before.status, 'playing');
+    const action = { type: 'playMusicVideo', albumId: album.id, videoId: 'test-mv' } as const;
+    client.write = async () => ({ ok: false, code: 'fileMissing', message: '请重新关联文件位置。' });
+    assert.equal((await main.dispatch(action)).ok, false);
+    assert.equal(main.getSnapshot().player.status, 'playing');
+    assert.equal(engine.sample().playing, true);
+    client.write = async () => ({ ok: true, view: client.initial });
+    assert.equal((await main.dispatch(action)).ok, true);
+    assert.equal(main.getSnapshot().player.status, 'paused');
+    assert.equal(mini.getSnapshot().player.status, 'paused');
+    assert.equal(engine.sample().playing, false);
+    assert.deepEqual(main.getSnapshot().player.queue, before.queue);
+    assert.equal(main.getSnapshot().player.currentTrackId, before.currentTrackId);
+  } finally { session.destroy(); }
+});
+
 test('online review transitions reach both surfaces; adoption publishes the new library before the result', async () => {
   const { session, client } = setup(), main = session.connect('main'), mini = session.connect('mini');
   const album = client.initial.library.albums[0], review = { id: 'review-online', albumId: album.id, baseLibraryRevision: client.initial.library.revision,
@@ -251,6 +273,22 @@ test("real session keeps one audio engine across surfaces and publishes atomic t
     session.destroy();
     assert.equal(stopped(), true);
   }
+});
+test('visualization is main-only, pull-only, and cannot publish snapshots or resurrect paused playback', async () => {
+  const {session,engine}=setup(), main=session.connect('main'), mini=session.connect('mini');
+  let reads=0;
+  engine.readVisualization=()=>{reads++;return {status:'live',source:'audio',trackId:main.getSnapshot().player.currentTrackId,rms:0.2,peak:0.3,level:0.7,bands:Array(24).fill(0.5)};};
+  try {
+    assert.equal(mini.visualization,undefined);
+    await main.dispatch({type:'playAlbum',albumId:'album-blue'});
+    const snapshot=main.getSnapshot();let updates=0;const unsub=main.subscribe(()=>updates++);
+    for(let i=0;i<30;i++)assert.equal(main.visualization!.read().status,'live');
+    assert.equal(reads,30);assert.equal(updates,0);assert.strictEqual(main.getSnapshot(),snapshot);
+    await mini.dispatch({type:'setVolume',volume:0.25});assert.equal(main.getSnapshot().player.volume,0.25);
+    await mini.dispatch({type:'setMuted',muted:true});assert.equal(main.visualization!.read().level,0);
+    await mini.dispatch({type:'togglePlayback'});assert.equal(main.visualization!.read().status,'idle');
+    unsub();session.destroy();assert.equal(main.visualization!.read().status,'idle');
+  } finally {session.destroy();}
 });
 test("consecutive duplicate tracks advance entry identity at an audio cycle boundary", async () => {
   const { session, setSample } = setup(),

@@ -14,6 +14,9 @@ import { prepareLyricsReview, selectedLyrics } from '../local/online/candidates.
 import type { LyricSearchRecord, PreparedLyricsReview } from '../local/online/candidates.ts';
 
 export interface MockOptions {
+  /** MV UI preview only: no local paths and no external process. */
+  musicVideos?: boolean;
+  videoError?: OperationError;
   searchLyrics?: (track: Track, signal: AbortSignal) => Promise<LyricSearchRecord[]>;
   scenario?: DemoScenario; autoTick?: boolean; now?: () => number; taskDelayMs?: number;
   importText?: (action: Extract<UIAction, { type: 'importLyrics' }>, signal: AbortSignal) => Promise<string | null>;
@@ -34,6 +37,13 @@ const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
 /** One simulated core can serve two mounted surfaces; standalone bridges own private data. */
 export function createMockSession(options: MockOptions = {}): MockSession {
   const data = createDemoData(options.scenario);
+  if (options.musicVideos && data.library.albums[0]) {
+    data.library.albums[0].musicVideos = [
+      { id: 'demo-mv-1', revision: 0, title: 'Music Video', fileName: 'Music Video.mkv' },
+      { id: 'demo-mv-2', revision: 0, title: 'Special Movie', fileName: 'Special Movie.mkv' },
+    ];
+    data.settings.potPlayerConfigured = true;
+  }
   const documents = data.lyricsByTrack;
   let preparedLyrics: PreparedLyricsReview | null = null;
   const archived = new Map<string, LyricsDocument>();
@@ -155,6 +165,40 @@ export function createMockSession(options: MockOptions = {}): MockSession {
   async function handle(action: UIAction, surface: Surface): Promise<ActionResult> {
     if (disposed || options.scenario === 'disconnected') return failure('unavailable', '演示播放核心未响应。');
     switch (action.type) {
+      case 'pickPotPlayer':
+      case 'detectPotPlayer':
+        if (options.videoError) return failure(options.videoError.code, options.videoError.message);
+        publish({ settings: { ...state.settings, potPlayerConfigured: true } });
+        return applied;
+      case 'addMusicVideo':
+      case 'relinkMusicVideo':
+      case 'renameMusicVideo':
+      case 'removeMusicVideo':
+      case 'playMusicVideo': {
+        const album = state.library.albums.find(a => a.id === action.albumId);
+        if (!album) return failure('notFound', '专辑不存在。');
+        const video = action.type !== 'addMusicVideo' && album.musicVideos?.find(v => v.id === action.videoId);
+        if (action.type !== 'addMusicVideo' && !video) return failure('notFound', 'MV 关联不存在。');
+        if ('baseRevision' in action && video && video.revision !== action.baseRevision)
+          return failure('conflict', 'MV 关联已变化，请刷新后再操作。');
+        if (options.videoError) return failure(options.videoError.code, options.videoError.message);
+        if (action.type === 'playMusicVideo') {
+          publish({ player: { ...state.player, status: state.player.currentTrackId ? 'paused' : 'idle' },
+            notices: [...state.notices, { id: nextId(), tone: 'info', message: '演示：已模拟交给 PotPlayer；没有启动真实播放器。' }] }, true);
+          return applied;
+        }
+        if (action.type === 'renameMusicVideo' && (!action.title.trim() || [...action.title.trim()].length > 200 || /[\u0000-\u001f\u007f]/.test(action.title)))
+          return failure('invalidAction', 'MV 名称须为 1 至 200 个字符，不能包含控制字符。');
+        const videos = action.type === 'addMusicVideo'
+          ? [...(album.musicVideos ?? []), { id: nextId(), revision: 0, title: '演示 MV', fileName: '演示 MV.mkv' }]
+          : action.type === 'removeMusicVideo'
+            ? album.musicVideos!.filter(v => v.id !== action.videoId)
+            : album.musicVideos!.map(v => v.id !== action.videoId ? v : { ...v, revision: v.revision + 1,
+              ...(action.type === 'renameMusicVideo' ? { title: action.title.trim() } : { fileName: '重新关联 MV.mkv' }) });
+        publish({ library: { ...state.library, revision: state.library.revision + 1,
+          albums: state.library.albums.map(a => a.id === album.id ? { ...a, musicVideos: videos } : a) } });
+        return applied;
+      }
       case 'removeAlbum': {
         const plan = planAlbumRemoval(state.library, action.albumId, action.baseLibraryRevision);
         if (!plan.ok) return failure(plan.code, plan.message);

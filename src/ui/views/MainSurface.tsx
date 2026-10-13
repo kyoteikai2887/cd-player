@@ -36,7 +36,8 @@ export function MainSurface({ snapshot }: { snapshot: UISnapshot }) {
   const [tab, setTab] = useState<LibraryTab>(boot.libraryTab ?? (TABS.includes(prefs.libraryTab as LibraryTab) ? prefs.libraryTab as LibraryTab : 'albums'));
   const [sort, setSort] = useState<SortKey>(SORTS.includes(prefs.sort as SortKey) ? prefs.sort as SortKey : 'added');
   const [query, setQuery] = useState(boot.query ?? '');
-  const [settingsOpen, setSettingsOpen] = useState(boot.overlay === 'settings');
+  /** 'player': opened from a music video that would not launch, at the PotPlayer row (MV round). */
+  const [settingsOpen, setSettingsOpen] = useState<false | true | 'player'>(boot.overlay === 'settings' ? true : boot.overlay === 'playerSettings' ? 'player' : false);
   /** The metadata editor is UI-local: its drafts live in it until saved or discarded. */
   const [metaEdit, setMetaEdit] = useState<{ albumId: string; trackId?: string } | null>(() =>
     boot.metadataEditor ? { albumId: boot.metadataEditor.albumId } : null);
@@ -182,7 +183,7 @@ export function MainSurface({ snapshot }: { snapshot: UISnapshot }) {
           {effective.name === 'album' && routeAlbum && (
             <AlbumDetail key={routeAlbum.id} album={routeAlbum} lyricsByCurrent={snapshot.lyrics} tasks={snapshot.tasks}
               onOpenNowPlaying={openNowPlaying} onEditMetadata={trackId => setMetaEdit({ albumId: routeAlbum.id, trackId })}
-              onRemove={() => openRemoval(routeAlbum.id)} />
+              onRemove={() => openRemoval(routeAlbum.id)} onOpenPlayerSettings={() => setSettingsOpen('player')} />
           )}
         </div>
       </div>
@@ -193,7 +194,7 @@ export function MainSurface({ snapshot }: { snapshot: UISnapshot }) {
           onOpenAlbum={albumId => navigate({ name: 'album', albumId }, albumId)} />
       )}
       <Notices notices={snapshot.notices} placement={inNowPlaying ? 'nowPlaying' : hasPlayback ? 'capsule' : 'plain'} />
-      {settingsOpen && <SettingsSheet onClose={() => setSettingsOpen(false)} />}
+      {settingsOpen && <SettingsSheet focus={settingsOpen === 'player' ? 'player' : undefined} tasks={snapshot.tasks} onClose={() => setSettingsOpen(false)} />}
       {metaEdit && <MetadataEditor key={metaEdit.albumId} albumId={metaEdit.albumId} focusTrackId={metaEdit.trackId}
         tasks={snapshot.tasks} onClose={() => setMetaEdit(null)} />}
       {snapshot.lyricsEditor && <LyricsEditorSheet editor={snapshot.lyricsEditor} tasks={snapshot.tasks} />}

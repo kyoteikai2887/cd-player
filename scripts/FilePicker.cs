@@ -26,7 +26,7 @@ internal static class FilePicker
                 return 0;
             }
             if (args.Length != 2 || args[0] != "--kind" ||
-                (args[1] != "folder" && args[1] != "lyrics" && args[1] != "cover"))
+                (args[1] != "folder" && args[1] != "lyrics" && args[1] != "cover" && args[1] != "musicVideo" && args[1] != "potPlayer"))
             {
                 Console.Error.Write("Invalid picker arguments");
                 return 2;
@@ -46,8 +46,8 @@ internal static class FilePicker
             {
                 using (var dialog = new OpenFileDialog())
                 {
-                    dialog.Title = args[1] == "lyrics" ? "选择歌词文件" : "选择封面图片";
-                    dialog.Filter = args[1] == "lyrics" ? "歌词文件|*.lrc;*.txt" : "封面图片|*.jpg;*.jpeg;*.png;*.webp";
+                    dialog.Title = args[1] == "lyrics" ? "选择歌词文件" : args[1] == "musicVideo" ? "关联 MV（只记录位置，不复制文件）" : args[1] == "potPlayer" ? "选择 PotPlayer 播放器程序" : "选择封面图片";
+                    dialog.Filter = args[1] == "lyrics" ? "歌词文件|*.lrc;*.txt" : args[1] == "musicVideo" ? "MKV 视频|*.mkv" : args[1] == "potPlayer" ? "PotPlayer 程序|PotPlayerMini64.exe;PotPlayerMini.exe;PotPlayer64.exe;PotPlayer.exe" : "封面图片|*.jpg;*.jpeg;*.png;*.webp";
                     dialog.CheckFileExists = true;
                     dialog.Multiselect = false;
                     if (dialog.ShowDialog() == DialogResult.OK)

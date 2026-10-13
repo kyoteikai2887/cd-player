@@ -1,4 +1,6 @@
 import { createAudioEvents } from "./audioEvents.ts";
+import type { AudioVisualizationFrame } from '../contracts/player.ts';
+import { createVisualizationTap, quietVisualization } from './audioVisualization.ts';
 
 /** Audio output stays behind this port, independent of React and desktop-window ownership. */
 export interface AudioSample {
@@ -31,6 +33,9 @@ export interface AudioEngine {
   destroy(): void;
   /** Optional internal sizing hint for decodeAudioData's output resampling. */
   outputSampleRate?(): number;
+  /** Shared context for an optional passive streaming meter. */
+  analysisContext?(): AudioContext;
+  readVisualization?(): AudioVisualizationFrame;
   /** Internal end/output notifications; position snapshots still use a 5 Hz timer. */
   subscribe?(listener: () => void): () => void;
 }
@@ -42,6 +47,8 @@ export function createWebAudioEngine(
   } = {},
 ): AudioEngine {
   const events = createAudioEvents();
+  let meter: ReturnType<typeof createVisualizationTap> | null = null;
+  let meterTried = false;
   let context: AudioContext | null = null,
     gain: GainNode | null = null,
     disposed = false;
@@ -213,6 +220,7 @@ export function createWebAudioEngine(
     }
     context.removeEventListener("statechange", events.notify);
     gain?.disconnect();
+    meter?.dispose(); meter = null; meterTried = false;
     context = null;
     gain = null;
   }
@@ -233,6 +241,16 @@ export function createWebAudioEngine(
   return {
     subscribe: events.subscribe,
     outputSampleRate: () => ensure().sampleRate,
+    analysisContext: ensure,
+    readVisualization() {
+      const sampled = sample();
+      if (!sampled.playing || sampled.buffering || muted || volume <= 0) return quietVisualization('idle', sampled.trackId);
+      if (!meterTried && context && gain) {
+        meterTried = true;
+        try { meter = createVisualizationTap(context, gain); } catch { /* Playback takes priority. */ }
+      }
+      return meter?.read(sampled.trackId!) ?? quietVisualization('unavailable', sampled.trackId);
+    },
     async activate() {
       recoverClosedOutput();
       await ensure().resume();
@@ -333,6 +351,7 @@ export function createWebAudioEngine(
     },
     stop() {
       playGeneration++;
+      meter?.dispose(); meter = null; meterTried = false;
       cancelNext();
       stopSource(current?.source ?? null);
       current = null;
@@ -341,6 +360,7 @@ export function createWebAudioEngine(
       if (disposed) return;
       disposed = true;
       events.dispose();
+      meter?.dispose(); meter = null;
       context?.removeEventListener("statechange", events.notify);
       cancelNext();
       stopSource(current?.source ?? null);

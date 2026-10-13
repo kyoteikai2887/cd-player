@@ -17,8 +17,10 @@ export function CoverLight({ cover, className, style, layers = 1 }: {
   const shown = !!url && failed !== url;
   return (
     <div className={className} style={style} aria-hidden="true">
+      {/* Keyed by the image, so a new album's light starts from a fresh element: the old cover is
+          gone at once instead of lingering until the new one has decoded (MV round). */}
       {shown && Array.from({ length: layers }, (_, i) => (
-        <img key={i} src={url} alt="" draggable={false} decoding="async" data-layer={layers > 1 ? i : undefined} onError={() => setFailed(url)} />
+        <img key={url + '#' + i} src={url} alt="" draggable={false} decoding="async" data-layer={layers > 1 ? i : undefined} onError={() => setFailed(url)} />
       ))}
     </div>
   );

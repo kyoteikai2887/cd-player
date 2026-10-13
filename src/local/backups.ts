@@ -39,6 +39,13 @@ export function parseLocalData(text: string): LocalData {
     !Array.isArray(data.roots) ||
     !record(data.files) ||
     !record(data.covers) ||
+    (data.potPlayerPath !== undefined && (typeof data.potPlayerPath !== 'string' || !data.potPlayerPath)) ||
+    (data.musicVideos !== undefined && (!record(data.musicVideos) ||
+      Object.entries(data.musicVideos).some(([id, value]) => !id || !record(value) ||
+        typeof value.albumId !== 'string' || !value.albumId ||
+        typeof value.title !== 'string' || !value.title.trim() || [...value.title].length > 200 ||
+        typeof value.path !== 'string' || !path.isAbsolute(value.path) || path.extname(value.path).toLowerCase() !== '.mkv' ||
+        !Number.isSafeInteger(value.revision) || value.revision < 0))) ||
     (data.excludedTrackIds !== undefined && (!record(data.excludedTrackIds) ||
       Object.values(data.excludedTrackIds).some(value => !Number.isSafeInteger(value) || value < 0))) ||
     (data.fileIdentities !== undefined && (!record(data.fileIdentities) ||

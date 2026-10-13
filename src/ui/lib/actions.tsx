@@ -9,7 +9,7 @@ import type { ActionResult, UIAction } from '../../contracts/player.ts';
  * - ok:false is shown inline in the slot that started it (the core sends no Notice for it).
  * - cancelled is quiet and clears the slot.
  */
-export type Slot = 'library' | 'album' | 'transport' | 'lyrics' | 'queue' | 'settings' | 'mini' | 'metadata' | 'editor' | 'metaEdit' | 'remove' | 'review';
+export type Slot = 'library' | 'album' | 'transport' | 'lyrics' | 'queue' | 'settings' | 'mini' | 'metadata' | 'editor' | 'metaEdit' | 'remove' | 'review' | 'video' | 'player';
 
 export interface RunOptions { slot: Slot; key?: string }
 export interface ActionsApi {

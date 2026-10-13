@@ -13,10 +13,41 @@
   border-radius: var(--r-panel); corner-shape: squircle;
   overflow: hidden;
   animation: riseIn var(--d-slow) var(--ease-out);
-  /* Frost: a little of the cover's colour stays clear behind the thumbnail. */
-  --frost-clear: 30%;
-  --frost-clear-to: 40px;
-  --frost-field-from: 74px;
+}
+
+/* ── Light (MV round) ───────────────────────────────────
+ * As on the stage and the mini card, the cover twice over, cut to the bar:
+ *   layer 0  the cover across the full width of the bar (its middle band, as on the stage: the
+ *            left of the sleeve on the left, the right on the right), blurred, its hue and chroma
+ *            on the theme's tone (mix-blend-mode: color) from end to end — title, transport, time,
+ *            volume and the progress line all sit on the same light, whose brightness is the
+ *            tone's whatever the cover. (object-fit: fill would not spread an SVG sleeve: its own
+ *            preserveAspectRatio keeps it square in the middle of the bar.)
+ *   layer 1  the cover's own colours in a small halo round the thumbnail (centre 38px, 37px),
+ *            gone 34px out, before the title begins (x = 73px).
+ * The field (paper and grain) is even everywhere but a small round spot behind the thumbnail.
+ * Before (R2.2) the field was 72% paper from x = 74px, so the colour stopped beside the art. */
+:global(.cdp) .light:has(img) { background: var(--frost-tone, var(--paper-2)); }
+:global(.cdp) .light img[data-layer="0"] {
+  max-width: none; left: -8%; width: 116%; top: -80%; height: 260%;
+  mix-blend-mode: color; opacity: 1;
+  filter: blur(36px) saturate(1.8);
+}
+:global(.cdp) .light img[data-layer="1"] {
+  max-width: none; left: 0; top: 0; width: 76px; height: 100%;
+  filter: blur(12px) saturate(1.5); opacity: calc(var(--frost-art) * 0.7);
+  -webkit-mask: radial-gradient(circle at 38px 50%, #000 0 22px, transparent 34px);
+  mask: radial-gradient(circle at 38px 50%, #000 0 22px, transparent 34px);
+}
+:global(.cdp) .light::after {
+  background: var(--frost-grain), linear-gradient(color-mix(in srgb, var(--paper) var(--frost-field), transparent) 0 0);
+}
+:global(.cdp) .light:has(img)::after {
+  background:
+    var(--frost-grain),
+    radial-gradient(circle at 38px 50%,
+      color-mix(in srgb, var(--paper) calc(var(--frost-field) * 0.4), transparent) 0 24px,
+      color-mix(in srgb, var(--paper) var(--frost-field), transparent) 34px);
 }
 .now {
   display: flex; align-items: center; gap: 12px; min-width: 0;
@@ -44,6 +75,23 @@
 .time { font-size: var(--t-xs); font-weight: var(--w-label); color: var(--ink-2); white-space: nowrap; margin-right: 4px; }
 .time span { color: var(--ink-3); }
 .line { position: absolute; left: 18px; right: 18px; bottom: 0; }
+
+/* Ambient light (Claude, V1.2): a hairline of the accent in the bar's upper edge, over the
+   transport, with a faint spill downward into the glass. Steady; a slow fade with play/pause
+   (round 2: dimming waits a moment, as the stage's light does, so a brief buffer does not flicker it). */
+.ambient {
+  position: absolute; top: 0; left: 50%; width: 168px; height: 12px; margin-left: -84px;
+  pointer-events: none;
+  opacity: 0.4;
+  transition: opacity calc(var(--d-slow) * 4) var(--ease-out) var(--d-slow);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent);
+}
+.ambient::before, .ambient::after { content: ""; position: absolute; left: 0; right: 0; top: 0; }
+.ambient::before { height: 1.5px; background: color-mix(in srgb, var(--accent-hi) 70%, #fff); }
+.ambient::after { height: 10px; background: linear-gradient(color-mix(in srgb, var(--accent-fill) 30%, transparent), transparent); }
+.ambient[data-on="true"] { opacity: 0.88; transition-delay: 0s; }
+@media (forced-colors: active) { .ambient { display: none; } }
 
 @container (width < 1020px) {
   .side :global(.cdp-range) { display: none; }

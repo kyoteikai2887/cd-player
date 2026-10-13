@@ -1,0 +1,17 @@
+/*
+ * Star trails (Claude, V1.2). The host places the sky (inset, masks and --sky-cx/--sky-cy, the
+ * pole); this file only cuts the grooves. Light comes from the upper left, as for the memorial
+ * etching: the groove's upper wall is shaded, its lower wall lit, its floor smooth.
+ */
+.sky { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.svg {
+  position: absolute; max-width: none;
+  left: calc(var(--sky-cx, 50%) - 1300px); top: calc(var(--sky-cy, 50%) - 700px);
+  fill: none; stroke-linecap: round;
+}
+.floor { stroke: var(--trail-floor); stroke-width: 1.7; }
+.shade { stroke: var(--trail-shade); stroke-width: 0.7; transform: translate(-0.55px, -0.55px); }
+.lit { stroke: var(--trail-lit); stroke-width: 0.7; transform: translate(0.55px, 0.55px); }
+.bright { stroke: color-mix(in srgb, var(--accent-ink) var(--trail-bright, 40%), transparent); stroke-width: 0.8; }
+
+@media (forced-colors: active) { .sky { display: none; } }
